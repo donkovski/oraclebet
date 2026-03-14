@@ -61,6 +61,10 @@ function formatCount(count: number, singular: string, plural: string) {
   return `${count} ${count === 1 ? singular : plural}`
 }
 
+function formatOdds(odds: number) {
+  return odds.toFixed(2)
+}
+
 function getCardClasses(status: Result["status"]) {
   if (status === "WIN") {
     return "border-emerald-300/45 bg-emerald-950/70"
@@ -301,7 +305,7 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
                   <p className="mt-1 text-white/75">Резултат: {item.result}</p>
                   <p className="mt-1 text-white/70">
                     Коефициент:{" "}
-                    <span className="font-semibold text-orange-300">{item.odds}</span>
+                    <span className="font-semibold text-orange-300">{formatOdds(item.odds)}</span>
                   </p>
                 </div>
 
