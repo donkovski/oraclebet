@@ -1,28 +1,34 @@
 import Link from "next/link"
+import PredictionCard from "../components/PredictionCard"
+import { predictions } from "../data/predictions"
 
 const highlights = [
   {
-    title: "Чиста структура",
-    text: "OracleBet е подреден така, че съдържанието да се чете лесно и да остава удобно за следене и на телефон, и на компютър.",
+    title: "Ясен формат",
+    text: "Всеки мач е подреден с час, пазар и коефициент, така че важната информация да се вижда веднага.",
   },
   {
-    title: "Подготовка за старт",
-    text: "Сайтът е подготвен за публикуване на прогнози, архив с резултати и потребителски профили без излишен шум в интерфейса.",
+    title: "Дневен фокус",
+    text: "Началната страница извежда актуалните селекции за деня и дава бърз достъп до пълния списък с прогнози.",
   },
   {
-    title: "Основа за растеж",
-    text: "След старта съдържанието, статистиката и потребителските функционалности могат да се надграждат върху вече чиста структура.",
+    title: "Архив и статистика",
+    text: "След приключване на срещите резултатите ще се натрупват в архив, подреден по дати и готов за лесно следене.",
   },
-]
-
-const nextSteps = [
-  "Публикуване на първите прогнози",
-  "Натрупване на реален архив с резултати",
-  "Събиране на посещения и потребители",
-  "Подготовка за live домейн и analytics",
 ]
 
 export default function Home() {
+  const totalPredictions = predictions.length
+  const averageOdds =
+    totalPredictions === 0
+      ? "0.00"
+      : (
+          predictions.reduce((sum, item) => sum + Number(item.odds), 0) / totalPredictions
+        ).toFixed(2)
+  const firstKickoff = predictions[0]?.kickoff ?? ""
+  const activeDate = firstKickoff ? firstKickoff.split(" ")[0] : "Няма дата"
+  const previewPredictions = predictions.slice(0, 3)
+
   return (
     <main className="space-y-8">
       <section className="rounded-[32px] border border-white/10 bg-slate-950/20 p-8 shadow-[0_24px_80px_rgba(8,15,34,0.28)] backdrop-blur-xl md:p-10">
@@ -33,14 +39,14 @@ export default function Home() {
             </p>
 
             <h1 className="text-5xl font-black tracking-tight text-white md:text-6xl">
-              Сайтът е подготвен за старт и готов за първото реално съдържание.
+              OracleBet вече е активен и първите прогнози са публикувани.
             </h1>
 
             <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">
-              В момента OracleBet е изчистен от demo история и е подготвен като
-              чиста основа за deploy. След публикуването на първите прогнози и
-              резултати сайтът ще започне да трупа реално съдържание, а не
-              примерни данни.
+              Следи дневните селекции, преглеждай коефициентите в ясен формат и
+              използвай архива с резултати, когато първите срещи приключат.
+              OracleBet е направен така, че съдържанието да е бързо, подредено
+              и удобно за четене на телефон и компютър.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -67,16 +73,39 @@ export default function Home() {
 
           <div className="rounded-[28px] border border-white/10 bg-white/5 p-6 text-sm text-white/75 shadow-[0_12px_32px_rgba(15,23,42,0.16)] backdrop-blur-lg lg:max-w-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
-              Следващи стъпки
+              Днес в сайта
             </p>
 
+            <div className="mt-4 grid grid-cols-3 gap-3">
+              <div className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
+                  Прогнози
+                </p>
+                <p className="mt-2 text-2xl font-bold text-white">{totalPredictions}</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
+                  Средно
+                </p>
+                <p className="mt-2 text-2xl font-bold text-orange-100">{averageOdds}</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
+                  Дата
+                </p>
+                <p className="mt-2 text-sm font-bold text-emerald-100">{activeDate}</p>
+              </div>
+            </div>
+
             <div className="mt-4 space-y-3">
-              {nextSteps.map((item) => (
+              {predictions.map((item) => (
                 <div
-                  key={item}
-                  className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-3 text-white/85"
+                  key={`${item.match}-${item.kickoff}`}
+                  className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-3"
                 >
-                  {item}
+                  <p className="text-xs font-semibold text-orange-200">{item.kickoff}</p>
+                  <p className="mt-1 font-semibold text-white">{item.match}</p>
+                  <p className="mt-1 text-white/70">{item.prediction}</p>
                 </div>
               ))}
             </div>
@@ -99,30 +128,51 @@ export default function Home() {
         ))}
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
         <div className="rounded-[28px] border border-white/10 bg-slate-950/15 p-6 backdrop-blur-lg md:p-8">
-          <h2 className="text-2xl font-bold text-white">
-            Защо този подход е правилен
-          </h2>
-          <p className="mt-4 max-w-2xl leading-7 text-white/75">
-            Преди live пускането е по-добре сайтът да бъде изчистен от примерни
-            резултати и стара demo история. Така, когато домейнът стане публичен,
-            всичко което се вижда вътре ще бъде реално и ще изгражда доверие от
-            самото начало.
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+            Днешни прогнози
           </p>
+          <h2 className="mt-3 text-2xl font-bold text-white">
+            Бърз преглед на публикуваните селекции
+          </h2>
+          <div className="mt-6 grid gap-6">
+            {previewPredictions.map((item) => (
+              <PredictionCard
+                key={`${item.match}-${item.kickoff}`}
+                match={item.match}
+                kickoff={item.kickoff}
+                prediction={item.prediction}
+                odds={item.odds}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="rounded-[28px] border border-white/10 bg-slate-950/15 p-6 backdrop-blur-lg md:p-8">
-          <h2 className="text-2xl font-bold text-white">Готовност за deploy</h2>
-          <p className="mt-4 leading-7 text-white/75">
-            В тази версия OracleBet е подготвен като чист старт: дизайнът е
-            готов, основните страници са налични, а съдържанието може да започне
-            да се публикува поетапно вече на реалния домейн.
+          <h2 className="text-2xl font-bold text-white">
+            Какво ще намериш в OracleBet
+          </h2>
+          <p className="mt-4 max-w-2xl leading-7 text-white/75">
+            Платформата е подредена за бързо следене на мачовете през деня:
+            първо виждаш активните прогнози, после архива с резултати, а след
+            това потребителската част. Така сайтът стои чисто още от началото и
+            може да се надгражда спокойно.
           </p>
 
-          <div className="mt-6 rounded-2xl border border-orange-300/25 bg-orange-300/10 p-4 text-sm leading-6 text-orange-100">
-            След deploy най-важното ще бъде да качиш първите реални прогнози и да
-            включиш analytics, за да започнеш да трупаш реални посещения.
+          <div className="mt-6 space-y-3">
+            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white/80">
+              Публикувани прогнози с час, мач, пазар и коефициент
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white/80">
+              Архив с резултати по дати веднага след приключване на срещите
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white/80">
+              Вход и регистрация за потребители, които искат да следят сайта
+            </div>
+            <div className="rounded-2xl border border-orange-300/25 bg-orange-300/10 px-4 py-3 text-orange-100">
+              Следващата стъпка е трупане на реални резултати, трафик и analytics
+            </div>
           </div>
         </div>
       </section>

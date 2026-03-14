@@ -87,6 +87,7 @@ export default function VipPageClient() {
               <PredictionCard
                 key={`${item.match}-${item.prediction}`}
                 match={item.match}
+                kickoff={item.kickoff}
                 prediction={item.prediction}
                 odds={item.odds}
               />
@@ -193,6 +194,7 @@ export default function VipPageClient() {
                 <PredictionCard
                   key={`${item.match}-${item.prediction}`}
                   match={item.match}
+                  kickoff={item.kickoff}
                   prediction={item.prediction}
                   odds={item.odds}
                 />

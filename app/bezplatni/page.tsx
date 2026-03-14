@@ -11,12 +11,12 @@ export default function BezplatniPrognozi() {
             Прогнози
           </p>
           <h1 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl">
-            Първите прогнози ще бъдат публикувани скоро.
+            В момента няма активни прогнози.
           </h1>
           <p className="mt-4 max-w-2xl leading-7 text-white/75">
-            Страницата е подготвена за live съдържание, но demo прогнозите са
-            премахнати, за да може сайтът да стартира чисто. Когато добавиш
-            първите реални селекции, те ще се покажат тук автоматично.
+            Когато има нови селекции за деня, те ще се появят тук автоматично.
+            Провери отново по-късно или влез в профила си, за да следиш сайта
+            по-лесно.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
@@ -42,9 +42,9 @@ export default function BezplatniPrognozi() {
   const averageOdds = (
     predictions.reduce((sum, item) => sum + Number(item.odds), 0) / totalPredictions
   ).toFixed(2)
-  const highestOdds = Math.max(...predictions.map((item) => Number(item.odds))).toFixed(2)
   const featuredPrediction = predictions[0]
   const remainingPredictions = predictions.slice(1)
+  const activeDate = featuredPrediction.kickoff.split(" ")[0]
 
   return (
     <main className="space-y-8">
@@ -55,12 +55,12 @@ export default function BezplatniPrognozi() {
               Актуални прогнози
             </p>
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl">
-              Прогнози за бърз преглед и лесно следене всеки ден.
+              Днешните селекции са вече публикувани.
             </h1>
             <p className="mt-4 max-w-2xl leading-7 text-white/75">
-              Тук виждаш актуалните селекции в ясен betting формат. Идеята е
-              потребителят да хване най-важното веднага: мач, прогноза и
-              коефициент, без да се губи в излишни елементи.
+              Тук виждаш актуалните прогнози за деня в ясен формат с час,
+              пазар и коефициент. Идеята е най-важното да се вижда веднага,
+              без излишен шум и без да губиш време в дълги списъци.
             </p>
           </div>
 
@@ -79,9 +79,9 @@ export default function BezplatniPrognozi() {
             </div>
             <div className="rounded-2xl border border-white/10 bg-white/6 p-4 text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
-                Макс
+                Дата
               </p>
-              <p className="mt-2 text-2xl font-bold text-emerald-100">{highestOdds}</p>
+              <p className="mt-2 text-lg font-bold text-emerald-100">{activeDate}</p>
             </div>
           </div>
         </div>
@@ -96,7 +96,16 @@ export default function BezplatniPrognozi() {
             {featuredPrediction.match}
           </h2>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-white/10 bg-white/6 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+                Начало
+              </p>
+              <p className="mt-3 text-xl font-bold text-white">
+                {featuredPrediction.kickoff}
+              </p>
+            </div>
+
             <div className="rounded-2xl border border-white/10 bg-white/6 p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
                 Прогноза
@@ -118,8 +127,8 @@ export default function BezplatniPrognozi() {
 
           <p className="mt-6 max-w-2xl leading-7 text-white/72">
             Акцентът на деня е изведен отделно, за да се вижда още при първото
-            отваряне на страницата, а останалите прогнози остават подредени и
-            лесни за сравнение.
+            отваряне на страницата, а останалите селекции остават подредени
+            отдолу за бърз преглед и лесно сравнение.
           </p>
         </article>
 
@@ -128,6 +137,7 @@ export default function BezplatniPrognozi() {
             <PredictionCard
               key={`${item.match}-${item.prediction}`}
               match={item.match}
+              kickoff={item.kickoff}
               prediction={item.prediction}
               odds={item.odds}
             />
@@ -157,6 +167,7 @@ export default function BezplatniPrognozi() {
             <PredictionCard
               key={`full-${item.match}-${item.prediction}`}
               match={item.match}
+              kickoff={item.kickoff}
               prediction={item.prediction}
               odds={item.odds}
             />
