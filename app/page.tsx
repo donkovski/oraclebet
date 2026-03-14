@@ -60,7 +60,13 @@ export default function Home() {
                 href="/rezultati"
                 className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
               >
-                Резултати
+                Футболни резултати
+              </Link>
+              <Link
+                href="/hokei-rezultati"
+                className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+              >
+                Хокей резултати
               </Link>
             </div>
           </div>
@@ -105,6 +111,20 @@ export default function Home() {
                 className="font-semibold text-orange-200 transition hover:text-orange-100"
               >
                 Хокей прогнози
+              </Link>
+              , а архивите са в{" "}
+              <Link
+                href="/rezultati"
+                className="font-semibold text-orange-200 transition hover:text-orange-100"
+              >
+                Футболни резултати
+              </Link>{" "}
+              и{" "}
+              <Link
+                href="/hokei-rezultati"
+                className="font-semibold text-orange-200 transition hover:text-orange-100"
+              >
+                Хокей резултати
               </Link>
               .
             </div>

@@ -3,26 +3,26 @@ import Link from "next/link"
 import ProfitChart from "../../components/ProfitChart"
 import ResultsArchive from "../../components/ResultsArchive"
 import ResultsPieChart from "../../components/ResultsPieChart"
-import { results } from "../../data/results"
+import { hockeyResults } from "../../data/hockey-results"
 
 export const metadata: Metadata = {
-  title: "Футболни резултати и статистика",
+  title: "Хокей резултати и статистика",
   description:
-    "Прегледай архива с футболни резултати и статистиката в OracleBet по дати, месеци и години.",
+    "Прегледай архива с хокей резултати и статистиката в OracleBet по дати, месеци и години.",
   alternates: {
-    canonical: "/rezultati",
+    canonical: "/hokei-rezultati",
   },
 }
 
-const total = results.length
-const wins = results.filter((r) => r.status === "WIN").length
-const losses = results.filter((r) => r.status === "LOSE").length
-const voids = results.filter((r) => r.status === "VOID").length
+const total = hockeyResults.length
+const wins = hockeyResults.filter((r) => r.status === "WIN").length
+const losses = hockeyResults.filter((r) => r.status === "LOSE").length
+const voids = hockeyResults.filter((r) => r.status === "VOID").length
 
 const settledBets = wins + losses
 const winRate = settledBets === 0 ? "0.0" : ((wins / settledBets) * 100).toFixed(1)
 
-const profit = results
+const profit = hockeyResults
   .reduce((sum, item) => {
     if (item.status === "WIN") return sum + (item.odds - 1)
     if (item.status === "LOSE") return sum - 1
@@ -38,28 +38,28 @@ let roiColor = "text-slate-400"
 if (roiValue > 0) roiColor = "text-green-400"
 if (roiValue < 0) roiColor = "text-red-400"
 
-export default function ResultsPage() {
-  if (results.length === 0) {
+export default function HockeyResultsPage() {
+  if (hockeyResults.length === 0) {
     return (
       <main className="space-y-8">
         <section className="rounded-[28px] border border-white/10 bg-slate-950/15 p-6 backdrop-blur-lg md:p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
-            Футболни резултати
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-200">
+            Хокей резултати
           </p>
           <h1 className="mt-3 text-4xl font-bold text-white">
-            Архивът за футбола ще започне да се попълва след първите приключени мачове.
+            Архивът за хокея ще започне да се попълва след първите приключени мачове.
           </h1>
           <p className="mt-4 max-w-3xl leading-7 text-white/75">
-            След като публикуваните футболни прогнози приключат, тук автоматично ще започне
+            След като публикуваните хокей прогнози приключат, тук автоматично ще започне
             да се трупа реален архив с резултати, статистика и история по дати.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
-              href="/bezplatni"
-              className="rounded-full bg-orange-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-orange-300"
+              href="/hokei-prognozi"
+              className="rounded-full bg-sky-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-sky-300"
             >
-              Към футболни прогнози
+              Към хокей прогнози
             </Link>
           </div>
         </section>
@@ -70,13 +70,13 @@ export default function ResultsPage() {
   return (
     <main className="space-y-8">
       <section className="rounded-[28px] border border-white/10 bg-slate-950/15 p-6 backdrop-blur-lg md:p-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-200">
           Архив и статистика
         </p>
-        <h1 className="mt-3 text-4xl font-bold text-white">Футболни резултати</h1>
+        <h1 className="mt-3 text-4xl font-bold text-white">Хокей резултати</h1>
       </section>
 
-      <ResultsArchive results={results} />
+      <ResultsArchive results={hockeyResults} />
 
       <section className="space-y-6">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
@@ -112,8 +112,8 @@ export default function ResultsPage() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          <ProfitChart results={results} />
-          <ResultsPieChart results={results} />
+          <ProfitChart results={hockeyResults} />
+          <ResultsPieChart results={hockeyResults} />
         </div>
       </section>
     </main>

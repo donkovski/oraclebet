@@ -10,7 +10,7 @@ import {
   Legend,
 } from "chart.js"
 import { Line } from "react-chartjs-2"
-import { results } from "../data/results"
+import type { Result } from "../types/results"
 
 ChartJS.register(
   CategoryScale,
@@ -21,7 +21,11 @@ ChartJS.register(
   Legend
 )
 
-function getCumulativeProfit() {
+type Props = {
+  results: Result[]
+}
+
+function getCumulativeProfit(results: Result[]) {
   let total = 0
 
   return results.map((item, index) => {
@@ -35,17 +39,19 @@ function getCumulativeProfit() {
   })
 }
 
-export default function ProfitChart() {
-  const cumulativeProfit = getCumulativeProfit()
+export default function ProfitChart({ results }: Props) {
+  const cumulativeProfit = getCumulativeProfit(results)
 
   const settledBets = results.filter((r) => r.status !== "VOID").length
   const voidBets = results.filter((r) => r.status === "VOID").length
 
-  const averageOdds = (
-    results.reduce((sum, item) => sum + item.odds, 0) / results.length
-  ).toFixed(2)
+  const averageOdds =
+    results.length === 0
+      ? "0.00"
+      : (results.reduce((sum, item) => sum + item.odds, 0) / results.length).toFixed(2)
 
-  const highestOdds = Math.max(...results.map((r) => r.odds)).toFixed(2)
+  const highestOdds =
+    results.length === 0 ? "0.00" : Math.max(...results.map((r) => r.odds)).toFixed(2)
 
   const data = {
     labels: cumulativeProfit.map((item) => item.x),

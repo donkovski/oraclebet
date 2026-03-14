@@ -39,7 +39,7 @@ export default function BezplatniPrognozi() {
               href="/rezultati"
               className="rounded-full bg-orange-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-orange-300"
             >
-              Към резултатите
+              Към футболни резултати
             </Link>
           </div>
         </section>

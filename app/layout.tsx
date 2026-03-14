@@ -110,7 +110,13 @@ export default function RootLayout({
                   href="/rezultati"
                   className="rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-white"
                 >
-                  Резултати
+                  Футболни резултати
+                </Link>
+                <Link
+                  href="/hokei-rezultati"
+                  className="rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-white"
+                >
+                  Хокей резултати
                 </Link>
                 {siteConfig.vipEnabled && (
                   <Link

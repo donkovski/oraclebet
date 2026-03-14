@@ -69,7 +69,7 @@ export default function LoginPageClient() {
               href="/rezultati"
               className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
             >
-              Към резултатите
+              Към футболни резултати
             </Link>
             <button
               type="button"

@@ -1,8 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import PredictionCard from "../../components/PredictionCard"
+import PredictionsBoard from "../../components/PredictionsBoard"
 import { hockeyPredictions } from "../../data/hockey-predictions"
-import { sortPredictionsByKickoff } from "../../lib/prediction-utils"
 
 export const metadata: Metadata = {
   title: "Хокей прогнози",
@@ -37,10 +36,10 @@ export default function HokeiPrognoziPage() {
               Към футболни прогнози
             </Link>
             <Link
-              href="/rezultati"
+              href="/hokei-rezultati"
               className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
             >
-              Към резултатите
+              Към хокей резултати
             </Link>
           </div>
         </section>
@@ -48,32 +47,12 @@ export default function HokeiPrognoziPage() {
     )
   }
 
-  const sortedPredictions = sortPredictionsByKickoff(hockeyPredictions)
-
   return (
-    <main className="space-y-8">
-      <section className="rounded-[30px] border border-white/10 bg-slate-950/22 p-6 shadow-[0_22px_60px_rgba(8,15,34,0.22)] backdrop-blur-xl md:p-8">
-        <p className="inline-flex rounded-full border border-sky-300/35 bg-sky-300/12 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-sky-100">
-          Хокей прогнози
-        </p>
-        <h1 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl">
-          Активни хокей селекции
-        </h1>
-      </section>
-
-      <div className="mx-auto w-full max-w-[56rem] space-y-4">
-        {sortedPredictions.map((item) => (
-          <PredictionCard
-            key={`${item.match}-${item.prediction}`}
-            match={item.match}
-            kickoff={item.kickoff}
-            country={item.country}
-            league={item.league}
-            prediction={item.prediction}
-            odds={item.odds}
-          />
-        ))}
-      </div>
-    </main>
+    <PredictionsBoard
+      predictions={hockeyPredictions}
+      sportLabel="Хокей прогнози"
+      introTitle="Днешните хокей селекции са вече публикувани."
+      finishedTitle="Всички хокей прогнози за деня вече са започнали."
+    />
   )
 }

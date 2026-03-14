@@ -1,17 +1,16 @@
 "use client"
 
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from "chart.js"
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js"
 import { Pie } from "react-chartjs-2"
-import { results } from "../data/results"
+import type { Result } from "../types/results"
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-export default function ResultsPieChart() {
+type Props = {
+  results: Result[]
+}
+
+export default function ResultsPieChart({ results }: Props) {
   const wins = results.filter((r) => r.status === "WIN").length
   const losses = results.filter((r) => r.status === "LOSE").length
   const voids = results.filter((r) => r.status === "VOID").length

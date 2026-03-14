@@ -29,5 +29,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.8,
     },
+    {
+      url: `${siteConfig.siteUrl}/hokei-rezultati`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.75,
+    },
   ]
 }

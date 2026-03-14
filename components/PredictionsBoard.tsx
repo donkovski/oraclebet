@@ -18,9 +18,17 @@ type PredictionItem = {
 
 type Props = {
   predictions: PredictionItem[]
+  sportLabel?: string
+  introTitle?: string
+  finishedTitle?: string
 }
 
-export default function PredictionsBoard({ predictions }: Props) {
+export default function PredictionsBoard({
+  predictions,
+  sportLabel = "Футболни прогнози",
+  introTitle = "Днешните футболни селекции са вече публикувани.",
+  finishedTitle = "Всички футболни прогнози за деня вече са започнали.",
+}: Props) {
   const [now, setNow] = useState(() => Date.now())
 
   useEffect(() => {
@@ -58,10 +66,10 @@ export default function PredictionsBoard({ predictions }: Props) {
         <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
           <div>
             <p className="inline-flex rounded-full border border-orange-300/35 bg-orange-300/12 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-orange-100">
-              Футболни прогнози
+              {sportLabel}
             </p>
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl">
-              Днешните футболни селекции са вече публикувани.
+              {introTitle}
             </h1>
           </div>
 
@@ -189,7 +197,7 @@ export default function PredictionsBoard({ predictions }: Props) {
               Следващ мач
             </p>
             <h2 className="mt-4 text-3xl font-black text-white md:text-4xl">
-              Всички футболни прогнози за деня вече са започнали.
+              {finishedTitle}
             </h2>
             <p className="mt-4 max-w-2xl leading-7 text-white/75">
               Новите предстоящи мачове ще се покажат автоматично тук, когато публикуваш
