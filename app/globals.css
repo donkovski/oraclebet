@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at 50% -6%, rgba(255, 255, 255, 0.24), transparent 17%),
+    radial-gradient(circle at 18% 12%, rgba(56, 189, 248, 0.1), transparent 20%),
+    radial-gradient(circle at 82% 14%, rgba(249, 115, 22, 0.1), transparent 20%),
+    linear-gradient(
+      180deg,
+      #050b14 0%,
+      #08111d 18%,
+      #0b1d2c 36%,
+      #0c312f 58%,
+      #0d4a34 78%,
+      #082114 100%
+    );
+}
+
+a {
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(253, 186, 116, 0.35);
+  color: white;
+}
+
+.site-shell {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+.site-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 2%, rgba(255, 255, 255, 0.15), transparent 22%),
+    radial-gradient(circle at 14% 10%, rgba(255, 255, 255, 0.07), transparent 16%),
+    radial-gradient(circle at 86% 10%, rgba(255, 255, 255, 0.07), transparent 16%),
+    linear-gradient(
+      180deg,
+      rgba(3, 7, 13, 0.86) 0%,
+      rgba(4, 10, 18, 0.54) 16%,
+      rgba(4, 10, 18, 0.12) 36%,
+      rgba(4, 10, 18, 0.1) 52%,
+      rgba(3, 8, 16, 0.58) 100%
+    );
+  z-index: 0;
+}
+
+.site-shell::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 50% 74%,
+      transparent 0 132px,
+      rgba(255, 255, 255, 0.11) 133px 135px,
+      transparent 136px
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent calc(50% - 1px),
+      rgba(255, 255, 255, 0.11) calc(50% - 1px),
+      rgba(255, 255, 255, 0.11) calc(50% + 1px),
+      transparent calc(50% + 1px),
+      transparent 100%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 8.5%,
+      rgba(255, 255, 255, 0.07) 8.5%,
+      rgba(255, 255, 255, 0.07) 8.7%,
+      transparent 8.7%,
+      transparent 91.3%,
+      rgba(255, 255, 255, 0.07) 91.3%,
+      rgba(255, 255, 255, 0.07) 91.5%,
+      transparent 91.5%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 58%,
+      rgba(255, 255, 255, 0.1) 58%,
+      rgba(255, 255, 255, 0.1) 58.25%,
+      transparent 58.25%,
+      transparent 100%
+    ),
+    repeating-linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.018) 0 72px,
+      rgba(255, 255, 255, 0.04) 72px 144px
+    );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.14) 26%,
+    rgba(0, 0, 0, 0.52) 44%,
+    rgba(0, 0, 0, 0.94) 64%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  z-index: 0;
+}
+
+.site-shell > * {
+  position: relative;
+  z-index: 1;
+}
