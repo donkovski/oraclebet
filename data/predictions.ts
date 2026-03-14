@@ -8,15 +8,6 @@ export const predictions: Array<{
   odds: string
 }> = [
   {
-    match: "Атлетико Мадрид - Хетафе",
-    kickoff: "14.03.2026 17:15",
-    country: "Испания",
-    countryFlag: "🇪🇸",
-    league: "Ла Лига",
-    prediction: "Над 4.5 картона",
-    odds: "1.80",
-  },
-  {
     match: "Наполи - Лече",
     kickoff: "14.03.2026 19:00",
     country: "Италия",
