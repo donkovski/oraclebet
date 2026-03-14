@@ -5,7 +5,6 @@ type Props = {
   match: string
   kickoff: string
   country?: string
-  countryFlag?: string
   league?: string
   prediction: string
   odds: string
@@ -15,7 +14,6 @@ export default function PredictionCard({
   match,
   kickoff,
   country,
-  countryFlag,
   league,
   prediction,
   odds,
@@ -35,13 +33,9 @@ export default function PredictionCard({
 
       <h3 className="mt-5 text-2xl font-bold leading-tight text-white">{match}</h3>
 
-      {country && countryFlag && league && (
+      {country && league && (
         <div className="mt-4">
-          <CompetitionBadge
-            country={country}
-            countryFlag={countryFlag}
-            league={league}
-          />
+          <CompetitionBadge country={country} league={league} />
         </div>
       )}
 

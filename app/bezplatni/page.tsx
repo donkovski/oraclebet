@@ -98,7 +98,6 @@ export default function BezplatniPrognozi() {
             <PredictionMarketBadge prediction={featuredPrediction.prediction} />
             <CompetitionBadge
               country={featuredPrediction.country}
-              countryFlag={featuredPrediction.countryFlag}
               league={featuredPrediction.league}
             />
           </div>
@@ -146,7 +145,6 @@ export default function BezplatniPrognozi() {
               match={item.match}
               kickoff={item.kickoff}
               country={item.country}
-              countryFlag={item.countryFlag}
               league={item.league}
               prediction={item.prediction}
               odds={item.odds}
@@ -179,7 +177,6 @@ export default function BezplatniPrognozi() {
               match={item.match}
               kickoff={item.kickoff}
               country={item.country}
-              countryFlag={item.countryFlag}
               league={item.league}
               prediction={item.prediction}
               odds={item.odds}

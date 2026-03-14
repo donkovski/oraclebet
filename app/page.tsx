@@ -95,11 +95,7 @@ export default function Home() {
                   </div>
                   <p className="mt-1 font-semibold text-white">{item.match}</p>
                   <div className="mt-2">
-                    <CompetitionBadge
-                      country={item.country}
-                      countryFlag={item.countryFlag}
-                      league={item.league}
-                    />
+                    <CompetitionBadge country={item.country} league={item.league} />
                   </div>
                   <p className="mt-1 text-white/70">{item.prediction}</p>
                 </div>
