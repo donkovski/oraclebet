@@ -8,24 +8,6 @@ export const predictions: Array<{
   odds: string
 }> = [
   {
-    match: "Наполи - Лече",
-    kickoff: "14.03.2026 19:00",
-    country: "Италия",
-    countryFlag: "🇮🇹",
-    league: "Серия А",
-    prediction: "Над 3.5 картона",
-    odds: "2.00",
-  },
-  {
-    match: "Хамбургер - Кьолн",
-    kickoff: "14.03.2026 19:30",
-    country: "Германия",
-    countryFlag: "🇩🇪",
-    league: "Бундеслига",
-    prediction: "Над 2.5 гола",
-    odds: "1.80",
-  },
-  {
     match: "Удинезе - Ювентус",
     kickoff: "14.03.2026 21:45",
     country: "Италия",
