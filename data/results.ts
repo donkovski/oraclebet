@@ -6,7 +6,7 @@ export const results: Result[] = [
     match: "Атлетико Мадрид - Хетафе",
     prediction: "Над 4.5 картона",
     odds: 1.8,
-    result: "4 жълти + 1 червен = 6 картона",
+    result: "6 жълти + 1 червен = 8 картона",
     status: "WIN",
   },
 ]
