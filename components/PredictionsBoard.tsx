@@ -97,14 +97,9 @@ export default function PredictionsBoard({ predictions }: Props) {
       {startedPredictions.length > 0 && (
         <section className="space-y-4">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
-                Започнали
-              </p>
-              <h2 className="mt-2 text-2xl font-black text-white md:text-3xl">
-                Мачовете в ход са преместени отделно.
-              </h2>
-            </div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+              Започнали
+            </p>
 
             <div className="rounded-full border border-white/10 bg-white/6 px-4 py-2 text-sm font-semibold text-white/75">
               {startedPredictions.length} {startedPredictions.length === 1 ? "мач" : "мача"}
@@ -129,54 +124,57 @@ export default function PredictionsBoard({ predictions }: Props) {
 
       {featuredPrediction ? (
         <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr] xl:items-start">
-          <article className="relative overflow-hidden rounded-[30px] border border-orange-300/28 bg-slate-950/26 p-6 shadow-[0_20px_48px_rgba(8,15,34,0.2)] backdrop-blur-xl md:p-8">
-            <div className="relative z-10">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
-                Следващ мач
-              </p>
-              <h2 className="mt-4 text-3xl font-black text-white md:text-4xl">
-                {featuredPrediction.match}
-              </h2>
+          <div className="space-y-4">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+              Следващ мач
+            </p>
 
-              <div className="mt-4 flex flex-wrap gap-3">
-                <PredictionMarketBadge prediction={featuredPrediction.prediction} />
-                <CompetitionBadge
-                  country={featuredPrediction.country}
-                  league={featuredPrediction.league}
-                />
-                <PredictionCountdown kickoff={featuredPrediction.kickoff} />
+            <article className="relative overflow-hidden rounded-[30px] border border-orange-300/28 bg-slate-950/26 p-6 shadow-[0_20px_48px_rgba(8,15,34,0.2)] backdrop-blur-xl md:p-8">
+              <div className="relative z-10">
+                <h2 className="text-3xl font-black text-white md:text-4xl">
+                  {featuredPrediction.match}
+                </h2>
+
+                <div className="mt-4 flex flex-wrap gap-3">
+                  <PredictionMarketBadge prediction={featuredPrediction.prediction} />
+                  <CompetitionBadge
+                    country={featuredPrediction.country}
+                    league={featuredPrediction.league}
+                  />
+                  <PredictionCountdown kickoff={featuredPrediction.kickoff} />
+                </div>
+
+                <div className="mt-6 grid gap-4 md:grid-cols-3">
+                  <div className="rounded-2xl border border-white/10 bg-white/6 p-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+                      Начало
+                    </p>
+                    <p className="mt-3 text-xl font-bold text-white">
+                      {featuredPrediction.kickoff}
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/10 bg-white/6 p-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+                      Прогноза
+                    </p>
+                    <p className="mt-3 text-2xl font-bold text-white">
+                      {featuredPrediction.prediction}
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-orange-300/28 bg-orange-300/10 p-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-orange-100/70">
+                      Коефициент
+                    </p>
+                    <p className="mt-3 text-3xl font-black text-orange-100">
+                      {featuredPrediction.odds}
+                    </p>
+                  </div>
+                </div>
               </div>
-
-              <div className="mt-6 grid gap-4 md:grid-cols-3">
-                <div className="rounded-2xl border border-white/10 bg-white/6 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
-                    Начало
-                  </p>
-                  <p className="mt-3 text-xl font-bold text-white">
-                    {featuredPrediction.kickoff}
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-white/10 bg-white/6 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
-                    Прогноза
-                  </p>
-                  <p className="mt-3 text-2xl font-bold text-white">
-                    {featuredPrediction.prediction}
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-orange-300/28 bg-orange-300/10 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-orange-100/70">
-                    Коефициент
-                  </p>
-                  <p className="mt-3 text-3xl font-black text-orange-100">
-                    {featuredPrediction.odds}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </article>
+            </article>
+          </div>
 
           <div className="grid content-start gap-4 self-start">
             {remainingPredictions.map((item) => (

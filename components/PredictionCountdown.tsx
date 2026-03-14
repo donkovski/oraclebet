@@ -13,9 +13,8 @@ function getCountdownState(kickoff: string, now: number) {
 
   if (diffMs <= 0) {
     return {
-      label: "Мачът започна",
-      className:
-        "border-rose-300/30 bg-rose-300/10 text-rose-100",
+      label: "Играе се",
+      className: "border-rose-300/30 bg-rose-300/10 text-rose-100",
     }
   }
 
@@ -24,7 +23,7 @@ function getCountdownState(kickoff: string, now: number) {
   const hours = Math.floor((totalMinutes % (60 * 24)) / 60)
   const minutes = totalMinutes % 60
 
-  const parts = []
+  const parts: string[] = []
 
   if (days > 0) {
     parts.push(`${days}д`)
