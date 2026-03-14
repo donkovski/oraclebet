@@ -123,8 +123,8 @@ export default function PredictionsBoard({ predictions }: Props) {
       )}
 
       {featuredPrediction ? (
-        <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr] xl:items-start">
-          <div className="space-y-4">
+        <section className="flex justify-end">
+          <div className="w-full space-y-4 xl:max-w-[46rem]">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
               Следващ мач
             </p>
@@ -174,20 +174,20 @@ export default function PredictionsBoard({ predictions }: Props) {
                 </div>
               </div>
             </article>
-          </div>
 
-          <div className="grid content-start gap-4 self-start">
-            {remainingPredictions.map((item) => (
-              <PredictionCard
-                key={`${item.match}-${item.prediction}`}
-                match={item.match}
-                kickoff={item.kickoff}
-                country={item.country}
-                league={item.league}
-                prediction={item.prediction}
-                odds={item.odds}
-              />
-            ))}
+            <div className="grid content-start gap-4 self-start">
+              {remainingPredictions.map((item) => (
+                <PredictionCard
+                  key={`${item.match}-${item.prediction}`}
+                  match={item.match}
+                  kickoff={item.kickoff}
+                  country={item.country}
+                  league={item.league}
+                  prediction={item.prediction}
+                  odds={item.odds}
+                />
+              ))}
+            </div>
           </div>
         </section>
       ) : (
