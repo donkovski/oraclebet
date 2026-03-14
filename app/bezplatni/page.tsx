@@ -91,7 +91,7 @@ export default function BezplatniPrognozi() {
         </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+      <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr] xl:items-start">
         <article className="relative overflow-hidden rounded-[30px] border border-orange-300/28 bg-slate-950/26 p-6 shadow-[0_20px_48px_rgba(8,15,34,0.2)] backdrop-blur-xl md:p-8">
           <div className="relative z-10">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
@@ -141,7 +141,7 @@ export default function BezplatniPrognozi() {
           </div>
         </article>
 
-        <div className="grid gap-4">
+        <div className="grid content-start gap-4 self-start">
           {remainingPredictions.map((item) => (
             <PredictionCard
               key={`${item.match}-${item.prediction}`}

@@ -48,9 +48,8 @@ export default function PredictionCard({
           <p className="mt-1.5 text-lg font-semibold text-white">{prediction}</p>
         </div>
 
-        <div className="mt-4 flex items-center justify-between gap-3 text-sm text-white/58">
+        <div className="mt-4">
           <PredictionCountdown kickoff={kickoff} />
-          <span className="font-semibold text-orange-200/90">OracleBet</span>
         </div>
       </div>
     </article>
