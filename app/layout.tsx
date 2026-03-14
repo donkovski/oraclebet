@@ -6,9 +6,54 @@ import { siteConfig } from "@/lib/site-config"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "OracleBet | Спортни прогнози",
+  metadataBase: new URL(siteConfig.siteUrl),
+  title: {
+    default: "OracleBet | Спортни прогнози",
+    template: "%s | OracleBet",
+  },
   description:
     "OracleBet предлага подредени спортни прогнози, архив с резултати и ясна статистика за бърз преглед.",
+  alternates: {
+    canonical: "/",
+  },
+  verification: {
+    google: siteConfig.googleSiteVerification || undefined,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "bg_BG",
+    url: siteConfig.siteUrl,
+    siteName: "OracleBet",
+    title: "OracleBet | Спортни прогнози",
+    description:
+      "OracleBet предлага подредени спортни прогнози, архив с резултати и ясна статистика за бърз преглед.",
+    images: [
+      {
+        url: "/logo.png",
+        width: 768,
+        height: 768,
+        alt: "OracleBet logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "OracleBet | Спортни прогнози",
+    description:
+      "OracleBet предлага подредени спортни прогнози, архив с резултати и ясна статистика за бърз преглед.",
+    images: ["/logo.png"],
+  },
 }
 
 export default function RootLayout({

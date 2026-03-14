@@ -1,8 +1,18 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import ProfitChart from "../../components/ProfitChart"
 import ResultsArchive from "../../components/ResultsArchive"
 import ResultsPieChart from "../../components/ResultsPieChart"
 import { results } from "../../data/results"
+
+export const metadata: Metadata = {
+  title: "Резултати и статистика",
+  description:
+    "Прегледай архива с резултати и статистиката в OracleBet по дати, месеци и години.",
+  alternates: {
+    canonical: "/rezultati",
+  },
+}
 
 const total = results.length
 const wins = results.filter((r) => r.status === "WIN").length

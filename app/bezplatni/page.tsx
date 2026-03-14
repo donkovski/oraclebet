@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import CompetitionBadge from "../../components/CompetitionBadge"
 import OracleBetWatermark from "../../components/OracleBetWatermark"
@@ -6,6 +7,15 @@ import PredictionMarketBadge from "../../components/PredictionMarketBadge"
 import PredictionCard from "../../components/PredictionCard"
 import { predictions } from "../../data/predictions"
 import { sortPredictionsByKickoff } from "../../lib/prediction-utils"
+
+export const metadata: Metadata = {
+  title: "Прогнози",
+  description:
+    "Виж активните прогнози в OracleBet, подредени по час, пазар, коефициент и първенство.",
+  alternates: {
+    canonical: "/bezplatni",
+  },
+}
 
 export default function BezplatniPrognozi() {
   if (predictions.length === 0) {
@@ -84,49 +94,52 @@ export default function BezplatniPrognozi() {
 
       <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
         <article className="relative overflow-hidden rounded-[30px] border border-orange-300/28 bg-slate-950/26 p-6 shadow-[0_20px_48px_rgba(8,15,34,0.2)] backdrop-blur-xl md:p-8">
-          <OracleBetWatermark className="pointer-events-none absolute -right-8 top-1/2 hidden h-[360px] w-[360px] -translate-y-1/2 text-white/[0.06] md:block" />
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
-            Следващ мач
-          </p>
-          <h2 className="mt-4 text-3xl font-black text-white md:text-4xl">
-            {featuredPrediction.match}
-          </h2>
+          <OracleBetWatermark className="pointer-events-none absolute -bottom-20 -right-16 hidden h-[280px] w-[280px] opacity-[0.12] md:block" />
 
-          <div className="mt-4 flex flex-wrap gap-3">
-            <PredictionMarketBadge prediction={featuredPrediction.prediction} />
-            <CompetitionBadge
-              country={featuredPrediction.country}
-              league={featuredPrediction.league}
-            />
-            <PredictionCountdown kickoff={featuredPrediction.kickoff} />
-          </div>
+          <div className="relative z-10">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+              Следващ мач
+            </p>
+            <h2 className="mt-4 text-3xl font-black text-white md:text-4xl">
+              {featuredPrediction.match}
+            </h2>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 bg-white/6 p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
-                Начало
-              </p>
-              <p className="mt-3 text-xl font-bold text-white">
-                {featuredPrediction.kickoff}
-              </p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <PredictionMarketBadge prediction={featuredPrediction.prediction} />
+              <CompetitionBadge
+                country={featuredPrediction.country}
+                league={featuredPrediction.league}
+              />
+              <PredictionCountdown kickoff={featuredPrediction.kickoff} />
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/6 p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
-                Прогноза
-              </p>
-              <p className="mt-3 text-2xl font-bold text-white">
-                {featuredPrediction.prediction}
-              </p>
-            </div>
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              <div className="rounded-2xl border border-white/10 bg-white/6 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+                  Начало
+                </p>
+                <p className="mt-3 text-xl font-bold text-white">
+                  {featuredPrediction.kickoff}
+                </p>
+              </div>
 
-            <div className="rounded-2xl border border-orange-300/28 bg-orange-300/10 p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-orange-100/70">
-                Коефициент
-              </p>
-              <p className="mt-3 text-3xl font-black text-orange-100">
-                {featuredPrediction.odds}
-              </p>
+              <div className="rounded-2xl border border-white/10 bg-white/6 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+                  Прогноза
+                </p>
+                <p className="mt-3 text-2xl font-bold text-white">
+                  {featuredPrediction.prediction}
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-orange-300/28 bg-orange-300/10 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-orange-100/70">
+                  Коефициент
+                </p>
+                <p className="mt-3 text-3xl font-black text-orange-100">
+                  {featuredPrediction.odds}
+                </p>
+              </div>
             </div>
           </div>
         </article>

@@ -1,6 +1,16 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { predictions } from "../data/predictions"
 import { sortPredictionsByKickoff } from "../lib/prediction-utils"
+
+export const metadata: Metadata = {
+  title: "Днешни спортни прогнози",
+  description:
+    "Разгледай днешните прогнози в OracleBet с ясен формат, коефициенти, първенства и удобен преглед за деня.",
+  alternates: {
+    canonical: "/",
+  },
+}
 
 export default function Home() {
   const sortedPredictions = sortPredictionsByKickoff(predictions)
