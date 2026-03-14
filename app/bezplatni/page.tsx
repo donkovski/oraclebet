@@ -1,5 +1,7 @@
 import Link from "next/link"
 import CompetitionBadge from "../../components/CompetitionBadge"
+import OracleBetWatermark from "../../components/OracleBetWatermark"
+import PredictionCountdown from "../../components/PredictionCountdown"
 import PredictionMarketBadge from "../../components/PredictionMarketBadge"
 import PredictionCard from "../../components/PredictionCard"
 import { predictions } from "../../data/predictions"
@@ -55,11 +57,6 @@ export default function BezplatniPrognozi() {
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl">
               Днешните селекции са вече публикувани.
             </h1>
-            <p className="mt-4 max-w-2xl leading-7 text-white/75">
-              Тук виждаш актуалните прогнози за деня в ясен формат с час,
-              пазар и коефициент. Идеята е най-важното да се вижда веднага,
-              без излишен шум и без да губиш време в дълги списъци.
-            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
@@ -86,7 +83,8 @@ export default function BezplatniPrognozi() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-        <article className="rounded-[30px] border border-orange-300/28 bg-slate-950/26 p-6 shadow-[0_20px_48px_rgba(8,15,34,0.2)] backdrop-blur-xl md:p-8">
+        <article className="relative overflow-hidden rounded-[30px] border border-orange-300/28 bg-slate-950/26 p-6 shadow-[0_20px_48px_rgba(8,15,34,0.2)] backdrop-blur-xl md:p-8">
+          <OracleBetWatermark className="pointer-events-none absolute -right-8 top-1/2 hidden h-[360px] w-[360px] -translate-y-1/2 text-white/[0.06] md:block" />
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
             Следващ мач
           </p>
@@ -100,6 +98,7 @@ export default function BezplatniPrognozi() {
               country={featuredPrediction.country}
               league={featuredPrediction.league}
             />
+            <PredictionCountdown kickoff={featuredPrediction.kickoff} />
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -130,50 +129,12 @@ export default function BezplatniPrognozi() {
               </p>
             </div>
           </div>
-
-          <p className="mt-6 max-w-2xl leading-7 text-white/72">
-            Най-ранната прогноза за деня е изведена отделно, за да се вижда
-            веднага при отваряне на страницата, а останалите селекции остават
-            подредени по час отдолу за бърз преглед и лесно сравнение.
-          </p>
         </article>
 
         <div className="grid gap-6">
           {remainingPredictions.map((item) => (
             <PredictionCard
               key={`${item.match}-${item.prediction}`}
-              match={item.match}
-              kickoff={item.kickoff}
-              country={item.country}
-              league={item.league}
-              prediction={item.prediction}
-              odds={item.odds}
-            />
-          ))}
-        </div>
-      </section>
-
-      <section className="rounded-[30px] border border-white/10 bg-slate-950/18 p-6 backdrop-blur-xl md:p-8">
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
-              Всички прогнози
-            </p>
-            <h2 className="mt-3 text-3xl font-bold text-white">
-              Пълен списък за спокоен преглед
-            </h2>
-          </div>
-          <p className="max-w-xl text-sm leading-6 text-white/65">
-            Целият списък остава видим по-долу, така че потребителят да може да
-            прегледа всичко наведнъж и да сравни селекциите без излишно местене
-            между различни секции.
-          </p>
-        </div>
-
-        <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {sortedPredictions.map((item) => (
-            <PredictionCard
-              key={`full-${item.match}-${item.prediction}`}
               match={item.match}
               kickoff={item.kickoff}
               country={item.country}

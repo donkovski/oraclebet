@@ -1,4 +1,6 @@
 import CompetitionBadge from "@/components/CompetitionBadge"
+import OracleBetWatermark from "@/components/OracleBetWatermark"
+import PredictionCountdown from "@/components/PredictionCountdown"
 import PredictionMarketBadge from "@/components/PredictionMarketBadge"
 
 type Props = {
@@ -19,7 +21,9 @@ export default function PredictionCard({
   odds,
 }: Props) {
   return (
-    <article className="group rounded-[28px] border border-white/10 bg-slate-950/24 p-6 shadow-[0_18px_40px_rgba(8,15,34,0.2)] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-orange-300/45 hover:bg-slate-950/32">
+    <article className="group relative overflow-hidden rounded-[28px] border border-white/10 bg-slate-950/24 p-6 shadow-[0_18px_40px_rgba(8,15,34,0.2)] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-orange-300/45 hover:bg-slate-950/32">
+      <OracleBetWatermark className="pointer-events-none absolute -right-12 top-1/2 hidden h-[190px] w-[190px] -translate-y-1/2 text-white/[0.055] md:block" />
+
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-2">
           <PredictionMarketBadge prediction={prediction} />
@@ -47,7 +51,7 @@ export default function PredictionCard({
       </div>
 
       <div className="mt-5 flex items-center justify-between gap-3 text-sm text-white/58">
-        <span>Начало: {kickoff}</span>
+        <PredictionCountdown kickoff={kickoff} />
         <span className="font-semibold text-orange-200/90">OracleBet</span>
       </div>
     </article>

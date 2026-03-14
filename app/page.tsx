@@ -1,7 +1,4 @@
-import CompetitionBadge from "../components/CompetitionBadge"
 import Link from "next/link"
-import OracleBetLogo from "../components/OracleBetLogo"
-import PredictionMarketBadge from "../components/PredictionMarketBadge"
 import { predictions } from "../data/predictions"
 import { sortPredictionsByKickoff } from "../lib/prediction-utils"
 
@@ -22,9 +19,8 @@ export default function Home() {
       <section className="rounded-[32px] border border-white/10 bg-slate-950/20 p-8 shadow-[0_24px_80px_rgba(8,15,34,0.28)] backdrop-blur-xl md:p-10">
         <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
           <div className="max-w-3xl">
-            <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-orange-300/40 bg-orange-300/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
-              <OracleBetLogo size={34} />
-              <span>OracleBet</span>
+            <div className="mb-5 inline-flex rounded-full border border-orange-300/40 bg-orange-300/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+              OracleBet.eu
             </div>
 
             <h1 className="text-5xl font-black tracking-tight text-white md:text-6xl">
@@ -55,12 +51,9 @@ export default function Home() {
           </div>
 
           <aside className="rounded-[28px] border border-white/10 bg-white/5 p-6 text-sm text-white/75 shadow-[0_12px_32px_rgba(15,23,42,0.16)] backdrop-blur-lg">
-            <div className="flex items-center gap-3">
-              <OracleBetLogo size={30} />
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
-                Днес в сайта
-              </p>
-            </div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
+              Днес в сайта
+            </p>
 
             <div className="mt-4 grid grid-cols-2 gap-3">
               <div className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
@@ -83,23 +76,15 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="mt-4 space-y-3">
-              {sortedPredictions.map((item) => (
-                <div
-                  key={`${item.match}-${item.kickoff}`}
-                  className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-3"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <p className="text-xs font-semibold text-orange-200">{item.kickoff}</p>
-                    <PredictionMarketBadge prediction={item.prediction} />
-                  </div>
-                  <p className="mt-1 font-semibold text-white">{item.match}</p>
-                  <div className="mt-2">
-                    <CompetitionBadge country={item.country} league={item.league} />
-                  </div>
-                  <p className="mt-1 text-white/70">{item.prediction}</p>
-                </div>
-              ))}
+            <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center text-white/65">
+              Пълният списък с активните селекции е в страницата{" "}
+              <Link
+                href="/bezplatni"
+                className="font-semibold text-orange-200 transition hover:text-orange-100"
+              >
+                Прогнози
+              </Link>
+              .
             </div>
           </aside>
         </div>

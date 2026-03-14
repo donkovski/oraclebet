@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import GoogleAnalytics from "@/components/GoogleAnalytics"
-import OracleBetLogo from "@/components/OracleBetLogo"
 import SiteAuthLink from "@/components/SiteAuthLink"
 import { siteConfig } from "@/lib/site-config"
 import "./globals.css"
@@ -27,9 +26,8 @@ export default function RootLayout({
             <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-5 md:flex-row md:items-center md:justify-between md:px-8">
               <Link
                 href="/"
-                className="flex items-center gap-3 text-2xl font-semibold uppercase tracking-[0.18em] text-white"
+                className="text-2xl font-semibold uppercase tracking-[0.18em] text-white"
               >
-                <OracleBetLogo size={42} className="shrink-0" />
                 Oracle<span className="text-orange-300">Bet</span>
               </Link>
 
