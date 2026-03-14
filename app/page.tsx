@@ -1,11 +1,15 @@
+import CompetitionBadge from "../components/CompetitionBadge"
 import Link from "next/link"
+import OracleBetLogo from "../components/OracleBetLogo"
+import PredictionMarketBadge from "../components/PredictionMarketBadge"
 import PredictionCard from "../components/PredictionCard"
 import { predictions } from "../data/predictions"
+import { sortPredictionsByKickoff } from "../lib/prediction-utils"
 
 const highlights = [
   {
     title: "Ясен формат",
-    text: "Всеки мач е подреден с час, пазар и коефициент, така че важната информация да се вижда веднага.",
+    text: "Всеки мач е подреден с час, пазар, първенство и коефициент, така че важната информация да се вижда веднага.",
   },
   {
     title: "Дневен фокус",
@@ -18,25 +22,27 @@ const highlights = [
 ]
 
 export default function Home() {
-  const totalPredictions = predictions.length
+  const sortedPredictions = sortPredictionsByKickoff(predictions)
+  const totalPredictions = sortedPredictions.length
   const averageOdds =
     totalPredictions === 0
       ? "0.00"
       : (
-          predictions.reduce((sum, item) => sum + Number(item.odds), 0) / totalPredictions
+          sortedPredictions.reduce((sum, item) => sum + Number(item.odds), 0) / totalPredictions
         ).toFixed(2)
-  const firstKickoff = predictions[0]?.kickoff ?? ""
+  const firstKickoff = sortedPredictions[0]?.kickoff ?? ""
   const activeDate = firstKickoff ? firstKickoff.split(" ")[0] : "Няма дата"
-  const previewPredictions = predictions.slice(0, 3)
+  const previewPredictions = sortedPredictions.slice(0, 3)
 
   return (
     <main className="space-y-8">
       <section className="rounded-[32px] border border-white/10 bg-slate-950/20 p-8 shadow-[0_24px_80px_rgba(8,15,34,0.28)] backdrop-blur-xl md:p-10">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+        <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
           <div className="max-w-3xl">
-            <p className="mb-4 inline-flex rounded-full border border-orange-300/40 bg-orange-300/10 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
-              OracleBet
-            </p>
+            <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-orange-300/40 bg-orange-300/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+              <OracleBetLogo size={34} />
+              <span>OracleBet</span>
+            </div>
 
             <h1 className="text-5xl font-black tracking-tight text-white md:text-6xl">
               OracleBet вече е активен и първите прогнози са публикувани.
@@ -62,21 +68,18 @@ export default function Home() {
               >
                 Към резултатите
               </Link>
-              <Link
-                href="/login"
-                className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
-              >
-                Вход
-              </Link>
             </div>
           </div>
 
-          <div className="rounded-[28px] border border-white/10 bg-white/5 p-6 text-sm text-white/75 shadow-[0_12px_32px_rgba(15,23,42,0.16)] backdrop-blur-lg lg:max-w-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
-              Днес в сайта
-            </p>
+          <aside className="rounded-[28px] border border-white/10 bg-white/5 p-6 text-sm text-white/75 shadow-[0_12px_32px_rgba(15,23,42,0.16)] backdrop-blur-lg">
+            <div className="flex items-center gap-3">
+              <OracleBetLogo size={30} />
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
+                Днес в сайта
+              </p>
+            </div>
 
-            <div className="mt-4 grid grid-cols-3 gap-3">
+            <div className="mt-4 grid grid-cols-2 gap-3">
               <div className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
                   Прогнози
@@ -89,27 +92,37 @@ export default function Home() {
                 </p>
                 <p className="mt-2 text-2xl font-bold text-orange-100">{averageOdds}</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
+              <div className="col-span-2 rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
                   Дата
                 </p>
-                <p className="mt-2 text-sm font-bold text-emerald-100">{activeDate}</p>
+                <p className="mt-2 text-lg font-bold text-emerald-100">{activeDate}</p>
               </div>
             </div>
 
             <div className="mt-4 space-y-3">
-              {predictions.map((item) => (
+              {sortedPredictions.map((item) => (
                 <div
                   key={`${item.match}-${item.kickoff}`}
                   className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-3"
                 >
-                  <p className="text-xs font-semibold text-orange-200">{item.kickoff}</p>
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="text-xs font-semibold text-orange-200">{item.kickoff}</p>
+                    <PredictionMarketBadge prediction={item.prediction} />
+                  </div>
                   <p className="mt-1 font-semibold text-white">{item.match}</p>
+                  <div className="mt-2">
+                    <CompetitionBadge
+                      country={item.country}
+                      countryFlag={item.countryFlag}
+                      league={item.league}
+                    />
+                  </div>
                   <p className="mt-1 text-white/70">{item.prediction}</p>
                 </div>
               ))}
             </div>
-          </div>
+          </aside>
         </div>
       </section>
 
@@ -142,6 +155,9 @@ export default function Home() {
                 key={`${item.match}-${item.kickoff}`}
                 match={item.match}
                 kickoff={item.kickoff}
+                country={item.country}
+                countryFlag={item.countryFlag}
+                league={item.league}
                 prediction={item.prediction}
                 odds={item.odds}
               />
@@ -156,7 +172,7 @@ export default function Home() {
           <p className="mt-4 max-w-2xl leading-7 text-white/75">
             Платформата е подредена за бързо следене на мачовете през деня:
             първо виждаш активните прогнози, после архива с резултати, а след
-            това потребителската част. Така сайтът стои чисто още от началото и
+            това общата статистика. Така сайтът стои чисто още от началото и
             може да се надгражда спокойно.
           </p>
 
@@ -168,7 +184,7 @@ export default function Home() {
               Архив с резултати по дати веднага след приключване на срещите
             </div>
             <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white/80">
-              Вход и регистрация за потребители, които искат да следят сайта
+              Показване на първенства и държави към всяка активна прогноза
             </div>
             <div className="rounded-2xl border border-orange-300/25 bg-orange-300/10 px-4 py-3 text-orange-100">
               Следващата стъпка е трупане на реални резултати, трафик и analytics

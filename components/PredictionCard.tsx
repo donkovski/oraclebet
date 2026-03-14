@@ -1,18 +1,30 @@
+import CompetitionBadge from "@/components/CompetitionBadge"
+import PredictionMarketBadge from "@/components/PredictionMarketBadge"
+
 type Props = {
   match: string
   kickoff: string
+  country?: string
+  countryFlag?: string
+  league?: string
   prediction: string
   odds: string
 }
 
-export default function PredictionCard({ match, kickoff, prediction, odds }: Props) {
+export default function PredictionCard({
+  match,
+  kickoff,
+  country,
+  countryFlag,
+  league,
+  prediction,
+  odds,
+}: Props) {
   return (
     <article className="group rounded-[28px] border border-white/10 bg-slate-950/24 p-6 shadow-[0_18px_40px_rgba(8,15,34,0.2)] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-orange-300/45 hover:bg-slate-950/32">
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-2">
-          <span className="inline-flex rounded-full border border-white/10 bg-white/6 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white/65">
-            Дневна селекция
-          </span>
+          <PredictionMarketBadge prediction={prediction} />
           <p className="text-sm font-medium text-white/65">{kickoff}</p>
         </div>
 
@@ -22,6 +34,16 @@ export default function PredictionCard({ match, kickoff, prediction, odds }: Pro
       </div>
 
       <h3 className="mt-5 text-2xl font-bold leading-tight text-white">{match}</h3>
+
+      {country && countryFlag && league && (
+        <div className="mt-4">
+          <CompetitionBadge
+            country={country}
+            countryFlag={countryFlag}
+            league={league}
+          />
+        </div>
+      )}
 
       <div className="mt-5 rounded-2xl border border-white/10 bg-white/6 p-4">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
