@@ -34,18 +34,12 @@ export default function PredictionsBoard({ predictions }: Props) {
   const sortedPredictions = useMemo(() => sortPredictionsByKickoff(predictions), [predictions])
 
   const startedPredictions = useMemo(
-    () =>
-      sortedPredictions.filter(
-        (item) => parseKickoff(item.kickoff).getTime() <= now
-      ),
+    () => sortedPredictions.filter((item) => parseKickoff(item.kickoff).getTime() <= now),
     [now, sortedPredictions]
   )
 
   const upcomingPredictions = useMemo(
-    () =>
-      sortedPredictions.filter(
-        (item) => parseKickoff(item.kickoff).getTime() > now
-      ),
+    () => sortedPredictions.filter((item) => parseKickoff(item.kickoff).getTime() > now),
     [now, sortedPredictions]
   )
 
@@ -64,10 +58,10 @@ export default function PredictionsBoard({ predictions }: Props) {
         <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
           <div>
             <p className="inline-flex rounded-full border border-orange-300/35 bg-orange-300/12 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-orange-100">
-              Актуални прогнози
+              Футболни прогнози
             </p>
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl">
-              Днешните селекции са вече публикувани.
+              Днешните футболни селекции са вече публикувани.
             </h1>
           </div>
 
@@ -195,7 +189,7 @@ export default function PredictionsBoard({ predictions }: Props) {
               Следващ мач
             </p>
             <h2 className="mt-4 text-3xl font-black text-white md:text-4xl">
-              Всички прогнози за деня вече са започнали.
+              Всички футболни прогнози за деня вече са започнали.
             </h2>
             <p className="mt-4 max-w-2xl leading-7 text-white/75">
               Новите предстоящи мачове ще се покажат автоматично тук, когато публикуваш

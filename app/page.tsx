@@ -34,14 +34,13 @@ export default function Home() {
             </div>
 
             <h1 className="text-5xl font-black tracking-tight text-white md:text-6xl">
-              OracleBet вече е активен и първите прогнози са публикувани.
+              OracleBet вече е активен с футболни прогнози и отделна секция за хокей.
             </h1>
 
             <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">
-              Следи дневните селекции, преглеждай коефициентите в ясен формат и
-              използвай архива с резултати, когато първите срещи приключат.
-              OracleBet е направен така, че съдържанието да е бързо, подредено
-              и удобно за четене на телефон и компютър.
+              Следи дневните футболни селекции, разглеждай коефициентите в ясен формат и
+              използвай архива с резултати. За по-лесна подредба добавихме и отделна страница
+              за хокей прогнози.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -49,13 +48,19 @@ export default function Home() {
                 href="/bezplatni"
                 className="rounded-full bg-orange-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-orange-300"
               >
-                Към прогнозите
+                Футболни прогнози
+              </Link>
+              <Link
+                href="/hokei-prognozi"
+                className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+              >
+                Хокей прогнози
               </Link>
               <Link
                 href="/rezultati"
                 className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
               >
-                Към резултатите
+                Резултати
               </Link>
             </div>
           </div>
@@ -68,7 +73,7 @@ export default function Home() {
             <div className="mt-4 grid grid-cols-2 gap-3">
               <div className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
-                  Прогнози
+                  Футбол
                 </p>
                 <p className="mt-2 text-2xl font-bold text-white">{totalPredictions}</p>
               </div>
@@ -87,12 +92,19 @@ export default function Home() {
             </div>
 
             <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center text-white/65">
-              Пълният списък с активните селекции е в страницата{" "}
+              Пълният списък с футболните селекции е в страницата{" "}
               <Link
                 href="/bezplatni"
                 className="font-semibold text-orange-200 transition hover:text-orange-100"
               >
-                Прогнози
+                Футболни прогнози
+              </Link>
+              . За хокей използвай{" "}
+              <Link
+                href="/hokei-prognozi"
+                className="font-semibold text-orange-200 transition hover:text-orange-100"
+              >
+                Хокей прогнози
               </Link>
               .
             </div>

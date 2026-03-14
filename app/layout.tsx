@@ -98,7 +98,13 @@ export default function RootLayout({
                   href="/bezplatni"
                   className="rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-white"
                 >
-                  Прогнози
+                  Футболни прогнози
+                </Link>
+                <Link
+                  href="/hokei-prognozi"
+                  className="rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-white"
+                >
+                  Хокей прогнози
                 </Link>
                 <Link
                   href="/rezultati"
