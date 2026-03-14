@@ -94,8 +94,6 @@ export default function BezplatniPrognozi() {
 
       <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
         <article className="relative overflow-hidden rounded-[30px] border border-orange-300/28 bg-slate-950/26 p-6 shadow-[0_20px_48px_rgba(8,15,34,0.2)] backdrop-blur-xl md:p-8">
-          <OracleBetWatermark className="pointer-events-none absolute -bottom-20 -right-16 hidden h-[280px] w-[280px] opacity-[0.12] md:block" />
-
           <div className="relative z-10">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
               Следващ мач
@@ -141,10 +139,17 @@ export default function BezplatniPrognozi() {
                 </p>
               </div>
             </div>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              <div className="hidden md:block" />
+              <div className="flex justify-center">
+                <OracleBetWatermark className="h-[150px] w-[150px] opacity-[0.14]" />
+              </div>
+            </div>
           </div>
         </article>
 
-        <div className="grid gap-6">
+        <div className="grid gap-4">
           {remainingPredictions.map((item) => (
             <PredictionCard
               key={`${item.match}-${item.prediction}`}

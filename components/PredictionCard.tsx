@@ -21,10 +21,10 @@ export default function PredictionCard({
   odds,
 }: Props) {
   return (
-    <article className="group relative overflow-hidden rounded-[28px] border border-white/10 bg-slate-950/24 p-6 shadow-[0_18px_40px_rgba(8,15,34,0.2)] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-orange-300/45 hover:bg-slate-950/32">
-      <OracleBetWatermark className="pointer-events-none absolute -bottom-8 -right-6 hidden h-[140px] w-[140px] opacity-[0.14] md:block" />
+    <article className="group relative overflow-hidden rounded-[24px] border border-white/10 bg-slate-950/24 p-5 shadow-[0_18px_40px_rgba(8,15,34,0.2)] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-orange-300/45 hover:bg-slate-950/32">
+      <OracleBetWatermark className="pointer-events-none absolute right-2 top-1/2 hidden h-[104px] w-[104px] -translate-y-1/2 opacity-[0.1] md:block" />
 
-      <div className="relative z-10">
+      <div className="relative z-10 pr-16 md:pr-20">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-2">
             <PredictionMarketBadge prediction={prediction} />
@@ -36,22 +36,22 @@ export default function PredictionCard({
           </div>
         </div>
 
-        <h3 className="mt-5 text-2xl font-bold leading-tight text-white">{match}</h3>
+        <h3 className="mt-4 text-[1.85rem] font-bold leading-tight text-white">{match}</h3>
 
         {country && league && (
-          <div className="mt-4">
+          <div className="mt-3">
             <CompetitionBadge country={country} league={league} />
           </div>
         )}
 
-        <div className="mt-5 rounded-2xl border border-white/10 bg-white/6 p-4">
+        <div className="mt-4 rounded-2xl border border-white/10 bg-white/6 p-3.5">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
             Прогноза
           </p>
-          <p className="mt-2 text-lg font-semibold text-white">{prediction}</p>
+          <p className="mt-1.5 text-lg font-semibold text-white">{prediction}</p>
         </div>
 
-        <div className="mt-5 flex items-center justify-between gap-3 text-sm text-white/58">
+        <div className="mt-4 flex items-center justify-between gap-3 text-sm text-white/58">
           <PredictionCountdown kickoff={kickoff} />
           <span className="font-semibold text-orange-200/90">OracleBet</span>
         </div>
