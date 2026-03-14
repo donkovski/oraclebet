@@ -94,37 +94,37 @@ export default function PredictionsBoard({ predictions }: Props) {
         </div>
       </section>
 
-      {startedPredictions.length > 0 && (
-        <section className="space-y-4">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
-              Започнали
-            </p>
+      <div className="mx-auto w-full max-w-[56rem] space-y-8">
+        {startedPredictions.length > 0 && (
+          <section className="space-y-4">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+                Започнали
+              </p>
 
-            <div className="rounded-full border border-white/10 bg-white/6 px-4 py-2 text-sm font-semibold text-white/75">
-              {startedPredictions.length} {startedPredictions.length === 1 ? "мач" : "мача"}
+              <div className="rounded-full border border-white/10 bg-white/6 px-4 py-2 text-sm font-semibold text-white/75">
+                {startedPredictions.length} {startedPredictions.length === 1 ? "мач" : "мача"}
+              </div>
             </div>
-          </div>
 
-          <div className="grid gap-4 lg:grid-cols-2">
-            {startedPredictions.map((item) => (
-              <PredictionCard
-                key={`started-${item.match}-${item.prediction}`}
-                match={item.match}
-                kickoff={item.kickoff}
-                country={item.country}
-                league={item.league}
-                prediction={item.prediction}
-                odds={item.odds}
-              />
-            ))}
-          </div>
-        </section>
-      )}
+            <div className="grid gap-4">
+              {startedPredictions.map((item) => (
+                <PredictionCard
+                  key={`started-${item.match}-${item.prediction}`}
+                  match={item.match}
+                  kickoff={item.kickoff}
+                  country={item.country}
+                  league={item.league}
+                  prediction={item.prediction}
+                  odds={item.odds}
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
-      {featuredPrediction ? (
-        <section className="flex justify-end">
-          <div className="w-full space-y-4 xl:max-w-[46rem]">
+        {featuredPrediction ? (
+          <section className="space-y-4">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
               Следващ мач
             </p>
@@ -175,7 +175,7 @@ export default function PredictionsBoard({ predictions }: Props) {
               </div>
             </article>
 
-            <div className="grid content-start gap-4 self-start">
+            <div className="grid gap-4">
               {remainingPredictions.map((item) => (
                 <PredictionCard
                   key={`${item.match}-${item.prediction}`}
@@ -188,22 +188,22 @@ export default function PredictionsBoard({ predictions }: Props) {
                 />
               ))}
             </div>
-          </div>
-        </section>
-      ) : (
-        <section className="rounded-[30px] border border-white/10 bg-slate-950/22 p-6 shadow-[0_22px_60px_rgba(8,15,34,0.22)] backdrop-blur-xl md:p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
-            Следващ мач
-          </p>
-          <h2 className="mt-4 text-3xl font-black text-white md:text-4xl">
-            Всички прогнози за деня вече са започнали.
-          </h2>
-          <p className="mt-4 max-w-2xl leading-7 text-white/75">
-            Новите предстоящи мачове ще се покажат автоматично тук, когато публикуваш
-            следващите селекции.
-          </p>
-        </section>
-      )}
+          </section>
+        ) : (
+          <section className="rounded-[30px] border border-white/10 bg-slate-950/22 p-6 shadow-[0_22px_60px_rgba(8,15,34,0.22)] backdrop-blur-xl md:p-8">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+              Следващ мач
+            </p>
+            <h2 className="mt-4 text-3xl font-black text-white md:text-4xl">
+              Всички прогнози за деня вече са започнали.
+            </h2>
+            <p className="mt-4 max-w-2xl leading-7 text-white/75">
+              Новите предстоящи мачове ще се покажат автоматично тук, когато публикуваш
+              следващите селекции.
+            </p>
+          </section>
+        )}
+      </div>
     </main>
   )
 }
