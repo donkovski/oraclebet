@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { hockeyPredictions } from "../data/hockey-predictions"
 import { predictions } from "../data/predictions"
 import { sortPredictionsByKickoff } from "../lib/prediction-utils"
 
@@ -13,21 +14,39 @@ export const metadata: Metadata = {
 }
 
 export default function Home() {
-  const sortedPredictions = sortPredictionsByKickoff(predictions)
-  const totalPredictions = sortedPredictions.length
-  const averageOdds =
-    totalPredictions === 0
+  const sortedFootballPredictions = sortPredictionsByKickoff(predictions)
+  const sortedHockeyPredictions = sortPredictionsByKickoff(hockeyPredictions)
+  const allPredictions = sortPredictionsByKickoff([
+    ...sortedFootballPredictions,
+    ...sortedHockeyPredictions,
+  ])
+
+  const totalFootballPredictions = sortedFootballPredictions.length
+  const totalHockeyPredictions = sortedHockeyPredictions.length
+
+  const averageFootballOdds =
+    totalFootballPredictions === 0
       ? "0.00"
       : (
-          sortedPredictions.reduce((sum, item) => sum + Number(item.odds), 0) / totalPredictions
+          sortedFootballPredictions.reduce((sum, item) => sum + Number(item.odds), 0) /
+          totalFootballPredictions
         ).toFixed(2)
-  const firstKickoff = sortedPredictions[0]?.kickoff ?? ""
+
+  const averageHockeyOdds =
+    totalHockeyPredictions === 0
+      ? "0.00"
+      : (
+          sortedHockeyPredictions.reduce((sum, item) => sum + Number(item.odds), 0) /
+          totalHockeyPredictions
+        ).toFixed(2)
+
+  const firstKickoff = allPredictions[0]?.kickoff ?? ""
   const activeDate = firstKickoff ? firstKickoff.split(" ")[0] : "Няма дата"
 
   return (
     <main>
       <section className="rounded-[32px] border border-white/10 bg-slate-950/20 p-8 shadow-[0_24px_80px_rgba(8,15,34,0.28)] backdrop-blur-xl md:p-10">
-        <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
+        <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_380px] xl:items-start">
           <div className="max-w-3xl">
             <div className="mb-5 inline-flex rounded-full border border-orange-300/40 bg-orange-300/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
               OracleBet.eu
@@ -39,8 +58,8 @@ export default function Home() {
 
             <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">
               Следи дневните футболни селекции, разглеждай коефициентите в ясен формат и
-              използвай архива с резултати. За по-лесна подредба добавихме и отделна страница
-              за хокей прогнози.
+              използвай архива с резултати. За по-лесна подредба вече има и отделни страници за
+              хокей прогнози и хокей резултати.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -81,14 +100,30 @@ export default function Home() {
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
                   Футбол
                 </p>
-                <p className="mt-2 text-2xl font-bold text-white">{totalPredictions}</p>
+                <p className="mt-2 text-2xl font-bold text-white">{totalFootballPredictions}</p>
               </div>
+
               <div className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
-                  Средно
+                  Хокей
                 </p>
-                <p className="mt-2 text-2xl font-bold text-orange-100">{averageOdds}</p>
+                <p className="mt-2 text-2xl font-bold text-white">{totalHockeyPredictions}</p>
               </div>
+
+              <div className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
+                  Средно футбол
+                </p>
+                <p className="mt-2 text-2xl font-bold text-orange-100">{averageFootballOdds}</p>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
+                  Средно хокей
+                </p>
+                <p className="mt-2 text-2xl font-bold text-sky-100">{averageHockeyOdds}</p>
+              </div>
+
               <div className="col-span-2 rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
                   Дата
@@ -112,7 +147,7 @@ export default function Home() {
               >
                 Хокей прогнози
               </Link>
-              , а архивите са в{" "}
+              , а архивите са във{" "}
               <Link
                 href="/rezultati"
                 className="font-semibold text-orange-200 transition hover:text-orange-100"
