@@ -1,5 +1,4 @@
 import CompetitionBadge from "@/components/CompetitionBadge"
-import OracleBetWatermark from "@/components/OracleBetWatermark"
 import PredictionCountdown from "@/components/PredictionCountdown"
 import PredictionMarketBadge from "@/components/PredictionMarketBadge"
 
@@ -22,9 +21,7 @@ export default function PredictionCard({
 }: Props) {
   return (
     <article className="group relative overflow-hidden rounded-[24px] border border-white/10 bg-slate-950/24 p-5 shadow-[0_18px_40px_rgba(8,15,34,0.2)] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-orange-300/45 hover:bg-slate-950/32">
-      <OracleBetWatermark className="pointer-events-none absolute right-2 top-1/2 hidden h-[104px] w-[104px] -translate-y-1/2 opacity-[0.1] md:block" />
-
-      <div className="relative z-10 pr-16 md:pr-20">
+      <div className="relative z-10">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-2">
             <PredictionMarketBadge prediction={prediction} />

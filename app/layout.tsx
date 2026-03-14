@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
 import GoogleAnalytics from "@/components/GoogleAnalytics"
 import SiteAuthLink from "@/components/SiteAuthLink"
@@ -71,8 +72,18 @@ export default function RootLayout({
             <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-5 md:flex-row md:items-center md:justify-between md:px-8">
               <Link
                 href="/"
-                className="text-2xl font-semibold uppercase tracking-[0.18em] text-white"
+                className="flex items-center gap-3 text-2xl font-semibold uppercase tracking-[0.18em] text-white"
               >
+                <span className="overflow-hidden rounded-xl border border-white/10 bg-white/95 p-1 shadow-[0_10px_24px_rgba(15,23,42,0.18)]">
+                  <Image
+                    alt="OracleBet logo"
+                    className="h-10 w-10 object-contain"
+                    height={40}
+                    priority
+                    src="/logo.png"
+                    width={40}
+                  />
+                </span>
                 Oracle<span className="text-orange-300">Bet</span>
               </Link>
 

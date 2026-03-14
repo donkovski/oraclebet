@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import CompetitionBadge from "../../components/CompetitionBadge"
-import OracleBetWatermark from "../../components/OracleBetWatermark"
 import PredictionCountdown from "../../components/PredictionCountdown"
 import PredictionMarketBadge from "../../components/PredictionMarketBadge"
 import PredictionCard from "../../components/PredictionCard"
@@ -137,13 +136,6 @@ export default function BezplatniPrognozi() {
                 <p className="mt-3 text-3xl font-black text-orange-100">
                   {featuredPrediction.odds}
                 </p>
-              </div>
-            </div>
-
-            <div className="mt-6 grid gap-4 md:grid-cols-3">
-              <div className="hidden md:block" />
-              <div className="flex justify-center">
-                <OracleBetWatermark className="h-[150px] w-[150px] opacity-[0.14]" />
               </div>
             </div>
           </div>
