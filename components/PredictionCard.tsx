@@ -23,10 +23,7 @@ export default function PredictionCard({
     <article className="group relative overflow-hidden rounded-[24px] border border-white/10 bg-slate-950/24 p-5 shadow-[0_18px_40px_rgba(8,15,34,0.2)] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-orange-300/45 hover:bg-slate-950/32">
       <div className="relative z-10">
         <div className="flex items-start justify-between gap-4">
-          <div className="space-y-2">
-            <PredictionMarketBadge prediction={prediction} />
-            <p className="text-sm font-medium text-white/65">{kickoff}</p>
-          </div>
+          <p className="text-sm font-medium text-white/65">{kickoff}</p>
 
           <div className="rounded-full border border-orange-300/30 bg-orange-300/14 px-3 py-1 text-sm font-bold text-orange-100">
             {odds}
@@ -35,11 +32,15 @@ export default function PredictionCard({
 
         <h3 className="mt-4 text-[1.85rem] font-bold leading-tight text-white">{match}</h3>
 
-        {country && league && (
-          <div className="mt-3">
-            <CompetitionBadge country={country} league={league} />
-          </div>
-        )}
+        <div className="mt-3 flex flex-wrap gap-3">
+          <PredictionMarketBadge prediction={prediction} />
+
+          {country && league && (
+            <div>
+              <CompetitionBadge country={country} league={league} />
+            </div>
+          )}
+        </div>
 
         <div className="mt-4 rounded-2xl border border-white/10 bg-white/6 p-3.5">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">

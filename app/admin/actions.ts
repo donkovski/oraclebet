@@ -86,9 +86,10 @@ export async function savePredictionAction(formData: FormData) {
   try {
     const payload = parsePredictionPayload(formData)
     await saveAdminPrediction(payload)
-    redirect("/admin?saved=1")
   } catch (error) {
     const message = error instanceof Error ? error.message : "Неуспешен запис."
     redirect(`/admin?error=${encodeURIComponent(message)}`)
   }
+
+  redirect("/admin?saved=1")
 }

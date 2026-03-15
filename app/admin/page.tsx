@@ -362,6 +362,10 @@ type AdminPageProps = {
 
 export default async function AdminPage({ searchParams }: AdminPageProps) {
   const params = await searchParams
+  const safeError =
+    params.error && params.error !== "wrong-password" && params.error !== "NEXT_REDIRECT"
+      ? params.error
+      : undefined
   const accessGranted = await hasAdminAccess()
 
   if (!accessGranted) {
@@ -427,9 +431,9 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
           </div>
         )}
 
-        {params.error && params.error !== "wrong-password" && (
+        {safeError && (
           <div className="mt-6 rounded-2xl border border-rose-300/25 bg-rose-950/60 px-4 py-3 text-sm text-rose-100">
-            {params.error}
+            {safeError}
           </div>
         )}
       </section>
