@@ -80,6 +80,20 @@ function mapPredictionRow(row: SupabasePredictionRow): DisplayPrediction {
   }
 }
 
+function normalizeResultStatus(status: string): Result["status"] {
+  switch (status.toLowerCase()) {
+    case "won":
+      return "WIN"
+    case "lost":
+    case "lose":
+      return "LOSE"
+    case "void":
+      return "VOID"
+    default:
+      return "VOID"
+  }
+}
+
 function mapResultRow(row: SupabasePredictionRow): Result {
   return {
     date: formatDateKeyInSofia(row.kickoff),
@@ -87,7 +101,7 @@ function mapResultRow(row: SupabasePredictionRow): Result {
     prediction: row.prediction,
     odds: row.odds,
     result: row.result_text ?? "",
-    status: row.status.toUpperCase() as Result["status"],
+    status: normalizeResultStatus(row.status),
   }
 }
 
