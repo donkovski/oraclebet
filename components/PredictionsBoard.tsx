@@ -143,7 +143,6 @@ export default function PredictionsBoard({
                     country={featuredPrediction.country}
                     league={featuredPrediction.league}
                   />
-                  <PredictionCountdown kickoff={featuredPrediction.kickoff} />
                 </div>
 
                 <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -173,6 +172,10 @@ export default function PredictionsBoard({
                       {featuredPrediction.odds}
                     </p>
                   </div>
+                </div>
+
+                <div className="mt-4">
+                  <PredictionCountdown kickoff={featuredPrediction.kickoff} />
                 </div>
               </div>
             </article>

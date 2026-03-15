@@ -43,7 +43,7 @@ function getCountdownState(kickoff: string, now: number) {
       : "border-emerald-300/30 bg-emerald-300/10 text-emerald-100"
 
   return {
-    label: `След ${parts.join(" ")}`,
+    label: `Започва след ${parts.join(" ")}`,
     className,
   }
 }
