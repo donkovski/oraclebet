@@ -424,6 +424,64 @@ function PredictionSection({
   )
 }
 
+function CollapsiblePredictionSection({
+  eyebrow,
+  title,
+  description,
+  rows,
+  emptyMessage,
+}: {
+  eyebrow: string
+  title: string
+  description: string
+  rows: AdminPredictionRow[]
+  emptyMessage: string
+}) {
+  return (
+    <section className="space-y-4">
+      <details className="group rounded-[28px] border border-white/10 bg-slate-950/18 backdrop-blur-xl">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 [&::-webkit-details-marker]:hidden md:px-8">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
+              {eyebrow}
+            </p>
+            <h2 className="mt-2 text-2xl font-bold text-white">{title}</h2>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white/75">
+              {rows.length} {rows.length === 1 ? "мач" : "мача"}
+            </span>
+            <span className="inline-flex text-sm font-semibold uppercase tracking-[0.18em] text-orange-200 transition group-open:rotate-180">
+              ˅
+            </span>
+          </div>
+        </summary>
+
+        <div className="border-t border-white/10 px-6 py-5 md:px-8">
+          <p className="max-w-3xl text-sm leading-7 text-white/65">{description}</p>
+
+          {rows.length === 0 ? (
+            <div className="mt-4 rounded-[28px] border border-white/10 bg-slate-950/18 p-6 text-white/70 backdrop-blur-xl">
+              {emptyMessage}
+            </div>
+          ) : (
+            <div className="mt-5 space-y-5">
+              {rows.map((row) => (
+                <PredictionForm
+                  key={row.id}
+                  title={`${getSportLabel(row.sport)} вЂў ID ${row.id}`}
+                  row={row}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </details>
+    </section>
+  )
+}
+
 type AdminPageProps = {
   searchParams: Promise<{
     error?: string
@@ -530,7 +588,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         emptyMessage="В момента няма текущи прогнози."
       />
 
-      <PredictionSection
+      <CollapsiblePredictionSection
         eyebrow="Приключени прогнози"
         title="Архив на завършените мачове"
         description="Тук са прогнозите със статус печеливша, губеща или void. Можеш да редактираш резултата или при нужда да върнеш мач обратно към текущите."
