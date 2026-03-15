@@ -54,23 +54,37 @@ function getStatusLabel(status: AdminPredictionRow["status"]) {
   }
 }
 
+function getSportLabel(sport: AdminPredictionRow["sport"]) {
+  return sport === "football" ? "Футбол" : "Хокей"
+}
+
+function sortByKickoffAscending(left: AdminPredictionRow, right: AdminPredictionRow) {
+  return new Date(left.kickoff).getTime() - new Date(right.kickoff).getTime()
+}
+
+function sortByKickoffDescending(left: AdminPredictionRow, right: AdminPredictionRow) {
+  return new Date(right.kickoff).getTime() - new Date(left.kickoff).getTime()
+}
+
 function AdminSetupCard() {
   return (
     <section className="mx-auto max-w-3xl rounded-[28px] border border-amber-300/25 bg-slate-950/30 p-8 backdrop-blur-xl">
       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-amber-200">
         Админ панел
       </p>
-      <h1 className="mt-3 text-4xl font-bold text-white">Липсват тайните настройки за админ достъп.</h1>
+      <h1 className="mt-3 text-4xl font-bold text-white">
+        Липсват тайните настройки за админ достъп.
+      </h1>
       <div className="mt-6 space-y-4 text-white/75">
-        <p>Добави тези две променливи локално и във Vercel:</p>
+        <p>Добави тези променливи локално и във Vercel:</p>
         <div className="rounded-2xl border border-white/10 bg-slate-950/35 p-5 font-mono text-sm text-white/85">
           <p>SUPABASE_SERVICE_ROLE_KEY=...</p>
           <p className="mt-2">ORACLEBET_ADMIN_PASSWORD=...</p>
           <p className="mt-2">ORACLEBET_ADMIN_ACCESS_KEY=...</p>
         </div>
         <p>
-          `SUPABASE_SERVICE_ROLE_KEY` е от Supabase - <span className="font-semibold text-white">Project Settings - API</span>,
-          а `ORACLEBET_ADMIN_PASSWORD` и `ORACLEBET_ADMIN_ACCESS_KEY` си ги измисляш ти.
+          `SUPABASE_SERVICE_ROLE_KEY` е от Supabase в `Project Settings - API`, а
+          `ORACLEBET_ADMIN_PASSWORD` и `ORACLEBET_ADMIN_ACCESS_KEY` си ги задаваш ти.
         </p>
       </div>
     </section>
@@ -133,10 +147,16 @@ function PredictionForm({
   const isEditing = Boolean(row)
 
   return (
-    <div className={`rounded-[28px] border p-6 backdrop-blur-xl ${getStatusClasses(row?.status ?? "pending")}`}>
+    <div
+      className={`rounded-[28px] border p-6 backdrop-blur-xl ${getStatusClasses(
+        row?.status ?? "pending"
+      )}`}
+    >
       <div className="mb-5 flex items-center justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">{title}</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+            {title}
+          </p>
           {row && (
             <p className="mt-2 text-sm font-medium text-white/70">
               {row.match} • {getStatusLabel(row.status)}
@@ -150,7 +170,9 @@ function PredictionForm({
 
         <div className="grid gap-4 md:grid-cols-2">
           <label className="space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Спорт</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+              Спорт
+            </span>
             <select
               name="sport"
               defaultValue={row?.sport ?? "football"}
@@ -176,7 +198,9 @@ function PredictionForm({
         </div>
 
         <label className="space-y-2">
-          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Мач</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+            Мач
+          </span>
           <input
             required
             type="text"
@@ -188,7 +212,9 @@ function PredictionForm({
 
         <div className="grid gap-4 md:grid-cols-2">
           <label className="space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Държава</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+              Държава
+            </span>
             <input
               required
               type="text"
@@ -199,7 +225,9 @@ function PredictionForm({
           </label>
 
           <label className="space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Първенство</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+              Първенство
+            </span>
             <input
               required
               type="text"
@@ -212,7 +240,9 @@ function PredictionForm({
 
         <div className="grid gap-4 md:grid-cols-[1.4fr_0.6fr]">
           <label className="space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Прогноза</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+              Прогноза
+            </span>
             <input
               required
               type="text"
@@ -223,7 +253,9 @@ function PredictionForm({
           </label>
 
           <label className="space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Коефициент</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+              Коефициент
+            </span>
             <input
               required
               type="number"
@@ -238,7 +270,9 @@ function PredictionForm({
 
         <div className="grid gap-4 md:grid-cols-2">
           <label className="space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Статус</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+              Статус
+            </span>
             <select
               name="status"
               defaultValue={row?.status ?? "pending"}
@@ -274,6 +308,48 @@ function PredictionForm({
         </button>
       </form>
     </div>
+  )
+}
+
+function PredictionSection({
+  eyebrow,
+  title,
+  description,
+  rows,
+  emptyMessage,
+}: {
+  eyebrow: string
+  title: string
+  description: string
+  rows: AdminPredictionRow[]
+  emptyMessage: string
+}) {
+  return (
+    <section className="space-y-4">
+      <div>
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
+          {eyebrow}
+        </p>
+        <h2 className="mt-2 text-2xl font-bold text-white">{title}</h2>
+        <p className="mt-2 max-w-3xl text-sm leading-7 text-white/65">{description}</p>
+      </div>
+
+      {rows.length === 0 ? (
+        <div className="rounded-[28px] border border-white/10 bg-slate-950/18 p-6 text-white/70 backdrop-blur-xl">
+          {emptyMessage}
+        </div>
+      ) : (
+        <div className="space-y-5">
+          {rows.map((row) => (
+            <PredictionForm
+              key={row.id}
+              title={`${getSportLabel(row.sport)} • ID ${row.id}`}
+              row={row}
+            />
+          ))}
+        </div>
+      )}
+    </section>
   )
 }
 
@@ -313,10 +389,12 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
   const predictions = await getAdminPredictions()
   const footballCount = predictions.filter((row) => row.sport === "football").length
   const hockeyCount = predictions.filter((row) => row.sport === "hockey").length
-  const activeCount = predictions.filter(
-    (row) => row.status === "pending" || row.status === "live"
-  ).length
-  const archivedCount = predictions.length - activeCount
+  const activePredictions = predictions
+    .filter((row) => row.status === "pending" || row.status === "live")
+    .sort(sortByKickoffAscending)
+  const archivedPredictions = predictions
+    .filter((row) => row.status === "won" || row.status === "lost" || row.status === "void")
+    .sort(sortByKickoffDescending)
 
   return (
     <main className="space-y-8">
@@ -356,33 +434,31 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         )}
       </section>
 
-      <section className="grid gap-4 md:grid-cols-4">
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         <SummaryCard label="Общо" value={predictions.length} />
+        <SummaryCard label="Текущи" value={activePredictions.length} />
+        <SummaryCard label="Приключени" value={archivedPredictions.length} />
         <SummaryCard label="Футбол" value={footballCount} />
         <SummaryCard label="Хокей" value={hockeyCount} />
-        <SummaryCard label="Активни / Архив" value={`${activeCount} / ${archivedCount}`} />
       </section>
 
       <PredictionForm title="Нова прогноза" />
 
-      <section className="space-y-4">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
-            Текущи записи
-          </p>
-          <h2 className="mt-2 text-2xl font-bold text-white">Редакция на съществуващите прогнози</h2>
-        </div>
+      <PredictionSection
+        eyebrow="Текущи прогнози"
+        title="Управление на активните мачове"
+        description="Тук са само прогнозите със статус чакаща или играе се. Така по-лесно следиш мачовете, които още не са приключили."
+        rows={activePredictions}
+        emptyMessage="В момента няма текущи прогнози."
+      />
 
-        <div className="space-y-5">
-          {predictions.map((row) => (
-            <PredictionForm
-              key={row.id}
-              title={`${row.sport === "football" ? "Футбол" : "Хокей"} • ID ${row.id}`}
-              row={row}
-            />
-          ))}
-        </div>
-      </section>
+      <PredictionSection
+        eyebrow="Приключени прогнози"
+        title="Архив на завършените мачове"
+        description="Тук са прогнозите със статус печеливша, губеща или void. Можеш да редактираш резултата или при нужда да върнеш мач обратно към текущите."
+        rows={archivedPredictions}
+        emptyMessage="В момента няма приключени прогнози."
+      />
     </main>
   )
 }

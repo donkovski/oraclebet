@@ -2,6 +2,10 @@ type Props = {
   country: string
 }
 
+function normalizeCountry(country: string) {
+  return country.trim().toLowerCase()
+}
+
 function SpainFlag() {
   return (
     <span className="inline-flex h-4 w-6 overflow-hidden rounded-[3px] border border-white/15 shadow-[0_0_10px_rgba(15,23,42,0.18)]">
@@ -28,6 +32,25 @@ function GermanyFlag() {
       <span className="h-1/3 w-full bg-black" />
       <span className="h-1/3 w-full bg-red-600" />
       <span className="h-1/3 w-full bg-amber-400" />
+    </span>
+  )
+}
+
+function EnglandFlag() {
+  return (
+    <span className="relative inline-flex h-4 w-6 overflow-hidden rounded-[3px] border border-white/15 bg-white shadow-[0_0_10px_rgba(15,23,42,0.18)]">
+      <span className="absolute left-1/2 top-0 h-full w-[4px] -translate-x-1/2 bg-red-600" />
+      <span className="absolute left-0 top-1/2 h-[4px] w-full -translate-y-1/2 bg-red-600" />
+    </span>
+  )
+}
+
+function FranceFlag() {
+  return (
+    <span className="inline-flex h-4 w-6 overflow-hidden rounded-[3px] border border-white/15 shadow-[0_0_10px_rgba(15,23,42,0.18)]">
+      <span className="h-full w-1/3 bg-sky-700" />
+      <span className="h-full w-1/3 bg-white" />
+      <span className="h-full w-1/3 bg-rose-600" />
     </span>
   )
 }
@@ -64,27 +87,34 @@ function CanadaFlag() {
 }
 
 export default function CountryFlag({ country }: Props) {
-  if (country === "Испания") {
-    return <SpainFlag />
+  switch (normalizeCountry(country)) {
+    case "испания":
+    case "spain":
+      return <SpainFlag />
+    case "италия":
+    case "italy":
+      return <ItalyFlag />
+    case "германия":
+    case "germany":
+      return <GermanyFlag />
+    case "англия":
+    case "england":
+    case "великобритания":
+    case "united kingdom":
+      return <EnglandFlag />
+    case "франция":
+    case "france":
+      return <FranceFlag />
+    case "сащ":
+    case "usa":
+    case "united states":
+      return <UsaFlag />
+    case "канада":
+    case "canada":
+      return <CanadaFlag />
+    default:
+      return (
+        <span className="inline-flex h-4 w-6 rounded-[3px] border border-white/15 bg-white/10" />
+      )
   }
-
-  if (country === "Италия") {
-    return <ItalyFlag />
-  }
-
-  if (country === "Германия") {
-    return <GermanyFlag />
-  }
-
-  if (country === "САЩ") {
-    return <UsaFlag />
-  }
-
-  if (country === "Канада") {
-    return <CanadaFlag />
-  }
-
-  return (
-    <span className="inline-flex h-4 w-6 rounded-[3px] border border-white/15 bg-white/10" />
-  )
 }
