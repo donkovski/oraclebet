@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import DailyVisitTracker from "@/components/DailyVisitTracker"
 import GoogleAnalytics from "@/components/GoogleAnalytics"
 import SiteAuthLink from "@/components/SiteAuthLink"
 import { siteConfig } from "@/lib/site-config"
@@ -66,6 +67,7 @@ export default function RootLayout({
     <html lang="bg">
       <body className="site-body">
         <GoogleAnalytics measurementId={siteConfig.gaMeasurementId} />
+        <DailyVisitTracker />
 
         <div className="site-shell">
           <header className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/20 backdrop-blur-xl">

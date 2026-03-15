@@ -31,6 +31,13 @@ export type AdminPredictionInput = {
   result_text: string | null
 }
 
+export type DailyVisitorRow = {
+  day: string
+  visits: number
+  created_at: string
+  updated_at: string
+}
+
 function getSupabaseAdminConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -40,6 +47,20 @@ function getSupabaseAdminConfig() {
   }
 
   return { url, serviceRoleKey }
+}
+
+function getSofiaDateKey(input: Date | string) {
+  const date = typeof input === "string" ? new Date(input) : input
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: SOFIA_TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date)
+
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]))
+
+  return `${values.year}-${values.month}-${values.day}`
 }
 
 function getAdminHeaders() {
@@ -181,4 +202,52 @@ export async function saveAdminPrediction(input: AdminPredictionInput) {
   if (!response.ok) {
     throw new Error(`Supabase insert failed with status ${response.status}`)
   }
+}
+
+export async function incrementDailyVisit() {
+  const config = getSupabaseAdminConfig()
+
+  if (!config) {
+    return null
+  }
+
+  const response = await fetch(`${config.url}/rest/v1/rpc/increment_daily_visitors`, {
+    method: "POST",
+    headers: getAdminHeaders(),
+    body: JSON.stringify({
+      visit_day: getSofiaDateKey(new Date()),
+    }),
+    cache: "no-store",
+  })
+
+  if (!response.ok) {
+    return null
+  }
+
+  return (await response.json()) as DailyVisitorRow
+}
+
+export async function getAdminDailyVisitors(limit = 7) {
+  const config = getSupabaseAdminConfig()
+
+  if (!config) {
+    return []
+  }
+
+  const params = new URLSearchParams({
+    select: "day,visits,created_at,updated_at",
+    order: "day.desc",
+    limit: String(limit),
+  })
+
+  const response = await fetch(`${config.url}/rest/v1/daily_visitors?${params.toString()}`, {
+    headers: getAdminHeaders(),
+    cache: "no-store",
+  })
+
+  if (!response.ok) {
+    return []
+  }
+
+  return (await response.json()) as DailyVisitorRow[]
 }

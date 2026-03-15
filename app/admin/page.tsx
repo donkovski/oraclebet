@@ -3,8 +3,10 @@ import { notFound } from "next/navigation"
 import { hasAdminAccess, isAdminAuthenticated, isAdminConfigured } from "@/lib/admin-auth"
 import {
   formatKickoffForInput,
+  getAdminDailyVisitors,
   getAdminPredictions,
   type AdminPredictionRow,
+  type DailyVisitorRow,
 } from "@/lib/supabase-admin"
 import { loginAdminAction, logoutAdminAction, savePredictionAction } from "./actions"
 
@@ -134,6 +136,75 @@ function SummaryCard({ label, value }: { label: string; value: string | number }
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">{label}</p>
       <p className="mt-2 text-2xl font-bold text-white">{value}</p>
     </div>
+  )
+}
+
+function formatVisitorDate(day: string) {
+  return new Intl.DateTimeFormat("bg-BG", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(new Date(`${day}T00:00:00`))
+}
+
+function getRelativeVisitorDay(offsetDays: number) {
+  const date = new Date()
+  date.setDate(date.getDate() + offsetDays)
+
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Sofia",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(date)
+}
+
+function VisitorsSection({ rows }: { rows: DailyVisitorRow[] }) {
+  const todayKey = getRelativeVisitorDay(0)
+  const yesterdayKey = getRelativeVisitorDay(-1)
+  const todayVisitors = rows.find((row) => row.day === todayKey)?.visits ?? 0
+  const yesterdayVisitors = rows.find((row) => row.day === yesterdayKey)?.visits ?? 0
+
+  return (
+    <section className="space-y-4">
+      <div>
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
+          Посещения
+        </p>
+        <h2 className="mt-2 text-2xl font-bold text-white">Трафик по дни</h2>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <SummaryCard label="Днес" value={todayVisitors} />
+        <SummaryCard label="Вчера" value={yesterdayVisitors} />
+        <SummaryCard
+          label="Последни 7 дни"
+          value={rows.reduce((total, row) => total + row.visits, 0)}
+        />
+        <SummaryCard label="Отчетени дни" value={rows.length} />
+      </div>
+
+      <div className="rounded-[28px] border border-white/10 bg-slate-950/18 p-6 backdrop-blur-xl">
+        <div className="space-y-3">
+          {rows.length === 0 ? (
+            <p className="text-sm leading-7 text-white/70">
+              Още няма събрани посещения. След като tracker-ът започне да отчита отварянията
+              на сайта, тук ще виждаш дневния брой посетители.
+            </p>
+          ) : (
+            rows.map((row) => (
+              <div
+                key={row.day}
+                className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
+              >
+                <p className="text-sm font-medium text-white/75">{formatVisitorDate(row.day)}</p>
+                <p className="text-lg font-bold text-white">{row.visits}</p>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -391,6 +462,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
   }
 
   const predictions = await getAdminPredictions()
+  const dailyVisitors = await getAdminDailyVisitors()
   const footballCount = predictions.filter((row) => row.sport === "football").length
   const hockeyCount = predictions.filter((row) => row.sport === "hockey").length
   const activePredictions = predictions
@@ -445,6 +517,8 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         <SummaryCard label="Футбол" value={footballCount} />
         <SummaryCard label="Хокей" value={hockeyCount} />
       </section>
+
+      <VisitorsSection rows={dailyVisitors} />
 
       <PredictionForm title="Нова прогноза" />
 
