@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { hockeyPredictions } from "../data/hockey-predictions"
-import { predictions } from "../data/predictions"
+import {
+  getFootballPredictions,
+  getHockeyPredictions,
+} from "../lib/supabase-content"
 import { sortPredictionsByKickoff } from "../lib/prediction-utils"
 
 export const metadata: Metadata = {
@@ -13,8 +15,11 @@ export const metadata: Metadata = {
   },
 }
 
-export default function Home() {
-  const sortedFootballPredictions = sortPredictionsByKickoff(predictions)
+export default async function Home() {
+  const footballPredictions = await getFootballPredictions()
+  const hockeyPredictions = await getHockeyPredictions()
+
+  const sortedFootballPredictions = sortPredictionsByKickoff(footballPredictions)
   const sortedHockeyPredictions = sortPredictionsByKickoff(hockeyPredictions)
   const allPredictions = sortPredictionsByKickoff([
     ...sortedFootballPredictions,

@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import PredictionsBoard from "../../components/PredictionsBoard"
-import { predictions } from "../../data/predictions"
+import { getFootballPredictions } from "../../lib/supabase-content"
 
 export const metadata: Metadata = {
   title: "Футболни прогнози",
@@ -12,7 +12,9 @@ export const metadata: Metadata = {
   },
 }
 
-export default function BezplatniPrognozi() {
+export default async function BezplatniPrognozi() {
+  const predictions = await getFootballPredictions()
+
   if (predictions.length === 0) {
     return (
       <main className="space-y-8">

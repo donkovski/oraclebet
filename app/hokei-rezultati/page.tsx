@@ -3,7 +3,7 @@ import Link from "next/link"
 import ProfitChart from "../../components/ProfitChart"
 import ResultsArchive from "../../components/ResultsArchive"
 import ResultsPieChart from "../../components/ResultsPieChart"
-import { hockeyResults } from "../../data/hockey-results"
+import { getHockeyResults } from "../../lib/supabase-content"
 
 export const metadata: Metadata = {
   title: "Хокей резултати и статистика",
@@ -14,31 +14,32 @@ export const metadata: Metadata = {
   },
 }
 
-const total = hockeyResults.length
-const wins = hockeyResults.filter((r) => r.status === "WIN").length
-const losses = hockeyResults.filter((r) => r.status === "LOSE").length
-const voids = hockeyResults.filter((r) => r.status === "VOID").length
+export default async function HockeyResultsPage() {
+  const hockeyResults = await getHockeyResults()
+  const total = hockeyResults.length
+  const wins = hockeyResults.filter((r) => r.status === "WIN").length
+  const losses = hockeyResults.filter((r) => r.status === "LOSE").length
+  const voids = hockeyResults.filter((r) => r.status === "VOID").length
 
-const settledBets = wins + losses
-const winRate = settledBets === 0 ? "0.0" : ((wins / settledBets) * 100).toFixed(1)
+  const settledBets = wins + losses
+  const winRate = settledBets === 0 ? "0.0" : ((wins / settledBets) * 100).toFixed(1)
 
-const profit = hockeyResults
-  .reduce((sum, item) => {
-    if (item.status === "WIN") return sum + (item.odds - 1)
-    if (item.status === "LOSE") return sum - 1
-    return sum
-  }, 0)
-  .toFixed(2)
+  const profit = hockeyResults
+    .reduce((sum, item) => {
+      if (item.status === "WIN") return sum + (item.odds - 1)
+      if (item.status === "LOSE") return sum - 1
+      return sum
+    }, 0)
+    .toFixed(2)
 
-const roi = settledBets === 0 ? "0" : ((Number(profit) / settledBets) * 100).toFixed(1)
+  const roi = settledBets === 0 ? "0" : ((Number(profit) / settledBets) * 100).toFixed(1)
 
-const roiValue = Number(roi)
+  const roiValue = Number(roi)
 
-let roiColor = "text-slate-400"
-if (roiValue > 0) roiColor = "text-green-400"
-if (roiValue < 0) roiColor = "text-red-400"
+  let roiColor = "text-slate-400"
+  if (roiValue > 0) roiColor = "text-green-400"
+  if (roiValue < 0) roiColor = "text-red-400"
 
-export default function HockeyResultsPage() {
   if (hockeyResults.length === 0) {
     return (
       <main className="space-y-8">
