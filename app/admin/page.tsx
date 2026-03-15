@@ -1,0 +1,388 @@
+import type { Metadata } from "next"
+import { notFound } from "next/navigation"
+import { hasAdminAccess, isAdminAuthenticated, isAdminConfigured } from "@/lib/admin-auth"
+import {
+  formatKickoffForInput,
+  getAdminPredictions,
+  type AdminPredictionRow,
+} from "@/lib/supabase-admin"
+import { loginAdminAction, logoutAdminAction, savePredictionAction } from "./actions"
+
+export const metadata: Metadata = {
+  title: "Админ панел",
+  description: "Вътрешен панел за управление на прогнозите в OracleBet.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
+
+function getStatusClasses(status: AdminPredictionRow["status"]) {
+  if (status === "won") {
+    return "border-emerald-300/35 bg-emerald-950/65"
+  }
+
+  if (status === "lost") {
+    return "border-rose-300/35 bg-rose-950/65"
+  }
+
+  if (status === "live") {
+    return "border-sky-300/35 bg-sky-950/60"
+  }
+
+  if (status === "void") {
+    return "border-white/15 bg-slate-900/60"
+  }
+
+  return "border-white/10 bg-slate-950/20"
+}
+
+function getStatusLabel(status: AdminPredictionRow["status"]) {
+  switch (status) {
+    case "pending":
+      return "Чакаща"
+    case "live":
+      return "Играе се"
+    case "won":
+      return "Печеливша"
+    case "lost":
+      return "Губеща"
+    case "void":
+      return "Void"
+    default:
+      return status
+  }
+}
+
+function AdminSetupCard() {
+  return (
+    <section className="mx-auto max-w-3xl rounded-[28px] border border-amber-300/25 bg-slate-950/30 p-8 backdrop-blur-xl">
+      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-amber-200">
+        Админ панел
+      </p>
+      <h1 className="mt-3 text-4xl font-bold text-white">Липсват тайните настройки за админ достъп.</h1>
+      <div className="mt-6 space-y-4 text-white/75">
+        <p>Добави тези две променливи локално и във Vercel:</p>
+        <div className="rounded-2xl border border-white/10 bg-slate-950/35 p-5 font-mono text-sm text-white/85">
+          <p>SUPABASE_SERVICE_ROLE_KEY=...</p>
+          <p className="mt-2">ORACLEBET_ADMIN_PASSWORD=...</p>
+          <p className="mt-2">ORACLEBET_ADMIN_ACCESS_KEY=...</p>
+        </div>
+        <p>
+          `SUPABASE_SERVICE_ROLE_KEY` е от Supabase - <span className="font-semibold text-white">Project Settings - API</span>,
+          а `ORACLEBET_ADMIN_PASSWORD` и `ORACLEBET_ADMIN_ACCESS_KEY` си ги измисляш ти.
+        </p>
+      </div>
+    </section>
+  )
+}
+
+function AdminLoginCard({ error }: { error?: string }) {
+  return (
+    <section className="mx-auto max-w-md rounded-[28px] border border-white/10 bg-slate-950/20 p-8 backdrop-blur-xl">
+      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+        Админ вход
+      </p>
+      <h1 className="mt-3 text-4xl font-bold text-white">Влез в панела</h1>
+      {error && (
+        <div className="mt-5 rounded-2xl border border-rose-300/25 bg-rose-950/60 px-4 py-3 text-sm text-rose-100">
+          Невалидна парола или неуспешен вход.
+        </div>
+      )}
+      <form action={loginAdminAction} className="mt-6 space-y-4">
+        <label className="space-y-2">
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+            Админ парола
+          </span>
+          <input
+            required
+            autoFocus
+            type="password"
+            name="password"
+            className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45 focus:bg-slate-950/45"
+          />
+        </label>
+
+        <button
+          type="submit"
+          className="w-full rounded-full bg-orange-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-orange-300"
+        >
+          Вход в админ панела
+        </button>
+      </form>
+    </section>
+  )
+}
+
+function SummaryCard({ label, value }: { label: string; value: string | number }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-slate-950/18 p-4 text-center backdrop-blur-lg">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">{label}</p>
+      <p className="mt-2 text-2xl font-bold text-white">{value}</p>
+    </div>
+  )
+}
+
+function PredictionForm({
+  title,
+  row,
+}: {
+  title: string
+  row?: AdminPredictionRow
+}) {
+  const isEditing = Boolean(row)
+
+  return (
+    <div className={`rounded-[28px] border p-6 backdrop-blur-xl ${getStatusClasses(row?.status ?? "pending")}`}>
+      <div className="mb-5 flex items-center justify-between gap-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">{title}</p>
+          {row && (
+            <p className="mt-2 text-sm font-medium text-white/70">
+              {row.match} • {getStatusLabel(row.status)}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <form action={savePredictionAction} className="space-y-4">
+        {row && <input type="hidden" name="id" value={row.id} />}
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <label className="space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Спорт</span>
+            <select
+              name="sport"
+              defaultValue={row?.sport ?? "football"}
+              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+            >
+              <option value="football">Футбол</option>
+              <option value="hockey">Хокей</option>
+            </select>
+          </label>
+
+          <label className="space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+              Час на започване
+            </span>
+            <input
+              required
+              type="datetime-local"
+              name="kickoff"
+              defaultValue={row ? formatKickoffForInput(row.kickoff) : ""}
+              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+            />
+          </label>
+        </div>
+
+        <label className="space-y-2">
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Мач</span>
+          <input
+            required
+            type="text"
+            name="match"
+            defaultValue={row?.match ?? ""}
+            className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+          />
+        </label>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <label className="space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Държава</span>
+            <input
+              required
+              type="text"
+              name="country"
+              defaultValue={row?.country ?? ""}
+              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+            />
+          </label>
+
+          <label className="space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Първенство</span>
+            <input
+              required
+              type="text"
+              name="league"
+              defaultValue={row?.league ?? ""}
+              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+            />
+          </label>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-[1.4fr_0.6fr]">
+          <label className="space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Прогноза</span>
+            <input
+              required
+              type="text"
+              name="prediction"
+              defaultValue={row?.prediction ?? ""}
+              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+            />
+          </label>
+
+          <label className="space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Коефициент</span>
+            <input
+              required
+              type="number"
+              name="odds"
+              min="1.01"
+              step="0.01"
+              defaultValue={row?.odds.toFixed(2) ?? ""}
+              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+            />
+          </label>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <label className="space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Статус</span>
+            <select
+              name="status"
+              defaultValue={row?.status ?? "pending"}
+              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+            >
+              <option value="pending">Чакаща</option>
+              <option value="live">Играе се</option>
+              <option value="won">Печеливша</option>
+              <option value="lost">Губеща</option>
+              <option value="void">Void</option>
+            </select>
+          </label>
+
+          <label className="space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+              Краен резултат
+            </span>
+            <input
+              type="text"
+              name="result_text"
+              defaultValue={row?.result_text ?? ""}
+              placeholder="например 1:0 или 6 жълти + 1 червен = 8 картона"
+              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+            />
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          className="rounded-full bg-orange-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-orange-300"
+        >
+          {isEditing ? "Запази промените" : "Добави прогноза"}
+        </button>
+      </form>
+    </div>
+  )
+}
+
+type AdminPageProps = {
+  searchParams: Promise<{
+    error?: string
+    saved?: string
+  }>
+}
+
+export default async function AdminPage({ searchParams }: AdminPageProps) {
+  const params = await searchParams
+  const accessGranted = await hasAdminAccess()
+
+  if (!accessGranted) {
+    notFound()
+  }
+
+  if (!isAdminConfigured()) {
+    return (
+      <main className="space-y-8">
+        <AdminSetupCard />
+      </main>
+    )
+  }
+
+  const authenticated = await isAdminAuthenticated()
+
+  if (!authenticated) {
+    return (
+      <main className="space-y-8">
+        <AdminLoginCard error={params.error} />
+      </main>
+    )
+  }
+
+  const predictions = await getAdminPredictions()
+  const footballCount = predictions.filter((row) => row.sport === "football").length
+  const hockeyCount = predictions.filter((row) => row.sport === "hockey").length
+  const activeCount = predictions.filter(
+    (row) => row.status === "pending" || row.status === "live"
+  ).length
+  const archivedCount = predictions.length - activeCount
+
+  return (
+    <main className="space-y-8">
+      <section className="rounded-[28px] border border-white/10 bg-slate-950/20 p-6 backdrop-blur-xl md:p-8">
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+              Админ панел
+            </p>
+            <h1 className="mt-3 text-4xl font-bold text-white">Управление на прогнозите</h1>
+            <p className="mt-4 max-w-3xl leading-7 text-white/75">
+              Оттук добавяш нови мачове и местиш приключилите прогнози към резултати само
+              със смяна на статуса.
+            </p>
+          </div>
+
+          <form action={logoutAdminAction}>
+            <button
+              type="submit"
+              className="rounded-full border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
+            >
+              Изход
+            </button>
+          </form>
+        </div>
+
+        {params.saved && (
+          <div className="mt-6 rounded-2xl border border-emerald-300/25 bg-emerald-950/60 px-4 py-3 text-sm text-emerald-100">
+            Промяната е запазена успешно.
+          </div>
+        )}
+
+        {params.error && params.error !== "wrong-password" && (
+          <div className="mt-6 rounded-2xl border border-rose-300/25 bg-rose-950/60 px-4 py-3 text-sm text-rose-100">
+            {params.error}
+          </div>
+        )}
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-4">
+        <SummaryCard label="Общо" value={predictions.length} />
+        <SummaryCard label="Футбол" value={footballCount} />
+        <SummaryCard label="Хокей" value={hockeyCount} />
+        <SummaryCard label="Активни / Архив" value={`${activeCount} / ${archivedCount}`} />
+      </section>
+
+      <PredictionForm title="Нова прогноза" />
+
+      <section className="space-y-4">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
+            Текущи записи
+          </p>
+          <h2 className="mt-2 text-2xl font-bold text-white">Редакция на съществуващите прогнози</h2>
+        </div>
+
+        <div className="space-y-5">
+          {predictions.map((row) => (
+            <PredictionForm
+              key={row.id}
+              title={`${row.sport === "football" ? "Футбол" : "Хокей"} • ID ${row.id}`}
+              row={row}
+            />
+          ))}
+        </div>
+      </section>
+    </main>
+  )
+}

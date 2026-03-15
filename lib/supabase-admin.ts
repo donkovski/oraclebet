@@ -1,0 +1,184 @@
+const SOFIA_TIMEZONE = "Europe/Sofia"
+
+export type AdminPredictionStatus = "pending" | "live" | "won" | "lost" | "void"
+export type AdminPredictionSport = "football" | "hockey"
+
+export type AdminPredictionRow = {
+  id: number
+  sport: AdminPredictionSport
+  match: string
+  kickoff: string
+  country: string
+  league: string
+  prediction: string
+  odds: number
+  status: AdminPredictionStatus
+  result_text: string | null
+  published_at: string
+  updated_at: string
+}
+
+export type AdminPredictionInput = {
+  id?: number
+  sport: AdminPredictionSport
+  match: string
+  kickoff: string
+  country: string
+  league: string
+  prediction: string
+  odds: number
+  status: AdminPredictionStatus
+  result_text: string | null
+}
+
+function getSupabaseAdminConfig() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+  if (!url || !serviceRoleKey) {
+    return null
+  }
+
+  return { url, serviceRoleKey }
+}
+
+function getAdminHeaders() {
+  const config = getSupabaseAdminConfig()
+
+  if (!config) {
+    throw new Error("Supabase admin env vars are missing.")
+  }
+
+  return {
+    apikey: config.serviceRoleKey,
+    Authorization: `Bearer ${config.serviceRoleKey}`,
+    "Content-Type": "application/json",
+  }
+}
+
+function parseOffsetValue(offsetValue: string) {
+  const match = offsetValue.match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/)
+
+  if (!match) {
+    return "+00:00"
+  }
+
+  const [, sign, hours, minutes = "00"] = match
+
+  return `${sign}${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}`
+}
+
+export function formatKickoffForInput(timestamp: string) {
+  const parts = new Intl.DateTimeFormat("sv-SE", {
+    timeZone: SOFIA_TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(new Date(timestamp))
+
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]))
+
+  return `${values.year}-${values.month}-${values.day}T${values.hour}:${values.minute}`
+}
+
+export function toSofiaISOString(localDateTime: string) {
+  const [datePart, timePart] = localDateTime.split("T")
+
+  if (!datePart || !timePart) {
+    throw new Error("Невалиден час на започване.")
+  }
+
+  const [year, month, day] = datePart.split("-").map(Number)
+  const [hour, minute] = timePart.split(":").map(Number)
+  const probeDate = new Date(Date.UTC(year, month - 1, day, hour, minute))
+  const offsetPart = new Intl.DateTimeFormat("en-US", {
+    timeZone: SOFIA_TIMEZONE,
+    timeZoneName: "shortOffset",
+  })
+    .formatToParts(probeDate)
+    .find((part) => part.type === "timeZoneName")?.value
+
+  const offset = parseOffsetValue(offsetPart ?? "GMT+0")
+
+  return new Date(`${datePart}T${timePart}:00${offset}`).toISOString()
+}
+
+export async function getAdminPredictions() {
+  const config = getSupabaseAdminConfig()
+
+  if (!config) {
+    return []
+  }
+
+  const params = new URLSearchParams({
+    select:
+      "id,sport,match,kickoff,country,league,prediction,odds,status,result_text,published_at,updated_at",
+    order: "kickoff.asc",
+  })
+
+  const response = await fetch(`${config.url}/rest/v1/predictions?${params.toString()}`, {
+    headers: getAdminHeaders(),
+    cache: "no-store",
+  })
+
+  if (!response.ok) {
+    throw new Error(`Supabase admin request failed with status ${response.status}`)
+  }
+
+  return (await response.json()) as AdminPredictionRow[]
+}
+
+export async function saveAdminPrediction(input: AdminPredictionInput) {
+  const config = getSupabaseAdminConfig()
+
+  if (!config) {
+    throw new Error("Supabase admin env vars are missing.")
+  }
+
+  const payload = {
+    sport: input.sport,
+    match: input.match,
+    kickoff: input.kickoff,
+    country: input.country,
+    league: input.league,
+    prediction: input.prediction,
+    odds: input.odds,
+    status: input.status,
+    result_text: input.result_text,
+  }
+
+  if (input.id) {
+    const response = await fetch(`${config.url}/rest/v1/predictions?id=eq.${input.id}`, {
+      method: "PATCH",
+      headers: {
+        ...getAdminHeaders(),
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+    })
+
+    if (!response.ok) {
+      throw new Error(`Supabase update failed with status ${response.status}`)
+    }
+
+    return
+  }
+
+  const response = await fetch(`${config.url}/rest/v1/predictions`, {
+    method: "POST",
+    headers: {
+      ...getAdminHeaders(),
+      Prefer: "return=minimal",
+    },
+    body: JSON.stringify(payload),
+    cache: "no-store",
+  })
+
+  if (!response.ok) {
+    throw new Error(`Supabase insert failed with status ${response.status}`)
+  }
+}
