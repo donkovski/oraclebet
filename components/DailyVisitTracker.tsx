@@ -26,19 +26,38 @@ export default function DailyVisitTracker() {
       return
     }
 
-    const visitKey = `oraclebet-visit-${getSofiaDateKey()}`
+    const visitKey = `oraclebet-visit-v2-${getSofiaDateKey()}`
+    const pendingKey = `${visitKey}-pending`
 
     if (window.localStorage.getItem(visitKey)) {
       return
     }
 
-    window.localStorage.setItem(visitKey, "1")
+    if (window.sessionStorage.getItem(pendingKey)) {
+      return
+    }
+
+    window.sessionStorage.setItem(pendingKey, "1")
 
     void fetch("/api/analytics/visit", {
       method: "POST",
       cache: "no-store",
       keepalive: true,
     })
+      .then(async (response) => {
+        if (!response.ok) {
+          return
+        }
+
+        const payload = (await response.json()) as { ok?: boolean }
+
+        if (payload.ok) {
+          window.localStorage.setItem(visitKey, "1")
+        }
+      })
+      .finally(() => {
+        window.sessionStorage.removeItem(pendingKey)
+      })
   }, [pathname])
 
   return null

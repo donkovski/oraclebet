@@ -1,4 +1,4 @@
-create type public.prediction_sport as enum ('football', 'hockey');
+create type public.prediction_sport as enum ('football', 'hockey', 'basketball', 'baseball');
 
 create type public.prediction_status as enum ('pending', 'live', 'won', 'lost', 'void');
 

@@ -1,7 +1,7 @@
 const SOFIA_TIMEZONE = "Europe/Sofia"
 
 export type AdminPredictionStatus = "pending" | "live" | "won" | "lost" | "void"
-export type AdminPredictionSport = "football" | "hockey"
+export type AdminPredictionSport = "football" | "hockey" | "basketball" | "baseball"
 
 export type AdminPredictionRow = {
   id: number

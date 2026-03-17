@@ -97,28 +97,16 @@ export default function RootLayout({
                   Начало
                 </Link>
                 <Link
-                  href="/bezplatni"
+                  href="/tips"
                   className="rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-white"
                 >
-                  Футболни прогнози
-                </Link>
-                <Link
-                  href="/hokei-prognozi"
-                  className="rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-white"
-                >
-                  Хокей прогнози
+                  Прогнози
                 </Link>
                 <Link
                   href="/rezultati"
                   className="rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-white"
                 >
-                  Футболни резултати
-                </Link>
-                <Link
-                  href="/hokei-rezultati"
-                  className="rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-white"
-                >
-                  Хокей резултати
+                  Резултати
                 </Link>
                 {siteConfig.vipEnabled && (
                   <Link

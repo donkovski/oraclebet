@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation"
 
-export default function LegacyHockeyPredictionsPage() {
+export default function LegacyHockeyTipsPage() {
   redirect("/tips/hokei")
 }

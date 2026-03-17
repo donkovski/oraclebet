@@ -4,7 +4,7 @@ import { predictions as fallbackFootballPredictions } from "@/data/predictions"
 import { results as fallbackFootballResults } from "@/data/results"
 import type { Result } from "@/types/results"
 
-type Sport = "football" | "hockey"
+export type Sport = "football" | "hockey" | "basketball" | "baseball"
 type PredictionStatus = "pending" | "live" | "won" | "lost" | "void"
 
 type SupabasePredictionRow = {
@@ -18,7 +18,7 @@ type SupabasePredictionRow = {
   result_text: string | null
 }
 
-type DisplayPrediction = {
+export type DisplayPrediction = {
   match: string
   kickoff: string
   country: string
@@ -28,6 +28,8 @@ type DisplayPrediction = {
 }
 
 const SOFIA_TIMEZONE = "Europe/Sofia"
+const emptyPredictions: DisplayPrediction[] = []
+const emptyResults: Result[] = []
 
 function getSupabaseConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -135,58 +137,62 @@ async function fetchPredictionRows(sport: Sport, statuses: PredictionStatus[]) {
   return (await response.json()) as SupabasePredictionRow[]
 }
 
-export async function getFootballPredictions() {
+async function getPredictionsBySport(sport: Sport, fallback: DisplayPrediction[]) {
   try {
-    const rows = await fetchPredictionRows("football", ["pending", "live"])
+    const rows = await fetchPredictionRows(sport, ["pending", "live"])
 
     if (!rows) {
-      return fallbackFootballPredictions
+      return fallback
     }
 
     return rows.map(mapPredictionRow)
   } catch {
-    return fallbackFootballPredictions
+    return fallback
   }
+}
+
+async function getResultsBySport(sport: Sport, fallback: Result[]) {
+  try {
+    const rows = await fetchPredictionRows(sport, ["won", "lost", "void"])
+
+    if (!rows) {
+      return fallback
+    }
+
+    return rows.map(mapResultRow)
+  } catch {
+    return fallback
+  }
+}
+
+export async function getFootballPredictions() {
+  return getPredictionsBySport("football", fallbackFootballPredictions)
 }
 
 export async function getHockeyPredictions() {
-  try {
-    const rows = await fetchPredictionRows("hockey", ["pending", "live"])
+  return getPredictionsBySport("hockey", fallbackHockeyPredictions)
+}
 
-    if (!rows) {
-      return fallbackHockeyPredictions
-    }
+export async function getBasketballPredictions() {
+  return getPredictionsBySport("basketball", emptyPredictions)
+}
 
-    return rows.map(mapPredictionRow)
-  } catch {
-    return fallbackHockeyPredictions
-  }
+export async function getBaseballPredictions() {
+  return getPredictionsBySport("baseball", emptyPredictions)
 }
 
 export async function getFootballResults() {
-  try {
-    const rows = await fetchPredictionRows("football", ["won", "lost", "void"])
-
-    if (!rows) {
-      return fallbackFootballResults
-    }
-
-    return rows.map(mapResultRow)
-  } catch {
-    return fallbackFootballResults
-  }
+  return getResultsBySport("football", fallbackFootballResults)
 }
 
 export async function getHockeyResults() {
-  try {
-    const rows = await fetchPredictionRows("hockey", ["won", "lost", "void"])
+  return getResultsBySport("hockey", fallbackHockeyResults)
+}
 
-    if (!rows) {
-      return fallbackHockeyResults
-    }
+export async function getBasketballResults() {
+  return getResultsBySport("basketball", emptyResults)
+}
 
-    return rows.map(mapResultRow)
-  } catch {
-    return fallbackHockeyResults
-  }
+export async function getBaseballResults() {
+  return getResultsBySport("baseball", emptyResults)
 }

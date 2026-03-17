@@ -57,7 +57,18 @@ function getStatusLabel(status: AdminPredictionRow["status"]) {
 }
 
 function getSportLabel(sport: AdminPredictionRow["sport"]) {
-  return sport === "football" ? "Футбол" : "Хокей"
+  switch (sport) {
+    case "football":
+      return "Футбол"
+    case "hockey":
+      return "Хокей"
+    case "basketball":
+      return "Баскетбол"
+    case "baseball":
+      return "Бейзбол"
+    default:
+      return sport
+  }
 }
 
 function sortByKickoffAscending(left: AdminPredictionRow, right: AdminPredictionRow) {
@@ -251,6 +262,8 @@ function PredictionForm({
             >
               <option value="football">Футбол</option>
               <option value="hockey">Хокей</option>
+              <option value="basketball">Баскетбол</option>
+              <option value="baseball">Бейзбол</option>
             </select>
           </label>
 
@@ -523,6 +536,8 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
   const dailyVisitors = await getAdminDailyVisitors()
   const footballCount = predictions.filter((row) => row.sport === "football").length
   const hockeyCount = predictions.filter((row) => row.sport === "hockey").length
+  const basketballCount = predictions.filter((row) => row.sport === "basketball").length
+  const baseballCount = predictions.filter((row) => row.sport === "baseball").length
   const activePredictions = predictions
     .filter((row) => row.status === "pending" || row.status === "live")
     .sort(sortByKickoffAscending)
@@ -568,12 +583,14 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         )}
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-7">
         <SummaryCard label="Общо" value={predictions.length} />
         <SummaryCard label="Текущи" value={activePredictions.length} />
         <SummaryCard label="Приключени" value={archivedPredictions.length} />
         <SummaryCard label="Футбол" value={footballCount} />
         <SummaryCard label="Хокей" value={hockeyCount} />
+        <SummaryCard label="Баскетбол" value={basketballCount} />
+        <SummaryCard label="Бейзбол" value={baseballCount} />
       </section>
 
       <VisitorsSection rows={dailyVisitors} />
