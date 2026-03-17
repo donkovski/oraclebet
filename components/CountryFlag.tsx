@@ -102,13 +102,32 @@ function SwitzerlandFlag() {
 }
 
 function EuropeFlag() {
+  const stars = Array.from({ length: 12 }, (_, index) => {
+    const angle = ((index * 30 - 90) * Math.PI) / 180
+    const x = 30 + Math.cos(angle) * 11
+    const y = 20 + Math.sin(angle) * 11
+
+    return { x, y }
+  })
+
   return (
-    <span className={flagBase("items-center justify-center bg-sky-800")}>
-      <span className="grid grid-cols-3 gap-[1px]">
-        {Array.from({ length: 9 }).map((_, index) => (
-          <span key={index} className="h-[2px] w-[2px] rounded-full bg-yellow-300" />
+    <span className={flagBase("bg-sky-800")}>
+      <svg
+        aria-hidden="true"
+        className="h-full w-full"
+        viewBox="0 0 60 40"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="60" height="40" fill="#1d4ed8" />
+        {stars.map((star, index) => (
+          <g key={index} transform={`translate(${star.x} ${star.y}) scale(0.62)`}>
+            <path
+              d="M0 -4 L1.18 -1.45 L3.95 -1.22 L1.88 0.72 L2.52 3.5 L0 2.08 L-2.52 3.5 L-1.88 0.72 L-3.95 -1.22 L-1.18 -1.45 Z"
+              fill="#facc15"
+            />
+          </g>
         ))}
-      </span>
+      </svg>
     </span>
   )
 }
