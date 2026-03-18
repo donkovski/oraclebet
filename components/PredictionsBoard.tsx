@@ -5,7 +5,7 @@ import CompetitionBadge from "@/components/CompetitionBadge"
 import PredictionCard from "@/components/PredictionCard"
 import PredictionCountdown from "@/components/PredictionCountdown"
 import PredictionMarketBadge from "@/components/PredictionMarketBadge"
-import type { PublicLocale } from "@/lib/public-locale"
+import { translatePredictionText, type PublicLocale } from "@/lib/public-locale"
 import { parseKickoff, sortPredictionsByKickoff } from "@/lib/prediction-utils"
 
 type PredictionItem = {
@@ -63,6 +63,9 @@ export default function PredictionsBoard({
   const activeDate = referencePrediction?.kickoff.split(" ")[0] ?? "—"
   const featuredPrediction = upcomingPredictions[0] ?? null
   const remainingPredictions = featuredPrediction ? upcomingPredictions.slice(1) : []
+  const featuredDisplayPrediction = featuredPrediction
+    ? translatePredictionText(featuredPrediction.prediction, locale)
+    : ""
 
   const copy =
     locale === "en"
@@ -201,7 +204,7 @@ export default function PredictionsBoard({
                       {copy.prediction}
                     </p>
                     <p className="mt-3 text-2xl font-bold text-white">
-                      {featuredPrediction.prediction}
+                      {featuredDisplayPrediction}
                     </p>
                   </div>
 

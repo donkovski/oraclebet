@@ -24,11 +24,11 @@ export function sortPredictionsByKickoff<T extends { kickoff: string }>(items: T
 export function getPredictionCategory(prediction: string) {
   const normalized = prediction.toLowerCase()
 
-  if (normalized.includes("картон")) {
+  if (normalized.includes("картон") || normalized.includes("card")) {
     return "cards" as const
   }
 
-  if (normalized.includes("гол")) {
+  if (normalized.includes("гол") || normalized.includes("goal")) {
     return "goals" as const
   }
 

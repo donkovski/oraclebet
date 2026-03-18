@@ -1,7 +1,7 @@
 import CompetitionBadge from "@/components/CompetitionBadge"
 import PredictionCountdown from "@/components/PredictionCountdown"
 import PredictionMarketBadge from "@/components/PredictionMarketBadge"
-import type { PublicLocale } from "@/lib/public-locale"
+import { translatePredictionText, type PublicLocale } from "@/lib/public-locale"
 
 type Props = {
   match: string
@@ -22,6 +22,8 @@ export default function PredictionCard({
   odds,
   locale = "bg",
 }: Props) {
+  const displayPrediction = translatePredictionText(prediction, locale)
+
   return (
     <article className="group relative overflow-hidden rounded-[24px] border border-white/10 bg-slate-950/24 p-5 shadow-[0_18px_40px_rgba(8,15,34,0.2)] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-orange-300/45 hover:bg-slate-950/32">
       <div className="relative z-10">
@@ -49,7 +51,7 @@ export default function PredictionCard({
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
             {locale === "en" ? "Prediction" : "Прогноза"}
           </p>
-          <p className="mt-1.5 text-lg font-semibold text-white">{prediction}</p>
+          <p className="mt-1.5 text-lg font-semibold text-white">{displayPrediction}</p>
         </div>
 
         <div className="mt-4">

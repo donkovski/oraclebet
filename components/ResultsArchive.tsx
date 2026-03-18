@@ -1,7 +1,11 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import type { PublicLocale } from "@/lib/public-locale"
+import {
+  translatePredictionText,
+  translateResultText,
+  type PublicLocale,
+} from "@/lib/public-locale"
 import type { Result } from "../types/results"
 
 type ResultsArchiveProps = {
@@ -349,10 +353,12 @@ export default function ResultsArchive({
                   <h3 className="text-xl font-semibold text-white">{item.match}</h3>
                   <p className="mt-3 text-white/85">
                     {copy.prediction}:{" "}
-                    <span className="font-semibold text-white">{item.prediction}</span>
+                    <span className="font-semibold text-white">
+                      {translatePredictionText(item.prediction, locale)}
+                    </span>
                   </p>
                   <p className="mt-1 text-white/75">
-                    {copy.result}: {item.result}
+                    {copy.result}: {translateResultText(item.result, locale)}
                   </p>
                   <p className="mt-1 text-white/70">
                     {copy.odds}:{" "}
