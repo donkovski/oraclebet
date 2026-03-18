@@ -3,100 +3,117 @@ type Props = {
 }
 
 function normalizeCountry(country: string) {
-  return country.trim().toLowerCase()
+  return country
+    .trim()
+    .toLowerCase()
+    .replace(/[.'’]/g, "")
+    .replace(/\s+/g, " ")
 }
 
 function flagBase(className = "") {
   return `inline-flex h-4 w-6 overflow-hidden rounded-[3px] border border-white/15 shadow-[0_0_10px_rgba(15,23,42,0.18)] ${className}`.trim()
 }
 
-function SpainFlag() {
-  return (
-    <span className={flagBase()}>
-      <span className="h-full w-full bg-red-500">
-        <span className="mt-[4px] block h-[8px] w-full bg-yellow-300" />
-      </span>
-    </span>
-  )
+function registerAliases(map: Map<string, string>, code: string, aliases: string[]) {
+  for (const alias of aliases) {
+    map.set(normalizeCountry(alias), code)
+  }
 }
 
-function ItalyFlag() {
-  return (
-    <span className={flagBase()}>
-      <span className="h-full w-1/3 bg-emerald-500" />
-      <span className="h-full w-1/3 bg-white" />
-      <span className="h-full w-1/3 bg-rose-500" />
-    </span>
-  )
-}
+const COUNTRY_CODE_MAP = new Map<string, string>()
 
-function GermanyFlag() {
-  return (
-    <span className={flagBase("flex-col")}>
-      <span className="h-1/3 w-full bg-black" />
-      <span className="h-1/3 w-full bg-red-600" />
-      <span className="h-1/3 w-full bg-amber-400" />
-    </span>
-  )
-}
+registerAliases(COUNTRY_CODE_MAP, "al", ["Албания", "Albania"])
+registerAliases(COUNTRY_CODE_MAP, "ad", ["Андора", "Andorra"])
+registerAliases(COUNTRY_CODE_MAP, "am", ["Армения", "Armenia"])
+registerAliases(COUNTRY_CODE_MAP, "at", ["Австрия", "Austria"])
+registerAliases(COUNTRY_CODE_MAP, "az", ["Азербайджан", "Azerbaijan"])
+registerAliases(COUNTRY_CODE_MAP, "by", ["Беларус", "Belarus"])
+registerAliases(COUNTRY_CODE_MAP, "be", ["Белгия", "Belgium"])
+registerAliases(COUNTRY_CODE_MAP, "ba", ["Босна и Херцеговина", "Bosnia and Herzegovina"])
+registerAliases(COUNTRY_CODE_MAP, "bg", ["България", "Bulgaria"])
+registerAliases(COUNTRY_CODE_MAP, "hr", ["Хърватия", "Croatia"])
+registerAliases(COUNTRY_CODE_MAP, "cy", ["Кипър", "Cyprus"])
+registerAliases(COUNTRY_CODE_MAP, "cz", ["Чехия", "Czechia", "Czech Republic"])
+registerAliases(COUNTRY_CODE_MAP, "dk", ["Дания", "Denmark"])
+registerAliases(COUNTRY_CODE_MAP, "ee", ["Естония", "Estonia"])
+registerAliases(COUNTRY_CODE_MAP, "fi", ["Финландия", "Finland"])
+registerAliases(COUNTRY_CODE_MAP, "fr", ["Франция", "France"])
+registerAliases(COUNTRY_CODE_MAP, "ge", ["Грузия", "Georgia"])
+registerAliases(COUNTRY_CODE_MAP, "de", ["Германия", "Germany"])
+registerAliases(COUNTRY_CODE_MAP, "gr", ["Гърция", "Greece"])
+registerAliases(COUNTRY_CODE_MAP, "hu", ["Унгария", "Hungary"])
+registerAliases(COUNTRY_CODE_MAP, "is", ["Исландия", "Iceland"])
+registerAliases(COUNTRY_CODE_MAP, "ie", ["Ирландия", "Ireland"])
+registerAliases(COUNTRY_CODE_MAP, "it", ["Италия", "Italy"])
+registerAliases(COUNTRY_CODE_MAP, "xk", ["Косово", "Kosovo"])
+registerAliases(COUNTRY_CODE_MAP, "lv", ["Латвия", "Latvia"])
+registerAliases(COUNTRY_CODE_MAP, "li", ["Лихтенщайн", "Liechtenstein"])
+registerAliases(COUNTRY_CODE_MAP, "lt", ["Литва", "Lithuania"])
+registerAliases(COUNTRY_CODE_MAP, "lu", ["Люксембург", "Luxembourg"])
+registerAliases(COUNTRY_CODE_MAP, "mt", ["Малта", "Malta"])
+registerAliases(COUNTRY_CODE_MAP, "md", ["Молдова", "Moldova"])
+registerAliases(COUNTRY_CODE_MAP, "mc", ["Монако", "Monaco"])
+registerAliases(COUNTRY_CODE_MAP, "me", ["Черна гора", "Montenegro"])
+registerAliases(COUNTRY_CODE_MAP, "nl", ["Нидерландия", "Нидерланды", "Холандия", "Netherlands", "Holland"])
+registerAliases(COUNTRY_CODE_MAP, "mk", ["Северна Македония", "North Macedonia", "Macedonia"])
+registerAliases(COUNTRY_CODE_MAP, "no", ["Норвегия", "Norway"])
+registerAliases(COUNTRY_CODE_MAP, "pl", ["Полша", "Poland"])
+registerAliases(COUNTRY_CODE_MAP, "pt", ["Португалия", "Portugal"])
+registerAliases(COUNTRY_CODE_MAP, "ro", ["Румъния", "Romania"])
+registerAliases(COUNTRY_CODE_MAP, "ru", ["Русия", "Russia"])
+registerAliases(COUNTRY_CODE_MAP, "sm", ["Сан Марино", "San Marino"])
+registerAliases(COUNTRY_CODE_MAP, "rs", ["Сърбия", "Serbia"])
+registerAliases(COUNTRY_CODE_MAP, "sk", ["Словакия", "Slovakia"])
+registerAliases(COUNTRY_CODE_MAP, "si", ["Словения", "Slovenia"])
+registerAliases(COUNTRY_CODE_MAP, "es", ["Испания", "Spain"])
+registerAliases(COUNTRY_CODE_MAP, "se", ["Швеция", "Sweden"])
+registerAliases(COUNTRY_CODE_MAP, "ch", ["Швейцария", "Switzerland", "Swiss"])
+registerAliases(COUNTRY_CODE_MAP, "tr", ["Турция", "Turkey"])
+registerAliases(COUNTRY_CODE_MAP, "ua", ["Украйна", "Ukraine"])
+registerAliases(COUNTRY_CODE_MAP, "va", ["Ватикан", "Vatican", "Vatican City"])
+
+registerAliases(COUNTRY_CODE_MAP, "ag", ["Антигуа и Барбуда", "Antigua and Barbuda"])
+registerAliases(COUNTRY_CODE_MAP, "bs", ["Бахами", "Bahamas"])
+registerAliases(COUNTRY_CODE_MAP, "bb", ["Барбадос", "Barbados"])
+registerAliases(COUNTRY_CODE_MAP, "bz", ["Белиз", "Belize"])
+registerAliases(COUNTRY_CODE_MAP, "ca", ["Канада", "Canada"])
+registerAliases(COUNTRY_CODE_MAP, "cr", ["Коста Рика", "Costa Rica"])
+registerAliases(COUNTRY_CODE_MAP, "cu", ["Куба", "Cuba"])
+registerAliases(COUNTRY_CODE_MAP, "dm", ["Доминика", "Dominica"])
+registerAliases(COUNTRY_CODE_MAP, "do", ["Доминиканска република", "Dominican Republic"])
+registerAliases(COUNTRY_CODE_MAP, "sv", ["Салвадор", "Ел Салвадор", "El Salvador"])
+registerAliases(COUNTRY_CODE_MAP, "gd", ["Гренада", "Grenada"])
+registerAliases(COUNTRY_CODE_MAP, "gt", ["Гватемала", "Guatemala"])
+registerAliases(COUNTRY_CODE_MAP, "ht", ["Хаити", "Haiti"])
+registerAliases(COUNTRY_CODE_MAP, "hn", ["Хондурас", "Honduras"])
+registerAliases(COUNTRY_CODE_MAP, "jm", ["Ямайка", "Jamaica"])
+registerAliases(COUNTRY_CODE_MAP, "mx", ["Мексико", "Mexico"])
+registerAliases(COUNTRY_CODE_MAP, "ni", ["Никарагуа", "Nicaragua"])
+registerAliases(COUNTRY_CODE_MAP, "pa", ["Панама", "Panama"])
+registerAliases(COUNTRY_CODE_MAP, "kn", ["Сейнт Китс и Невис", "Saint Kitts and Nevis"])
+registerAliases(COUNTRY_CODE_MAP, "lc", ["Сейнт Лусия", "Saint Lucia"])
+registerAliases(COUNTRY_CODE_MAP, "vc", ["Сейнт Винсент и Гренадини", "Saint Vincent and the Grenadines"])
+registerAliases(COUNTRY_CODE_MAP, "tt", ["Тринидад и Тобаго", "Trinidad and Tobago"])
+registerAliases(COUNTRY_CODE_MAP, "us", ["САЩ", "Съединени американски щати", "USA", "United States", "United States of America"])
+
+registerAliases(COUNTRY_CODE_MAP, "ar", ["Аржентина", "Argentina"])
+registerAliases(COUNTRY_CODE_MAP, "bo", ["Боливия", "Bolivia"])
+registerAliases(COUNTRY_CODE_MAP, "br", ["Бразилия", "Brazil"])
+registerAliases(COUNTRY_CODE_MAP, "cl", ["Чили", "Chile"])
+registerAliases(COUNTRY_CODE_MAP, "co", ["Колумбия", "Colombia"])
+registerAliases(COUNTRY_CODE_MAP, "ec", ["Еквадор", "Ecuador"])
+registerAliases(COUNTRY_CODE_MAP, "gy", ["Гвиана", "Guyana"])
+registerAliases(COUNTRY_CODE_MAP, "py", ["Парагвай", "Paraguay"])
+registerAliases(COUNTRY_CODE_MAP, "pe", ["Перу", "Peru"])
+registerAliases(COUNTRY_CODE_MAP, "sr", ["Суринам", "Suriname"])
+registerAliases(COUNTRY_CODE_MAP, "uy", ["Уругвай", "Uruguay"])
+registerAliases(COUNTRY_CODE_MAP, "ve", ["Венецуела", "Venezuela"])
 
 function EnglandFlag() {
   return (
     <span className={flagBase("relative bg-white")}>
       <span className="absolute left-1/2 top-0 h-full w-[4px] -translate-x-1/2 bg-red-600" />
       <span className="absolute left-0 top-1/2 h-[4px] w-full -translate-y-1/2 bg-red-600" />
-    </span>
-  )
-}
-
-function FranceFlag() {
-  return (
-    <span className={flagBase()}>
-      <span className="h-full w-1/3 bg-sky-700" />
-      <span className="h-full w-1/3 bg-white" />
-      <span className="h-full w-1/3 bg-rose-600" />
-    </span>
-  )
-}
-
-function UsaFlag() {
-  return (
-    <span className={flagBase()}>
-      <span className="relative h-full w-full bg-white">
-        <span className="absolute left-0 top-0 h-[54%] w-[45%] bg-sky-900" />
-        <span className="absolute inset-0 flex flex-col justify-between py-[1px]">
-          <span className="block h-[1px] bg-rose-600" />
-          <span className="block h-[1px] bg-rose-600" />
-          <span className="block h-[1px] bg-rose-600" />
-          <span className="block h-[1px] bg-rose-600" />
-          <span className="block h-[1px] bg-rose-600" />
-          <span className="block h-[1px] bg-rose-600" />
-          <span className="block h-[1px] bg-rose-600" />
-        </span>
-      </span>
-    </span>
-  )
-}
-
-function CanadaFlag() {
-  return (
-    <span className={flagBase()}>
-      <span className="h-full w-1/4 bg-rose-600" />
-      <span className="relative flex h-full w-1/2 items-center justify-center bg-white">
-        <span className="h-2.5 w-2.5 rounded-full bg-rose-600/90" />
-      </span>
-      <span className="h-full w-1/4 bg-rose-600" />
-    </span>
-  )
-}
-
-function SwitzerlandFlag() {
-  return (
-    <span className={flagBase("items-center justify-center bg-red-600")}>
-      <span className="relative block h-2.5 w-2.5">
-        <span className="absolute left-1/2 top-0 h-full w-[3px] -translate-x-1/2 rounded-full bg-white" />
-        <span className="absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-white" />
-      </span>
     </span>
   )
 }
@@ -132,6 +149,18 @@ function EuropeFlag() {
   )
 }
 
+function CountryImageFlag({ code, country }: { code: string; country: string }) {
+  return (
+    <span
+      aria-label={`Флаг на ${country}`}
+      className={flagBase("bg-cover bg-center bg-no-repeat")}
+      role="img"
+      style={{ backgroundImage: `url(https://flagcdn.com/${code}.svg)` }}
+      title={country}
+    />
+  )
+}
+
 function FallbackFlag({ country }: Props) {
   const label = country
     .split(/[\s-/]+/)
@@ -151,41 +180,31 @@ function FallbackFlag({ country }: Props) {
 }
 
 export default function CountryFlag({ country }: Props) {
-  switch (normalizeCountry(country)) {
-    case "испания":
-    case "spain":
-      return <SpainFlag />
-    case "италия":
-    case "italy":
-      return <ItalyFlag />
-    case "германия":
-    case "germany":
-      return <GermanyFlag />
-    case "англия":
-    case "england":
-    case "великобритания":
-    case "united kingdom":
-      return <EnglandFlag />
-    case "франция":
-    case "france":
-      return <FranceFlag />
-    case "швейцария":
-    case "switzerland":
-    case "swiss":
-      return <SwitzerlandFlag />
-    case "европа":
-    case "europe":
-    case "european union":
-    case "eu":
-      return <EuropeFlag />
-    case "сащ":
-    case "usa":
-    case "united states":
-      return <UsaFlag />
-    case "канада":
-    case "canada":
-      return <CanadaFlag />
-    default:
-      return <FallbackFlag country={country} />
+  const normalizedCountry = normalizeCountry(country)
+
+  if (
+    normalizedCountry === "англия" ||
+    normalizedCountry === "england" ||
+    normalizedCountry === "великобритания" ||
+    normalizedCountry === "united kingdom"
+  ) {
+    return <EnglandFlag />
   }
+
+  if (
+    normalizedCountry === "европа" ||
+    normalizedCountry === "europe" ||
+    normalizedCountry === "european union" ||
+    normalizedCountry === "eu"
+  ) {
+    return <EuropeFlag />
+  }
+
+  const code = COUNTRY_CODE_MAP.get(normalizedCountry)
+
+  if (code) {
+    return <CountryImageFlag code={code} country={country} />
+  }
+
+  return <FallbackFlag country={country} />
 }

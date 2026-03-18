@@ -77,6 +77,32 @@ function getAdminHeaders() {
   }
 }
 
+async function getSupabaseErrorMessage(response: Response, fallback: string) {
+  try {
+    const payload = await response.json()
+
+    if (typeof payload?.message === "string" && payload.message.trim()) {
+      return payload.message
+    }
+
+    if (typeof payload?.error === "string" && payload.error.trim()) {
+      return payload.error
+    }
+
+    if (typeof payload?.hint === "string" && payload.hint.trim()) {
+      return payload.hint
+    }
+
+    if (typeof payload?.details === "string" && payload.details.trim()) {
+      return payload.details
+    }
+  } catch {
+    // Ignore JSON parsing errors and use the fallback below.
+  }
+
+  return `${fallback} (${response.status})`
+}
+
 function parseOffsetValue(offsetValue: string) {
   const match = offsetValue.match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/)
 
@@ -146,7 +172,7 @@ export async function getAdminPredictions() {
   })
 
   if (!response.ok) {
-    throw new Error(`Supabase admin request failed with status ${response.status}`)
+    throw new Error(await getSupabaseErrorMessage(response, "Грешка при зареждане на прогнозите"))
   }
 
   return (await response.json()) as AdminPredictionRow[]
@@ -183,7 +209,7 @@ export async function saveAdminPrediction(input: AdminPredictionInput) {
     })
 
     if (!response.ok) {
-      throw new Error(`Supabase update failed with status ${response.status}`)
+      throw new Error(await getSupabaseErrorMessage(response, "Грешка при обновяване на прогнозата"))
     }
 
     return
@@ -200,7 +226,7 @@ export async function saveAdminPrediction(input: AdminPredictionInput) {
   })
 
   if (!response.ok) {
-    throw new Error(`Supabase insert failed with status ${response.status}`)
+    throw new Error(await getSupabaseErrorMessage(response, "Грешка при добавяне на прогнозата"))
   }
 }
 
