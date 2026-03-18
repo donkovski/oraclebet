@@ -1,5 +1,6 @@
 import type { DisplayPrediction } from "@/lib/supabase-content"
 import type { PublicLocale } from "@/lib/public-locale"
+import type { PredictionSport } from "@/lib/sports"
 import Link from "next/link"
 import PredictionsBoard from "@/components/PredictionsBoard"
 
@@ -19,6 +20,7 @@ type SportPredictionsPageProps = {
   accentClassName: string
   links: NavLink[]
   locale?: PublicLocale
+  sport?: PredictionSport
 }
 
 export default function SportPredictionsPage({
@@ -31,6 +33,7 @@ export default function SportPredictionsPage({
   accentClassName,
   links,
   locale = "bg",
+  sport = "football",
 }: SportPredictionsPageProps) {
   if (predictions.length === 0) {
     return (
@@ -73,6 +76,7 @@ export default function SportPredictionsPage({
       introTitle={introTitle}
       finishedTitle={finishedTitle}
       locale={locale}
+      sport={sport}
     />
   )
 }

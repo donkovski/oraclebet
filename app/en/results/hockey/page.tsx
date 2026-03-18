@@ -24,6 +24,7 @@ export default async function EnglishHockeyResultsPage() {
       predictionLabel="Hockey tips"
       accentClassName="text-sky-200"
       locale="en"
+      sport="hockey"
     />
   )
 }

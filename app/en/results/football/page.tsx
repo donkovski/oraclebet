@@ -24,6 +24,7 @@ export default async function EnglishFootballResultsPage() {
       predictionLabel="Football tips"
       accentClassName="text-orange-200"
       locale="en"
+      sport="football"
     />
   )
 }

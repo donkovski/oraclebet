@@ -1,4 +1,5 @@
 import type { PublicLocale } from "@/lib/public-locale"
+import type { PredictionSport } from "@/lib/sports"
 import {
   getPredictionCategory,
   getPredictionCategoryLabel,
@@ -7,14 +8,16 @@ import {
 type Props = {
   prediction: string
   locale?: PublicLocale
+  sport?: PredictionSport
 }
 
 export default function PredictionMarketBadge({
   prediction,
   locale = "bg",
+  sport = "football",
 }: Props) {
-  const category = getPredictionCategory(prediction)
-  const label = getPredictionCategoryLabel(prediction, locale)
+  const category = getPredictionCategory(prediction, sport)
+  const label = getPredictionCategoryLabel(prediction, locale, sport)
 
   if (category === "cards") {
     return (
@@ -25,7 +28,7 @@ export default function PredictionMarketBadge({
     )
   }
 
-  if (category === "goals") {
+  if (category === "totals") {
     return (
       <span className="inline-flex items-center gap-2 rounded-full border border-emerald-300/30 bg-emerald-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-100">
         <span className="inline-flex h-4 w-4 items-center justify-center">

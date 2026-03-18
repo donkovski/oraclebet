@@ -5,8 +5,13 @@ import CompetitionBadge from "@/components/CompetitionBadge"
 import PredictionCard from "@/components/PredictionCard"
 import PredictionCountdown from "@/components/PredictionCountdown"
 import PredictionMarketBadge from "@/components/PredictionMarketBadge"
-import { translatePredictionText, type PublicLocale } from "@/lib/public-locale"
+import {
+  translateMatchText,
+  translatePredictionText,
+  type PublicLocale,
+} from "@/lib/public-locale"
 import { parseKickoff, sortPredictionsByKickoff } from "@/lib/prediction-utils"
+import type { PredictionSport } from "@/lib/sports"
 
 type PredictionItem = {
   match: string
@@ -23,6 +28,7 @@ type Props = {
   introTitle?: string
   finishedTitle?: string
   locale?: PublicLocale
+  sport?: PredictionSport
 }
 
 export default function PredictionsBoard({
@@ -31,6 +37,7 @@ export default function PredictionsBoard({
   introTitle = "Днешните футболни селекции са вече публикувани.",
   finishedTitle = "Всички футболни прогнози за деня вече са започнали.",
   locale = "bg",
+  sport = "football",
 }: Props) {
   const [now, setNow] = useState(() => Date.now())
 
@@ -64,7 +71,10 @@ export default function PredictionsBoard({
   const featuredPrediction = upcomingPredictions[0] ?? null
   const remainingPredictions = featuredPrediction ? upcomingPredictions.slice(1) : []
   const featuredDisplayPrediction = featuredPrediction
-    ? translatePredictionText(featuredPrediction.prediction, locale)
+    ? translatePredictionText(featuredPrediction.prediction, locale, sport)
+    : ""
+  const featuredDisplayMatch = featuredPrediction
+    ? translateMatchText(featuredPrediction.match, locale)
     : ""
 
   const copy =
@@ -159,6 +169,7 @@ export default function PredictionsBoard({
                   prediction={item.prediction}
                   odds={item.odds}
                   locale={locale}
+                  sport={sport}
                 />
               ))}
             </div>
@@ -174,13 +185,14 @@ export default function PredictionsBoard({
             <article className="relative overflow-hidden rounded-[30px] border border-orange-300/28 bg-slate-950/26 p-6 shadow-[0_20px_48px_rgba(8,15,34,0.2)] backdrop-blur-xl md:p-8">
               <div className="relative z-10">
                 <h2 className="text-3xl font-black text-white md:text-4xl">
-                  {featuredPrediction.match}
+                  {featuredDisplayMatch}
                 </h2>
 
                 <div className="mt-4 flex flex-wrap gap-3">
                   <PredictionMarketBadge
                     prediction={featuredPrediction.prediction}
                     locale={locale}
+                    sport={sport}
                   />
                   <CompetitionBadge
                     country={featuredPrediction.country}
@@ -219,10 +231,7 @@ export default function PredictionsBoard({
                 </div>
 
                 <div className="mt-4">
-                  <PredictionCountdown
-                    kickoff={featuredPrediction.kickoff}
-                    locale={locale}
-                  />
+                  <PredictionCountdown kickoff={featuredPrediction.kickoff} locale={locale} />
                 </div>
               </div>
             </article>
@@ -238,6 +247,7 @@ export default function PredictionsBoard({
                   prediction={item.prediction}
                   odds={item.odds}
                   locale={locale}
+                  sport={sport}
                 />
               ))}
             </div>

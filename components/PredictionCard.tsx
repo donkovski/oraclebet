@@ -1,7 +1,12 @@
 import CompetitionBadge from "@/components/CompetitionBadge"
 import PredictionCountdown from "@/components/PredictionCountdown"
 import PredictionMarketBadge from "@/components/PredictionMarketBadge"
-import { translatePredictionText, type PublicLocale } from "@/lib/public-locale"
+import {
+  translateMatchText,
+  translatePredictionText,
+  type PublicLocale,
+} from "@/lib/public-locale"
+import type { PredictionSport } from "@/lib/sports"
 
 type Props = {
   match: string
@@ -11,6 +16,7 @@ type Props = {
   prediction: string
   odds: string
   locale?: PublicLocale
+  sport?: PredictionSport
 }
 
 export default function PredictionCard({
@@ -21,8 +27,10 @@ export default function PredictionCard({
   prediction,
   odds,
   locale = "bg",
+  sport = "football",
 }: Props) {
-  const displayPrediction = translatePredictionText(prediction, locale)
+  const displayMatch = translateMatchText(match, locale)
+  const displayPrediction = translatePredictionText(prediction, locale, sport)
 
   return (
     <article className="group relative overflow-hidden rounded-[24px] border border-white/10 bg-slate-950/24 p-5 shadow-[0_18px_40px_rgba(8,15,34,0.2)] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-orange-300/45 hover:bg-slate-950/32">
@@ -35,10 +43,10 @@ export default function PredictionCard({
           </div>
         </div>
 
-        <h3 className="mt-4 text-[1.85rem] font-bold leading-tight text-white">{match}</h3>
+        <h3 className="mt-4 text-[1.85rem] font-bold leading-tight text-white">{displayMatch}</h3>
 
         <div className="mt-3 flex flex-wrap gap-3">
-          <PredictionMarketBadge prediction={prediction} locale={locale} />
+          <PredictionMarketBadge prediction={prediction} locale={locale} sport={sport} />
 
           {country && league && (
             <div>

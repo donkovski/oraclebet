@@ -1,5 +1,6 @@
 import type { Result } from "@/types/results"
 import type { PublicLocale } from "@/lib/public-locale"
+import type { PredictionSport } from "@/lib/sports"
 import Link from "next/link"
 import ProfitChart from "@/components/ProfitChart"
 import ResultsArchive from "@/components/ResultsArchive"
@@ -14,6 +15,7 @@ type SportResultsPageProps = {
   predictionLabel: string
   accentClassName: string
   locale?: PublicLocale
+  sport?: PredictionSport
 }
 
 export default function SportResultsPage({
@@ -25,6 +27,7 @@ export default function SportResultsPage({
   predictionLabel,
   accentClassName,
   locale = "bg",
+  sport = "football",
 }: SportResultsPageProps) {
   const total = results.length
   const wins = results.filter((result) => result.status === "WIN").length
@@ -96,7 +99,7 @@ export default function SportResultsPage({
         <h1 className="mt-3 text-4xl font-bold text-white">{label}</h1>
       </section>
 
-      <ResultsArchive results={results} locale={locale} />
+      <ResultsArchive results={results} locale={locale} sport={sport} />
 
       <section className="space-y-6">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3">

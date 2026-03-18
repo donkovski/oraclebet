@@ -2,15 +2,18 @@
 
 import { useMemo, useState } from "react"
 import {
+  translateMatchText,
   translatePredictionText,
   translateResultText,
   type PublicLocale,
 } from "@/lib/public-locale"
+import type { PredictionSport } from "@/lib/sports"
 import type { Result } from "../types/results"
 
 type ResultsArchiveProps = {
   results: Result[]
   locale?: PublicLocale
+  sport?: PredictionSport
 }
 
 type DateGroup = {
@@ -175,6 +178,7 @@ function SelectField({
 export default function ResultsArchive({
   results,
   locale = "bg",
+  sport = "football",
 }: ResultsArchiveProps) {
   const copy =
     locale === "en"
@@ -350,15 +354,17 @@ export default function ResultsArchive({
             >
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                 <div>
-                  <h3 className="text-xl font-semibold text-white">{item.match}</h3>
+                  <h3 className="text-xl font-semibold text-white">
+                    {translateMatchText(item.match, locale)}
+                  </h3>
                   <p className="mt-3 text-white/85">
                     {copy.prediction}:{" "}
                     <span className="font-semibold text-white">
-                      {translatePredictionText(item.prediction, locale)}
+                      {translatePredictionText(item.prediction, locale, sport)}
                     </span>
                   </p>
                   <p className="mt-1 text-white/75">
-                    {copy.result}: {translateResultText(item.result, locale)}
+                    {copy.result}: {translateResultText(item.result, locale, sport)}
                   </p>
                   <p className="mt-1 text-white/70">
                     {copy.odds}:{" "}

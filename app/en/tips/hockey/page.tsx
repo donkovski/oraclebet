@@ -28,6 +28,7 @@ export default async function EnglishHockeyTipsPage() {
         { href: "/en/results/hockey", label: "Hockey results", primary: true },
       ]}
       locale="en"
+      sport="hockey"
     />
   )
 }

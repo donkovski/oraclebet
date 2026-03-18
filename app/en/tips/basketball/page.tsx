@@ -28,6 +28,7 @@ export default async function EnglishBasketballTipsPage() {
         { href: "/en/results/basketball", label: "Basketball results", primary: true },
       ]}
       locale="en"
+      sport="basketball"
     />
   )
 }
