@@ -1,3 +1,4 @@
+import type { PublicLocale } from "@/lib/public-locale"
 import {
   getPredictionCategory,
   getPredictionCategoryLabel,
@@ -5,11 +6,15 @@ import {
 
 type Props = {
   prediction: string
+  locale?: PublicLocale
 }
 
-export default function PredictionMarketBadge({ prediction }: Props) {
+export default function PredictionMarketBadge({
+  prediction,
+  locale = "bg",
+}: Props) {
   const category = getPredictionCategory(prediction)
-  const label = getPredictionCategoryLabel(prediction)
+  const label = getPredictionCategoryLabel(prediction, locale)
 
   if (category === "cards") {
     return (

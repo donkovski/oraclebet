@@ -2,18 +2,21 @@
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js"
 import { Pie } from "react-chartjs-2"
+import type { PublicLocale } from "@/lib/public-locale"
 import type { Result } from "../types/results"
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 type Props = {
   results: Result[]
+  locale?: PublicLocale
 }
 
-export default function ResultsPieChart({ results }: Props) {
+export default function ResultsPieChart({ results, locale = "bg" }: Props) {
   const wins = results.filter((r) => r.status === "WIN").length
   const losses = results.filter((r) => r.status === "LOSE").length
   const voids = results.filter((r) => r.status === "VOID").length
+  const chartTitle = locale === "en" ? "Win / Lose chart" : "Win / Lose графика"
 
   const data = {
     labels: ["WIN", "LOSE", "VOID"],
@@ -39,8 +42,8 @@ export default function ResultsPieChart({ results }: Props) {
   }
 
   return (
-    <div className="bg-slate-800 rounded-xl p-6 mb-10">
-      <h2 className="text-2xl font-bold mb-6">Win / Lose графика</h2>
+    <div className="mb-10 rounded-xl bg-slate-800 p-6">
+      <h2 className="mb-6 text-2xl font-bold">{chartTitle}</h2>
 
       <div className="h-80">
         <Pie data={data} options={options} />

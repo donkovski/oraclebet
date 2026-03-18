@@ -71,5 +71,71 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.65,
     },
+    {
+      url: `${siteConfig.siteUrl}/en`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${siteConfig.siteUrl}/en/tips`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.85,
+    },
+    {
+      url: `${siteConfig.siteUrl}/en/tips/football`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${siteConfig.siteUrl}/en/tips/hockey`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.75,
+    },
+    {
+      url: `${siteConfig.siteUrl}/en/tips/basketball`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.65,
+    },
+    {
+      url: `${siteConfig.siteUrl}/en/tips/baseball`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.65,
+    },
+    {
+      url: `${siteConfig.siteUrl}/en/results`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${siteConfig.siteUrl}/en/results/football`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.75,
+    },
+    {
+      url: `${siteConfig.siteUrl}/en/results/hockey`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.7,
+    },
+    {
+      url: `${siteConfig.siteUrl}/en/results/basketball`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    },
+    {
+      url: `${siteConfig.siteUrl}/en/results/baseball`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    },
   ]
 }

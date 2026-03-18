@@ -10,6 +10,7 @@ import {
   Legend,
 } from "chart.js"
 import { Line } from "react-chartjs-2"
+import type { PublicLocale } from "@/lib/public-locale"
 import type { Result } from "../types/results"
 
 ChartJS.register(
@@ -23,6 +24,7 @@ ChartJS.register(
 
 type Props = {
   results: Result[]
+  locale?: PublicLocale
 }
 
 function getCumulativeProfit(results: Result[]) {
@@ -39,7 +41,26 @@ function getCumulativeProfit(results: Result[]) {
   })
 }
 
-export default function ProfitChart({ results }: Props) {
+export default function ProfitChart({ results, locale = "bg" }: Props) {
+  const copy =
+    locale === "en"
+      ? {
+          chartTitle: "Profit chart",
+          dataset: "Cumulative profit",
+          settledBets: "Settled bets",
+          voidBets: "Void bets",
+          averageOdds: "Average odds",
+          highestOdds: "Highest odds",
+        }
+      : {
+          chartTitle: "Profit графика",
+          dataset: "Натрупан profit",
+          settledBets: "Settled bets",
+          voidBets: "Void bets",
+          averageOdds: "Average odds",
+          highestOdds: "Highest odds",
+        }
+
   const cumulativeProfit = getCumulativeProfit(results)
 
   const settledBets = results.filter((r) => r.status !== "VOID").length
@@ -57,7 +78,7 @@ export default function ProfitChart({ results }: Props) {
     labels: cumulativeProfit.map((item) => item.x),
     datasets: [
       {
-        label: "Натрупан profit",
+        label: copy.dataset,
         data: cumulativeProfit.map((item) => item.y),
         borderColor: "#f97316",
         backgroundColor: "#f97316",
@@ -97,8 +118,8 @@ export default function ProfitChart({ results }: Props) {
   }
 
   return (
-    <div className="bg-slate-800 rounded-xl p-6 mb-10">
-      <h2 className="text-2xl font-bold mb-6">Profit графика</h2>
+    <div className="mb-10 rounded-xl bg-slate-800 p-6">
+      <h2 className="mb-6 text-2xl font-bold">{copy.chartTitle}</h2>
 
       <div className="grid grid-cols-1 gap-4">
         <div className="h-80">
@@ -106,24 +127,24 @@ export default function ProfitChart({ results }: Props) {
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <div className="bg-slate-900 rounded-lg p-3 text-center flex flex-col justify-center">
-            <p className="text-slate-400 text-sm">Settled bets</p>
-            <p className="text-white text-xl font-bold">{settledBets}</p>
+          <div className="flex flex-col justify-center rounded-lg bg-slate-900 p-3 text-center">
+            <p className="text-sm text-slate-400">{copy.settledBets}</p>
+            <p className="text-xl font-bold text-white">{settledBets}</p>
           </div>
 
-          <div className="bg-slate-900 rounded-lg p-3 text-center flex flex-col justify-center">
-            <p className="text-slate-400 text-sm">Void bets</p>
-            <p className="text-slate-300 text-xl font-bold">{voidBets}</p>
+          <div className="flex flex-col justify-center rounded-lg bg-slate-900 p-3 text-center">
+            <p className="text-sm text-slate-400">{copy.voidBets}</p>
+            <p className="text-xl font-bold text-slate-300">{voidBets}</p>
           </div>
 
-          <div className="bg-slate-900 rounded-lg p-3 text-center flex flex-col justify-center">
-            <p className="text-slate-400 text-sm">Average odds</p>
-            <p className="text-sky-400 text-xl font-bold">{averageOdds}</p>
+          <div className="flex flex-col justify-center rounded-lg bg-slate-900 p-3 text-center">
+            <p className="text-sm text-slate-400">{copy.averageOdds}</p>
+            <p className="text-xl font-bold text-sky-400">{averageOdds}</p>
           </div>
 
-          <div className="bg-slate-900 rounded-lg p-3 text-center flex flex-col justify-center">
-            <p className="text-slate-400 text-sm">Highest odds</p>
-            <p className="text-orange-400 text-xl font-bold">{highestOdds}</p>
+          <div className="flex flex-col justify-center rounded-lg bg-slate-900 p-3 text-center">
+            <p className="text-sm text-slate-400">{copy.highestOdds}</p>
+            <p className="text-xl font-bold text-orange-400">{highestOdds}</p>
           </div>
         </div>
       </div>

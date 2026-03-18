@@ -1,3 +1,5 @@
+import type { PublicLocale } from "@/lib/public-locale"
+
 export function parseKickoff(kickoff: string) {
   const [datePart = "", timePart = "00:00"] = kickoff.split(" ")
   const [day = "1", month = "1", year = "1970"] = datePart.split(".")
@@ -33,16 +35,19 @@ export function getPredictionCategory(prediction: string) {
   return "market" as const
 }
 
-export function getPredictionCategoryLabel(prediction: string) {
+export function getPredictionCategoryLabel(
+  prediction: string,
+  locale: PublicLocale = "bg"
+) {
   const category = getPredictionCategory(prediction)
 
   if (category === "cards") {
-    return "Картони"
+    return locale === "en" ? "Cards" : "Картони"
   }
 
   if (category === "goals") {
-    return "Голове"
+    return locale === "en" ? "Goals" : "Голове"
   }
 
-  return "Пазар"
+  return locale === "en" ? "Market" : "Пазар"
 }

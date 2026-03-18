@@ -12,6 +12,7 @@ type SportsHubPageProps = {
   title: string
   description: string
   cards: SportCard[]
+  ctaLabel?: string
 }
 
 export default function SportsHubPage({
@@ -19,6 +20,7 @@ export default function SportsHubPage({
   title,
   description,
   cards,
+  ctaLabel = "Отвори секцията",
 }: SportsHubPageProps) {
   return (
     <main className="space-y-8">
@@ -47,7 +49,7 @@ export default function SportsHubPage({
             <p className="mt-4 text-lg font-bold text-white">{card.label}</p>
             <p className="mt-3 text-sm leading-7 text-white/70">{card.description}</p>
             <p className="mt-6 text-sm font-semibold text-orange-200 transition group-hover:text-orange-100">
-              Отвори секцията
+              {ctaLabel}
             </p>
           </Link>
         ))}
