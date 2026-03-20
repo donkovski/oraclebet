@@ -1,4 +1,3 @@
-import type { PublicLocale } from "@/lib/public-locale"
 import type { PredictionSport } from "@/lib/sports"
 
 export function parseKickoff(kickoff: string) {
@@ -62,26 +61,25 @@ export function getPredictionCategory(
 
 export function getPredictionCategoryLabel(
   prediction: string,
-  locale: PublicLocale = "bg",
   sport: PredictionSport = "football"
 ) {
   const category = getPredictionCategory(prediction, sport)
 
   if (category === "cards") {
-    return locale === "en" ? "Cards" : "Картони"
+    return "Картони"
   }
 
   if (category === "totals") {
     if (sport === "basketball") {
-      return locale === "en" ? "Points" : "Точки"
+      return "Точки"
     }
 
     if (sport === "baseball") {
-      return locale === "en" ? "Runs" : "Рънове"
+      return "Рънове"
     }
 
-    return locale === "en" ? "Goals" : "Голове"
+    return "Голове"
   }
 
-  return locale === "en" ? "Market" : "Пазар"
+  return "Пазар"
 }

@@ -1,6 +1,4 @@
 import type { Result } from "@/types/results"
-import type { PublicLocale } from "@/lib/public-locale"
-import type { PredictionSport } from "@/lib/sports"
 import Link from "next/link"
 import ProfitChart from "@/components/ProfitChart"
 import ResultsArchive from "@/components/ResultsArchive"
@@ -14,8 +12,6 @@ type SportResultsPageProps = {
   predictionHref: string
   predictionLabel: string
   accentClassName: string
-  locale?: PublicLocale
-  sport?: PredictionSport
 }
 
 export default function SportResultsPage({
@@ -26,8 +22,6 @@ export default function SportResultsPage({
   predictionHref,
   predictionLabel,
   accentClassName,
-  locale = "bg",
-  sport = "football",
 }: SportResultsPageProps) {
   const total = results.length
   const wins = results.filter((result) => result.status === "WIN").length
@@ -51,21 +45,6 @@ export default function SportResultsPage({
   let roiColor = "text-slate-400"
   if (roiValue > 0) roiColor = "text-green-400"
   if (roiValue < 0) roiColor = "text-red-400"
-
-  const copy =
-    locale === "en"
-      ? {
-          archiveAndStats: "Archive and stats",
-          total: "Total",
-          winRate: "Win Rate",
-          roi: "ROI",
-        }
-      : {
-          archiveAndStats: "Архив и статистика",
-          total: "Общо",
-          winRate: "Win Rate",
-          roi: "ROI",
-        }
 
   if (results.length === 0) {
     return (
@@ -94,17 +73,17 @@ export default function SportResultsPage({
     <main className="space-y-8">
       <section className="rounded-[28px] border border-white/10 bg-slate-950/15 p-6 backdrop-blur-lg md:p-8">
         <p className={`text-sm font-semibold uppercase tracking-[0.18em] ${accentClassName}`}>
-          {copy.archiveAndStats}
+          Архив и статистика
         </p>
         <h1 className="mt-3 text-4xl font-bold text-white">{label}</h1>
       </section>
 
-      <ResultsArchive results={results} locale={locale} sport={sport} />
+      <ResultsArchive results={results} />
 
       <section className="space-y-6">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
           <div className="rounded-2xl border border-white/10 bg-slate-950/15 p-4 text-center backdrop-blur-lg">
-            <p className="text-sm text-white/55">{copy.total}</p>
+            <p className="text-sm text-white/55">Общо</p>
             <p className="text-xl font-bold text-white">{total}</p>
           </div>
 
@@ -124,19 +103,19 @@ export default function SportResultsPage({
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-slate-950/15 p-4 text-center backdrop-blur-lg">
-            <p className="text-sm text-white/55">{copy.winRate}</p>
+            <p className="text-sm text-white/55">Win Rate</p>
             <p className="text-xl font-bold text-green-400">{winRate}%</p>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-slate-950/15 p-4 text-center backdrop-blur-lg">
-            <p className="text-sm text-white/55">{copy.roi}</p>
+            <p className="text-sm text-white/55">ROI</p>
             <p className={`text-xl font-bold ${roiColor}`}>{roi}%</p>
           </div>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          <ProfitChart results={results} locale={locale} />
-          <ResultsPieChart results={results} locale={locale} />
+          <ProfitChart results={results} />
+          <ResultsPieChart results={results} />
         </div>
       </section>
     </main>

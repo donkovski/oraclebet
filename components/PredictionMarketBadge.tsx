@@ -1,23 +1,17 @@
-import type { PublicLocale } from "@/lib/public-locale"
 import type { PredictionSport } from "@/lib/sports"
-import {
-  getPredictionCategory,
-  getPredictionCategoryLabel,
-} from "@/lib/prediction-utils"
+import { getPredictionCategory, getPredictionCategoryLabel } from "@/lib/prediction-utils"
 
 type Props = {
   prediction: string
-  locale?: PublicLocale
   sport?: PredictionSport
 }
 
 export default function PredictionMarketBadge({
   prediction,
-  locale = "bg",
   sport = "football",
 }: Props) {
   const category = getPredictionCategory(prediction, sport)
-  const label = getPredictionCategoryLabel(prediction, locale, sport)
+  const label = getPredictionCategoryLabel(prediction, sport)
 
   if (category === "cards") {
     return (
@@ -41,7 +35,13 @@ export default function PredictionMarketBadge({
             xmlns="http://www.w3.org/2000/svg"
             className="overflow-visible"
           >
-            <circle cx="8" cy="8" r="6.25" className="fill-white stroke-emerald-950" strokeWidth="1.2" />
+            <circle
+              cx="8"
+              cy="8"
+              r="6.25"
+              className="fill-white stroke-emerald-950"
+              strokeWidth="1.2"
+            />
             <path
               d="M8 4.6L10.3 6.2L9.45 8.9H6.55L5.7 6.2L8 4.6Z"
               className="fill-emerald-950"

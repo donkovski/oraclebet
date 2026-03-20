@@ -10,7 +10,6 @@ import {
   Legend,
 } from "chart.js"
 import { Line } from "react-chartjs-2"
-import type { PublicLocale } from "@/lib/public-locale"
 import type { Result } from "../types/results"
 
 ChartJS.register(
@@ -24,7 +23,6 @@ ChartJS.register(
 
 type Props = {
   results: Result[]
-  locale?: PublicLocale
 }
 
 function getCumulativeProfit(results: Result[]) {
@@ -41,26 +39,7 @@ function getCumulativeProfit(results: Result[]) {
   })
 }
 
-export default function ProfitChart({ results, locale = "bg" }: Props) {
-  const copy =
-    locale === "en"
-      ? {
-          chartTitle: "Profit chart",
-          dataset: "Cumulative profit",
-          settledBets: "Settled bets",
-          voidBets: "Void bets",
-          averageOdds: "Average odds",
-          highestOdds: "Highest odds",
-        }
-      : {
-          chartTitle: "Profit графика",
-          dataset: "Натрупан profit",
-          settledBets: "Settled bets",
-          voidBets: "Void bets",
-          averageOdds: "Average odds",
-          highestOdds: "Highest odds",
-        }
-
+export default function ProfitChart({ results }: Props) {
   const cumulativeProfit = getCumulativeProfit(results)
 
   const settledBets = results.filter((r) => r.status !== "VOID").length
@@ -78,7 +57,7 @@ export default function ProfitChart({ results, locale = "bg" }: Props) {
     labels: cumulativeProfit.map((item) => item.x),
     datasets: [
       {
-        label: copy.dataset,
+        label: "Натрупан profit",
         data: cumulativeProfit.map((item) => item.y),
         borderColor: "#f97316",
         backgroundColor: "#f97316",
@@ -119,7 +98,7 @@ export default function ProfitChart({ results, locale = "bg" }: Props) {
 
   return (
     <div className="mb-10 rounded-xl bg-slate-800 p-6">
-      <h2 className="mb-6 text-2xl font-bold">{copy.chartTitle}</h2>
+      <h2 className="mb-6 text-2xl font-bold">Profit графика</h2>
 
       <div className="grid grid-cols-1 gap-4">
         <div className="h-80">
@@ -128,22 +107,22 @@ export default function ProfitChart({ results, locale = "bg" }: Props) {
 
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col justify-center rounded-lg bg-slate-900 p-3 text-center">
-            <p className="text-sm text-slate-400">{copy.settledBets}</p>
+            <p className="text-sm text-slate-400">Settled bets</p>
             <p className="text-xl font-bold text-white">{settledBets}</p>
           </div>
 
           <div className="flex flex-col justify-center rounded-lg bg-slate-900 p-3 text-center">
-            <p className="text-sm text-slate-400">{copy.voidBets}</p>
+            <p className="text-sm text-slate-400">Void bets</p>
             <p className="text-xl font-bold text-slate-300">{voidBets}</p>
           </div>
 
           <div className="flex flex-col justify-center rounded-lg bg-slate-900 p-3 text-center">
-            <p className="text-sm text-slate-400">{copy.averageOdds}</p>
+            <p className="text-sm text-slate-400">Average odds</p>
             <p className="text-xl font-bold text-sky-400">{averageOdds}</p>
           </div>
 
           <div className="flex flex-col justify-center rounded-lg bg-slate-900 p-3 text-center">
-            <p className="text-sm text-slate-400">{copy.highestOdds}</p>
+            <p className="text-sm text-slate-400">Highest odds</p>
             <p className="text-xl font-bold text-orange-400">{highestOdds}</p>
           </div>
         </div>

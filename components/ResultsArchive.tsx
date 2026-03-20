@@ -1,19 +1,10 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import {
-  translateMatchText,
-  translatePredictionText,
-  translateResultText,
-  type PublicLocale,
-} from "@/lib/public-locale"
-import type { PredictionSport } from "@/lib/sports"
 import type { Result } from "../types/results"
 
 type ResultsArchiveProps = {
   results: Result[]
-  locale?: PublicLocale
-  sport?: PredictionSport
 }
 
 type DateGroup = {
@@ -38,22 +29,22 @@ type YearGroup = {
 
 const INITIAL_VISIBLE_RESULTS = 4
 
-function formatMonth(date: string, locale: PublicLocale) {
-  return new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "bg-BG", {
+function formatMonth(date: string) {
+  return new Intl.DateTimeFormat("bg-BG", {
     month: "long",
     year: "numeric",
   }).format(new Date(`${date}-01T12:00:00`))
 }
 
-function formatDay(date: string, locale: PublicLocale) {
-  return new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "bg-BG", {
+function formatDay(date: string) {
+  return new Intl.DateTimeFormat("bg-BG", {
     day: "numeric",
     month: "short",
   }).format(new Date(`${date}T12:00:00`))
 }
 
-function formatFullDate(date: string, locale: PublicLocale) {
-  return new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "bg-BG", {
+function formatFullDate(date: string) {
+  return new Intl.DateTimeFormat("bg-BG", {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -92,7 +83,7 @@ function getBadgeClasses(status: Result["status"]) {
   return "bg-slate-200 text-slate-950"
 }
 
-function buildArchive(results: Result[], locale: PublicLocale): YearGroup[] {
+function buildArchive(results: Result[]): YearGroup[] {
   const yearMap = new Map<string, Map<string, Map<string, Result[]>>>()
 
   for (const item of results) {
@@ -119,14 +110,14 @@ function buildArchive(results: Result[], locale: PublicLocale): YearGroup[] {
             .sort(([leftDate], [rightDate]) => rightDate.localeCompare(leftDate))
             .map(([date, items]) => ({
               key: date,
-              label: formatDay(date, locale),
-              fullLabel: formatFullDate(date, locale),
+              label: formatDay(date),
+              fullLabel: formatFullDate(date),
               items,
             }))
 
           return {
             key: monthKey,
-            label: formatMonth(monthKey, locale),
+            label: formatMonth(monthKey),
             dates: dateGroups,
             totalResults: dateGroups.reduce((sum, dateGroup) => sum + dateGroup.items.length, 0),
           }
@@ -175,43 +166,8 @@ function SelectField({
   )
 }
 
-export default function ResultsArchive({
-  results,
-  locale = "bg",
-  sport = "football",
-}: ResultsArchiveProps) {
-  const copy =
-    locale === "en"
-      ? {
-          year: "Year",
-          month: "Month",
-          date: "Date",
-          predictionSingular: "prediction",
-          predictionPlural: "predictions",
-          selectedDate: "Selected date",
-          totalForMonth: "total for the selected month",
-          prediction: "Prediction",
-          result: "Result",
-          odds: "Odds",
-          showLess: "Show less",
-          showMorePrefix: "Show",
-        }
-      : {
-          year: "Година",
-          month: "Месец",
-          date: "Дата",
-          predictionSingular: "прогноза",
-          predictionPlural: "прогнози",
-          selectedDate: "Избрана дата",
-          totalForMonth: "общо за избрания месец",
-          prediction: "Прогноза",
-          result: "Резултат",
-          odds: "Коефициент",
-          showLess: "Покажи по-малко",
-          showMorePrefix: "Покажи още",
-        }
-
-  const archive = useMemo(() => buildArchive(results, locale), [locale, results])
+export default function ResultsArchive({ results }: ResultsArchiveProps) {
+  const archive = useMemo(() => buildArchive(results), [results])
 
   const [selectedYear, setSelectedYear] = useState(archive[0]?.year ?? "")
   const [selectedMonth, setSelectedMonth] = useState(archive[0]?.months[0]?.key ?? "")
@@ -246,7 +202,7 @@ export default function ResultsArchive({
         <div className="grid gap-4 md:grid-cols-3">
           <SelectField
             id="results-year"
-            label={copy.year}
+            label="Година"
             value={activeYearGroup.year}
             onChange={(value) => {
               const nextYearGroup = archive.find((group) => group.year === value)
@@ -257,19 +213,14 @@ export default function ResultsArchive({
           >
             {archive.map((yearGroup) => (
               <option key={yearGroup.year} value={yearGroup.year}>
-                {yearGroup.year} ·{" "}
-                {formatCount(
-                  yearGroup.totalResults,
-                  copy.predictionSingular,
-                  copy.predictionPlural
-                )}
+                {yearGroup.year} · {formatCount(yearGroup.totalResults, "прогноза", "прогнози")}
               </option>
             ))}
           </SelectField>
 
           <SelectField
             id="results-month"
-            label={copy.month}
+            label="Месец"
             value={activeMonthGroup.key}
             onChange={(value) => {
               const nextMonthGroup = activeYearGroup.months.find((month) => month.key === value)
@@ -279,30 +230,20 @@ export default function ResultsArchive({
           >
             {activeYearGroup.months.map((monthGroup) => (
               <option key={monthGroup.key} value={monthGroup.key}>
-                {monthGroup.label} ·{" "}
-                {formatCount(
-                  monthGroup.totalResults,
-                  copy.predictionSingular,
-                  copy.predictionPlural
-                )}
+                {monthGroup.label} · {formatCount(monthGroup.totalResults, "прогноза", "прогнози")}
               </option>
             ))}
           </SelectField>
 
           <SelectField
             id="results-date"
-            label={copy.date}
+            label="Дата"
             value={activeDateGroup.key}
             onChange={setSelectedDate}
           >
             {activeMonthGroup.dates.map((dateGroup) => (
               <option key={dateGroup.key} value={dateGroup.key}>
-                {dateGroup.fullLabel} ·{" "}
-                {formatCount(
-                  dateGroup.items.length,
-                  copy.predictionSingular,
-                  copy.predictionPlural
-                )}
+                {dateGroup.fullLabel} · {formatCount(dateGroup.items.length, "прогноза", "прогнози")}
               </option>
             ))}
           </SelectField>
@@ -313,26 +254,17 @@ export default function ResultsArchive({
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
-              {copy.selectedDate}
+              Избрана дата
             </p>
             <h2 className="mt-2 text-2xl font-bold text-white">{activeDateGroup.fullLabel}</h2>
             <p className="mt-2 text-sm text-white/60">
-              {formatCount(
-                activeMonthGroup.totalResults,
-                copy.predictionSingular,
-                copy.predictionPlural
-              )}{" "}
-              {copy.totalForMonth}
+              {formatCount(activeMonthGroup.totalResults, "прогноза", "прогнози")} общо за избрания месец
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/75">
             <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2">
-              {formatCount(
-                activeDateGroup.items.length,
-                copy.predictionSingular,
-                copy.predictionPlural
-              )}
+              {formatCount(activeDateGroup.items.length, "прогноза", "прогнози")}
             </span>
             <span className="rounded-full border border-emerald-300/30 bg-emerald-400/15 px-4 py-2 text-emerald-50">
               {dayWins} WIN
@@ -354,23 +286,13 @@ export default function ResultsArchive({
             >
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                 <div>
-                  <h3 className="text-xl font-semibold text-white">
-                    {translateMatchText(item.match, locale)}
-                  </h3>
+                  <h3 className="text-xl font-semibold text-white">{item.match}</h3>
                   <p className="mt-3 text-white/85">
-                    {copy.prediction}:{" "}
-                    <span className="font-semibold text-white">
-                      {translatePredictionText(item.prediction, locale, sport)}
-                    </span>
+                    Прогноза: <span className="font-semibold text-white">{item.prediction}</span>
                   </p>
-                  <p className="mt-1 text-white/75">
-                    {copy.result}: {translateResultText(item.result, locale, sport)}
-                  </p>
+                  <p className="mt-1 text-white/75">Резултат: {item.result}</p>
                   <p className="mt-1 text-white/70">
-                    {copy.odds}:{" "}
-                    <span className="font-semibold text-orange-300">
-                      {formatOdds(item.odds)}
-                    </span>
+                    Коефициент: <span className="font-semibold text-orange-300">{formatOdds(item.odds)}</span>
                   </p>
                 </div>
 
@@ -399,10 +321,8 @@ export default function ResultsArchive({
               className="rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-300"
             >
               {showAll
-                ? copy.showLess
-                : `${copy.showMorePrefix} ${
-                    activeDateGroup.items.length - visibleItems.length
-                  }`}
+                ? "Покажи по-малко"
+                : `Покажи още ${activeDateGroup.items.length - visibleItems.length}`}
             </button>
           </div>
         )}

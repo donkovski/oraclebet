@@ -1,21 +1,19 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
-import type { PublicLocale } from "@/lib/public-locale"
 import { parseKickoff } from "@/lib/prediction-utils"
 
 type Props = {
   kickoff: string
-  locale?: PublicLocale
 }
 
-function getCountdownState(kickoff: string, now: number, locale: PublicLocale) {
+function getCountdownState(kickoff: string, now: number) {
   const startsAt = parseKickoff(kickoff).getTime()
   const diffMs = startsAt - now
 
   if (diffMs <= 0) {
     return {
-      label: locale === "en" ? "Live now" : "Играе се",
+      label: "Играе се",
       className: "border-rose-300/30 bg-rose-300/10 text-rose-100",
     }
   }
@@ -28,15 +26,15 @@ function getCountdownState(kickoff: string, now: number, locale: PublicLocale) {
   const parts: string[] = []
 
   if (days > 0) {
-    parts.push(locale === "en" ? `${days}d` : `${days}д`)
+    parts.push(`${days}д`)
   }
 
   if (hours > 0) {
-    parts.push(locale === "en" ? `${hours}h` : `${hours}ч`)
+    parts.push(`${hours}ч`)
   }
 
   if (minutes > 0 || parts.length === 0) {
-    parts.push(locale === "en" ? `${minutes}m` : `${minutes}м`)
+    parts.push(`${minutes}м`)
   }
 
   const className =
@@ -45,23 +43,14 @@ function getCountdownState(kickoff: string, now: number, locale: PublicLocale) {
       : "border-emerald-300/30 bg-emerald-300/10 text-emerald-100"
 
   return {
-    label:
-      locale === "en"
-        ? `Starts in ${parts.join(" ")}`
-        : `Започва след ${parts.join(" ")}`,
+    label: `Започва след ${parts.join(" ")}`,
     className,
   }
 }
 
-export default function PredictionCountdown({
-  kickoff,
-  locale = "bg",
-}: Props) {
+export default function PredictionCountdown({ kickoff }: Props) {
   const [now, setNow] = useState(() => Date.now())
-  const countdown = useMemo(
-    () => getCountdownState(kickoff, now, locale),
-    [kickoff, locale, now]
-  )
+  const countdown = useMemo(() => getCountdownState(kickoff, now), [kickoff, now])
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
