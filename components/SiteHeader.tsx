@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import SiteAuthLink from "@/components/SiteAuthLink"
+import SiteClock from "@/components/SiteClock"
 
 type Props = {
   vipEnabled: boolean
@@ -28,7 +29,10 @@ export default function SiteHeader({ vipEnabled, authEnabled }: Props) {
           Oracle<span className="text-orange-300">Bet</span>
         </Link>
 
-        <nav className="flex flex-wrap items-center gap-3 text-sm font-medium text-white/80 md:gap-4">
+        <div className="flex flex-wrap items-center gap-3 md:justify-end">
+          <SiteClock />
+
+          <nav className="flex flex-wrap items-center gap-3 text-sm font-medium text-white/80 md:gap-4">
           <Link
             href="/"
             className="rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-white"
@@ -56,7 +60,8 @@ export default function SiteHeader({ vipEnabled, authEnabled }: Props) {
             </Link>
           )}
           {authEnabled && <SiteAuthLink />}
-        </nav>
+          </nav>
+        </div>
       </div>
     </header>
   )
