@@ -31,28 +31,34 @@ export function getPredictionCategory(
 ) {
   const normalized = normalizePrediction(prediction)
 
-  if (/\b(картон(?:а|и)?|card(?:s)?)\b/u.test(normalized)) {
+  if (normalized.includes("картон") || normalized.includes("card")) {
     return "cards" as const
   }
 
   if (
     /^(\+|-)?\d+(?:[.,]\d+)?\s+.+$/u.test(normalized) ||
-    /\b(ах|ah|handicap|spread)\b/u.test(normalized) ||
-    /^победа за\s+/u.test(normalized) ||
-    /\bto win\b/u.test(normalized)
+    normalized.includes("ах") ||
+    normalized.includes("ah") ||
+    normalized.includes("handicap") ||
+    normalized.includes("spread") ||
+    normalized.startsWith("победа за ") ||
+    normalized.includes("to win")
   ) {
     return "market" as const
   }
 
   if (
     /^(над|под|over|under)\s+\d+(?:[.,]\d+)?(?:\s+\S+)?$/u.test(normalized) ||
-    /^двата отбора да отбележат гол$/u.test(normalized) ||
-    /^both teams to score$/u.test(normalized)
+    normalized === "двата отбора да отбележат гол" ||
+    normalized === "both teams to score"
   ) {
     return "totals" as const
   }
 
-  if ((sport === "football" || sport === "hockey") && /\b(гол|goals?)\b/u.test(normalized)) {
+  if (
+    (sport === "football" || sport === "hockey") &&
+    (normalized.includes("гол") || normalized.includes("goal"))
+  ) {
     return "totals" as const
   }
 
