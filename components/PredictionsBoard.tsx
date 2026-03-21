@@ -187,7 +187,7 @@ export default function PredictionsBoard({
                 {featuredPrediction.analysis && (
                   <div className="mt-4 rounded-2xl border border-white/10 bg-white/6 p-5">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
-                      РђРЅР°Р»РёР·
+                      Анализ
                     </p>
                     <p className="mt-3 text-base leading-8 text-white/85">
                       {featuredPrediction.analysis}

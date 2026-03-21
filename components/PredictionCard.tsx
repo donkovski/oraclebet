@@ -57,7 +57,7 @@ export default function PredictionCard({
         {analysis && (
           <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/28 p-3.5">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
-              РђРЅР°Р»РёР·
+              Анализ
             </p>
             <p className="mt-1.5 text-sm leading-7 text-white/80">{analysis}</p>
           </div>
