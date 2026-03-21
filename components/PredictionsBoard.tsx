@@ -1,5 +1,6 @@
 "use client"
 
+import type { ReactNode } from "react"
 import { useEffect, useMemo, useState } from "react"
 import CompetitionBadge from "@/components/CompetitionBadge"
 import PredictionCard from "@/components/PredictionCard"
@@ -24,6 +25,7 @@ type Props = {
   introTitle?: string
   finishedTitle?: string
   sport?: PredictionSport
+  topContent?: ReactNode
 }
 
 export default function PredictionsBoard({
@@ -32,6 +34,7 @@ export default function PredictionsBoard({
   introTitle = "Днешните футболни селекции са вече публикувани.",
   finishedTitle = "Всички футболни прогнози за деня вече са започнали.",
   sport = "football",
+  topContent,
 }: Props) {
   const [now, setNow] = useState(() => Date.now())
 
@@ -100,6 +103,8 @@ export default function PredictionsBoard({
           </div>
         </div>
       </section>
+
+      {topContent}
 
       <div className="mx-auto w-full max-w-[56rem] space-y-8">
         {startedPredictions.length > 0 && (

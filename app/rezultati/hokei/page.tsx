@@ -23,6 +23,7 @@ export default async function HockeyResultsPage() {
       predictionHref="/tips/hokei"
       predictionLabel="Към хокей прогнози"
       accentClassName="text-sky-200"
+      sport="hockey"
     />
   )
 }

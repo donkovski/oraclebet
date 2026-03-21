@@ -23,6 +23,7 @@ export default async function BasketballResultsPage() {
       predictionHref="/tips/basketbol"
       predictionLabel="Към баскетбол прогнози"
       accentClassName="text-amber-200"
+      sport="basketball"
     />
   )
 }

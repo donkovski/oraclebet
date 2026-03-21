@@ -1,4 +1,5 @@
 import type { Result } from "@/types/results"
+import type { PredictionSport } from "@/lib/sports"
 import Link from "next/link"
 import ProfitChart from "@/components/ProfitChart"
 import ResultsArchive from "@/components/ResultsArchive"
@@ -12,6 +13,47 @@ type SportResultsPageProps = {
   predictionHref: string
   predictionLabel: string
   accentClassName: string
+  sport: PredictionSport
+}
+
+type SportSwitchLink = {
+  href: string
+  label: string
+  sport: PredictionSport
+}
+
+const sportSwitchLinks: SportSwitchLink[] = [
+  { href: "/rezultati/futbol", label: "Футбол", sport: "football" },
+  { href: "/rezultati/hokei", label: "Хокей", sport: "hockey" },
+  { href: "/rezultati/basketbol", label: "Баскетбол", sport: "basketball" },
+  { href: "/rezultati/beizbol", label: "Бейзбол", sport: "baseball" },
+]
+
+function SportSwitcher({ currentSport }: { currentSport: PredictionSport }) {
+  return (
+    <section className="rounded-[28px] border border-white/10 bg-slate-950/16 p-4 backdrop-blur-xl">
+      <div className="flex flex-wrap gap-3">
+        {sportSwitchLinks.map((link) => {
+          const isActive = link.sport === currentSport
+
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              aria-current={isActive ? "page" : undefined}
+              className={
+                isActive
+                  ? "rounded-full border border-orange-300/35 bg-orange-300/12 px-5 py-2 text-sm font-semibold text-orange-100"
+                  : "rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-semibold text-white/80 transition hover:bg-white/10"
+              }
+            >
+              {link.label}
+            </Link>
+          )
+        })}
+      </div>
+    </section>
+  )
 }
 
 export default function SportResultsPage({
@@ -22,6 +64,7 @@ export default function SportResultsPage({
   predictionHref,
   predictionLabel,
   accentClassName,
+  sport,
 }: SportResultsPageProps) {
   const total = results.length
   const wins = results.filter((result) => result.status === "WIN").length
@@ -56,6 +99,10 @@ export default function SportResultsPage({
           <h1 className="mt-3 text-4xl font-bold text-white">{emptyTitle}</h1>
           <p className="mt-4 max-w-3xl leading-7 text-white/75">{emptyDescription}</p>
 
+          <div className="mt-6">
+            <SportSwitcher currentSport={sport} />
+          </div>
+
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href={predictionHref}
@@ -77,6 +124,8 @@ export default function SportResultsPage({
         </p>
         <h1 className="mt-3 text-4xl font-bold text-white">{label}</h1>
       </section>
+
+      <SportSwitcher currentSport={sport} />
 
       <ResultsArchive results={results} />
 

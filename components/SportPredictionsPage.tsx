@@ -9,6 +9,12 @@ type NavLink = {
   primary?: boolean
 }
 
+type SportSwitchLink = {
+  href: string
+  label: string
+  sport: PredictionSport
+}
+
 type SportPredictionsPageProps = {
   sportLabel: string
   emptyTitle: string
@@ -19,6 +25,40 @@ type SportPredictionsPageProps = {
   accentClassName: string
   links: NavLink[]
   sport?: PredictionSport
+}
+
+const sportSwitchLinks: SportSwitchLink[] = [
+  { href: "/tips/futbol", label: "Футбол", sport: "football" },
+  { href: "/tips/hokei", label: "Хокей", sport: "hockey" },
+  { href: "/tips/basketbol", label: "Баскетбол", sport: "basketball" },
+  { href: "/tips/beizbol", label: "Бейзбол", sport: "baseball" },
+]
+
+function SportSwitcher({ currentSport }: { currentSport: PredictionSport }) {
+  return (
+    <section className="rounded-[28px] border border-white/10 bg-slate-950/16 p-4 backdrop-blur-xl">
+      <div className="flex flex-wrap gap-3">
+        {sportSwitchLinks.map((link) => {
+          const isActive = link.sport === currentSport
+
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              aria-current={isActive ? "page" : undefined}
+              className={
+                isActive
+                  ? "rounded-full border border-orange-300/35 bg-orange-300/12 px-5 py-2 text-sm font-semibold text-orange-100"
+                  : "rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-semibold text-white/80 transition hover:bg-white/10"
+              }
+            >
+              {link.label}
+            </Link>
+          )
+        })}
+      </div>
+    </section>
+  )
 }
 
 export default function SportPredictionsPage({
@@ -45,6 +85,10 @@ export default function SportPredictionsPage({
             {emptyTitle}
           </h1>
           <p className="mt-4 max-w-2xl leading-7 text-white/75">{emptyDescription}</p>
+
+          <div className="mt-6">
+            <SportSwitcher currentSport={sport} />
+          </div>
 
           <div className="mt-8 flex flex-wrap gap-4">
             {links.map((link) => (
@@ -73,6 +117,7 @@ export default function SportPredictionsPage({
       introTitle={introTitle}
       finishedTitle={finishedTitle}
       sport={sport}
+      topContent={<SportSwitcher currentSport={sport} />}
     />
   )
 }

@@ -23,6 +23,7 @@ export default async function FootballResultsPage() {
       predictionHref="/tips/futbol"
       predictionLabel="Към футболни прогнози"
       accentClassName="text-orange-200"
+      sport="football"
     />
   )
 }
