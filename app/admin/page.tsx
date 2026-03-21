@@ -354,13 +354,12 @@ function PredictionForm({
 
         <label className="space-y-2">
           <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
-            РђРЅР°Р»РёР·
-          </span>
+            Анализ</span>
           <textarea
             name="analysis"
             rows={4}
             defaultValue={row?.analysis ?? ""}
-            placeholder="РљСЂР°С‚СЉРє Р°РЅР°Р»РёР· Р·Р° С„РѕСЂРјР°С‚Р°, СЃС‚РёР»Р° РЅР° РјР°С‡Р° Рё Р»РѕРіРёРєР°С‚Р° РЅР° РїСЂРѕРіРЅРѕР·Р°С‚Р°."
+            placeholder="Кратък анализ за формата, стила на мача и логиката на прогнозата."
             className="min-h-[120px] w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
           />
         </label>
