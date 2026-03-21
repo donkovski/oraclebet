@@ -16,7 +16,9 @@ export async function POST() {
         },
       }
     )
-  } catch {
+  } catch (error) {
+    console.error("Daily visit tracking failed.", error)
+
     return NextResponse.json(
       {
         ok: false,

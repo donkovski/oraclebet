@@ -230,6 +230,78 @@ export async function saveAdminPrediction(input: AdminPredictionInput) {
   }
 }
 
+async function upsertDailyVisitFallback(
+  config: NonNullable<ReturnType<typeof getSupabaseAdminConfig>>,
+  visitDay: string
+) {
+  const selectParams = new URLSearchParams({
+    select: "day,visits,created_at,updated_at",
+    day: `eq.${visitDay}`,
+    limit: "1",
+  })
+
+  const existingResponse = await fetch(
+    `${config.url}/rest/v1/daily_visitors?${selectParams.toString()}`,
+    {
+      headers: getAdminHeaders(),
+      cache: "no-store",
+    }
+  )
+
+  if (!existingResponse.ok) {
+    return null
+  }
+
+  const existingRows = (await existingResponse.json()) as DailyVisitorRow[]
+  const existingRow = existingRows[0]
+
+  if (existingRow) {
+    const updateResponse = await fetch(
+      `${config.url}/rest/v1/daily_visitors?day=eq.${visitDay}`,
+      {
+        method: "PATCH",
+        headers: {
+          ...getAdminHeaders(),
+          Prefer: "return=representation",
+        },
+        body: JSON.stringify({
+          visits: existingRow.visits + 1,
+        }),
+        cache: "no-store",
+      }
+    )
+
+    if (!updateResponse.ok) {
+      return null
+    }
+
+    const updatedRows = (await updateResponse.json()) as DailyVisitorRow[]
+
+    return updatedRows[0] ?? null
+  }
+
+  const insertResponse = await fetch(`${config.url}/rest/v1/daily_visitors`, {
+    method: "POST",
+    headers: {
+      ...getAdminHeaders(),
+      Prefer: "return=representation",
+    },
+    body: JSON.stringify({
+      day: visitDay,
+      visits: 1,
+    }),
+    cache: "no-store",
+  })
+
+  if (!insertResponse.ok) {
+    return null
+  }
+
+  const insertedRows = (await insertResponse.json()) as DailyVisitorRow[]
+
+  return insertedRows[0] ?? null
+}
+
 export async function incrementDailyVisit() {
   const config = getSupabaseAdminConfig()
 
@@ -237,20 +309,28 @@ export async function incrementDailyVisit() {
     return null
   }
 
-  const response = await fetch(`${config.url}/rest/v1/rpc/increment_daily_visitors`, {
-    method: "POST",
-    headers: getAdminHeaders(),
-    body: JSON.stringify({
-      visit_day: getSofiaDateKey(new Date()),
-    }),
-    cache: "no-store",
-  })
+  const visitDay = getSofiaDateKey(new Date())
 
-  if (!response.ok) {
-    return null
+  try {
+    const response = await fetch(`${config.url}/rest/v1/rpc/increment_daily_visitors`, {
+      method: "POST",
+      headers: getAdminHeaders(),
+      body: JSON.stringify({
+        visit_day: visitDay,
+      }),
+      cache: "no-store",
+    })
+
+    if (response.ok) {
+      const payload = (await response.json()) as DailyVisitorRow | DailyVisitorRow[]
+
+      return Array.isArray(payload) ? payload[0] ?? null : payload
+    }
+  } catch {
+    // Fall back to a direct table write below.
   }
 
-  return (await response.json()) as DailyVisitorRow
+  return upsertDailyVisitFallback(config, visitDay)
 }
 
 export async function getAdminDailyVisitors(limit = 7) {
