@@ -27,6 +27,7 @@ function parsePredictionPayload(formData: FormData): AdminPredictionInput {
   const country = getStringValue(formData, "country")
   const league = getStringValue(formData, "league")
   const prediction = getStringValue(formData, "prediction")
+  const analysis = getStringValue(formData, "analysis")
   const odds = Number(getStringValue(formData, "odds"))
   const status = getStringValue(formData, "status") as AdminPredictionStatus
   const resultText = getStringValue(formData, "result_text")
@@ -47,6 +48,7 @@ function parsePredictionPayload(formData: FormData): AdminPredictionInput {
     country,
     league,
     prediction,
+    analysis: analysis || null,
     odds: Number(odds.toFixed(2)),
     status,
     result_text: resultText || null,

@@ -11,6 +11,7 @@ export type AdminPredictionRow = {
   country: string
   league: string
   prediction: string
+  analysis: string | null
   odds: number
   status: AdminPredictionStatus
   result_text: string | null
@@ -26,6 +27,7 @@ export type AdminPredictionInput = {
   country: string
   league: string
   prediction: string
+  analysis: string | null
   odds: number
   status: AdminPredictionStatus
   result_text: string | null
@@ -162,7 +164,7 @@ export async function getAdminPredictions() {
 
   const params = new URLSearchParams({
     select:
-      "id,sport,match,kickoff,country,league,prediction,odds,status,result_text,published_at,updated_at",
+      "id,sport,match,kickoff,country,league,prediction,analysis,odds,status,result_text,published_at,updated_at",
     order: "kickoff.asc",
   })
 
@@ -192,6 +194,7 @@ export async function saveAdminPrediction(input: AdminPredictionInput) {
     country: input.country,
     league: input.league,
     prediction: input.prediction,
+    analysis: input.analysis,
     odds: input.odds,
     status: input.status,
     result_text: input.result_text,

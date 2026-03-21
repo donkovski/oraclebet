@@ -9,6 +9,7 @@ type Props = {
   country?: string
   league?: string
   prediction: string
+  analysis?: string
   odds: string
   sport?: PredictionSport
 }
@@ -19,6 +20,7 @@ export default function PredictionCard({
   country,
   league,
   prediction,
+  analysis,
   odds,
   sport = "football",
 }: Props) {
@@ -51,6 +53,15 @@ export default function PredictionCard({
           </p>
           <p className="mt-1.5 text-lg font-semibold text-white">{prediction}</p>
         </div>
+
+        {analysis && (
+          <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/28 p-3.5">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+              РђРЅР°Р»РёР·
+            </p>
+            <p className="mt-1.5 text-sm leading-7 text-white/80">{analysis}</p>
+          </div>
+        )}
 
         <div className="mt-4">
           <PredictionCountdown kickoff={kickoff} />

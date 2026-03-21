@@ -13,6 +13,7 @@ type SupabasePredictionRow = {
   country: string
   league: string
   prediction: string
+  analysis: string | null
   odds: number
   status: PredictionStatus
   result_text: string | null
@@ -24,6 +25,7 @@ export type DisplayPrediction = {
   country: string
   league: string
   prediction: string
+  analysis?: string
   odds: string
 }
 
@@ -78,6 +80,7 @@ function mapPredictionRow(row: SupabasePredictionRow): DisplayPrediction {
     country: row.country,
     league: row.league,
     prediction: row.prediction,
+    analysis: row.analysis ?? undefined,
     odds: row.odds.toFixed(2),
   }
 }
@@ -115,7 +118,7 @@ async function fetchPredictionRows(sport: Sport, statuses: PredictionStatus[]) {
   }
 
   const params = new URLSearchParams({
-    select: "match,kickoff,country,league,prediction,odds,status,result_text",
+    select: "match,kickoff,country,league,prediction,analysis,odds,status,result_text",
     sport: `eq.${sport}`,
     order: "kickoff.asc",
   })

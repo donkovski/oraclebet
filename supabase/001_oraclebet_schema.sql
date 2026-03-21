@@ -10,6 +10,7 @@ create table if not exists public.predictions (
   country text not null,
   league text not null,
   prediction text not null,
+  analysis text,
   odds numeric(6, 2) not null check (odds > 1),
   status public.prediction_status not null default 'pending',
   result_text text,

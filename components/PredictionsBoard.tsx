@@ -14,6 +14,7 @@ type PredictionItem = {
   country: string
   league: string
   prediction: string
+  analysis?: string
   odds: string
 }
 
@@ -122,6 +123,7 @@ export default function PredictionsBoard({
                   country={item.country}
                   league={item.league}
                   prediction={item.prediction}
+                  analysis={item.analysis}
                   odds={item.odds}
                   sport={sport}
                 />
@@ -182,6 +184,17 @@ export default function PredictionsBoard({
                   </div>
                 </div>
 
+                {featuredPrediction.analysis && (
+                  <div className="mt-4 rounded-2xl border border-white/10 bg-white/6 p-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+                      РђРЅР°Р»РёР·
+                    </p>
+                    <p className="mt-3 text-base leading-8 text-white/85">
+                      {featuredPrediction.analysis}
+                    </p>
+                  </div>
+                )}
+
                 <div className="mt-4">
                   <PredictionCountdown kickoff={featuredPrediction.kickoff} />
                 </div>
@@ -197,6 +210,7 @@ export default function PredictionsBoard({
                   country={item.country}
                   league={item.league}
                   prediction={item.prediction}
+                  analysis={item.analysis}
                   odds={item.odds}
                   sport={sport}
                 />
