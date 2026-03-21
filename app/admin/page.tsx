@@ -8,7 +8,12 @@ import {
   type AdminPredictionRow,
   type DailyVisitorRow,
 } from "@/lib/supabase-admin"
-import { loginAdminAction, logoutAdminAction, savePredictionAction } from "./actions"
+import {
+  deletePredictionAction,
+  loginAdminAction,
+  logoutAdminAction,
+  savePredictionAction,
+} from "./actions"
 
 export const metadata: Metadata = {
   title: "Админ панел",
@@ -214,6 +219,7 @@ function VisitorsSection({ rows }: { rows: DailyVisitorRow[] }) {
             ))
           )}
         </div>
+
       </div>
     </section>
   )
@@ -245,6 +251,18 @@ function PredictionForm({
             </p>
           )}
         </div>
+
+        {row && (
+          <form action={deletePredictionAction}>
+            <input type="hidden" name="id" value={row.id} />
+            <button
+              type="submit"
+              className="rounded-full border border-rose-300/25 bg-rose-950/60 px-4 py-2 text-sm font-semibold text-rose-100 transition hover:border-rose-200/45 hover:bg-rose-900/70"
+            >
+              Изтрий
+            </button>
+          </form>
+        )}
       </div>
 
       <form action={savePredictionAction} className="space-y-4">
@@ -509,6 +527,7 @@ function CollapsiblePredictionSection({
 
 type AdminPageProps = {
   searchParams: Promise<{
+    deleted?: string
     error?: string
     saved?: string
   }>
@@ -585,6 +604,12 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         {params.saved && (
           <div className="mt-6 rounded-2xl border border-emerald-300/25 bg-emerald-950/60 px-4 py-3 text-sm text-emerald-100">
             Промяната е запазена успешно.
+          </div>
+        )}
+
+        {params.deleted && (
+          <div className="mt-6 rounded-2xl border border-emerald-300/25 bg-emerald-950/60 px-4 py-3 text-sm text-emerald-100">
+            Прогнозата е изтрита успешно.
           </div>
         )}
 

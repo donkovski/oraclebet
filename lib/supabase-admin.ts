@@ -233,6 +233,27 @@ export async function saveAdminPrediction(input: AdminPredictionInput) {
   }
 }
 
+export async function deleteAdminPrediction(id: number) {
+  const config = getSupabaseAdminConfig()
+
+  if (!config) {
+    throw new Error("Supabase admin env vars are missing.")
+  }
+
+  const response = await fetch(`${config.url}/rest/v1/predictions?id=eq.${id}`, {
+    method: "DELETE",
+    headers: {
+      ...getAdminHeaders(),
+      Prefer: "return=minimal",
+    },
+    cache: "no-store",
+  })
+
+  if (!response.ok) {
+    throw new Error(await getSupabaseErrorMessage(response, "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РїСЂРѕРіРЅРѕР·Р°С‚Р°"))
+  }
+}
+
 async function upsertDailyVisitFallback(
   config: NonNullable<ReturnType<typeof getSupabaseAdminConfig>>,
   visitDay: string

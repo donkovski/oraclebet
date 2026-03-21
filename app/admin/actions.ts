@@ -8,6 +8,7 @@ import {
   isAdminAuthenticated,
 } from "@/lib/admin-auth"
 import {
+  deleteAdminPrediction,
   saveAdminPrediction,
   toSofiaISOString,
   type AdminPredictionInput,
@@ -94,4 +95,28 @@ export async function savePredictionAction(formData: FormData) {
   }
 
   redirect("/admin?saved=1")
+}
+
+export async function deletePredictionAction(formData: FormData) {
+  const accessGranted = await hasAdminAccess()
+  const isAuthenticated = await isAdminAuthenticated()
+
+  if (!accessGranted || !isAuthenticated) {
+    redirect("/admin")
+  }
+
+  const id = Number(getStringValue(formData, "id"))
+
+  if (!Number.isInteger(id) || id <= 0) {
+    redirect("/admin?error=Невалиден%20идентификатор%20за%20изтриване.")
+  }
+
+  try {
+    await deleteAdminPrediction(id)
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Неуспешно изтриване."
+    redirect(`/admin?error=${encodeURIComponent(message)}`)
+  }
+
+  redirect("/admin?deleted=1")
 }
