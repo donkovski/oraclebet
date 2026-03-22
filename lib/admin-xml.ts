@@ -157,6 +157,12 @@ function getPredictionBlocks(xml: string) {
   return xml.match(/<prediction\b[\s\S]*?<\/prediction>/gi) ?? []
 }
 
+function getPredictionInnerBlock(block: string) {
+  return block
+    .replace(/^<prediction\b[^>]*>/i, "")
+    .replace(/<\/prediction>\s*$/i, "")
+}
+
 export function parsePredictionImportXml(xml: string): AdminPredictionInput[] {
   const blocks = getPredictionBlocks(xml)
 
@@ -166,28 +172,40 @@ export function parsePredictionImportXml(xml: string): AdminPredictionInput[] {
 
   return blocks.map((block, index) => {
     const rowNumber = index + 1
+    const innerBlock = getPredictionInnerBlock(block)
     const rawKickoff =
-      getTagValue(block, FIELD_ALIASES.kickoff) ||
-      [getTagValue(block, FIELD_ALIASES.date), getTagValue(block, FIELD_ALIASES.time)]
+      getTagValue(innerBlock, FIELD_ALIASES.kickoff) ||
+      [getTagValue(innerBlock, FIELD_ALIASES.date), getTagValue(innerBlock, FIELD_ALIASES.time)]
         .filter(Boolean)
         .join(" ")
 
-    const sport = normalizeSport(getTagValue(block, FIELD_ALIASES.sport), rowNumber)
-    const match = getTagValue(block, FIELD_ALIASES.match)
-    const country = getTagValue(block, FIELD_ALIASES.country)
-    const league = getTagValue(block, FIELD_ALIASES.league)
-    const prediction = getTagValue(block, FIELD_ALIASES.prediction)
-    const oddsRaw = getTagValue(block, FIELD_ALIASES.odds)
-    const analysis = getTagValue(block, FIELD_ALIASES.analysis)
-    const status = normalizeStatus(getTagValue(block, FIELD_ALIASES.status))
-    const resultText = getTagValue(block, FIELD_ALIASES.resultText)
+    const sportRaw = getTagValue(innerBlock, FIELD_ALIASES.sport)
+    const match = getTagValue(innerBlock, FIELD_ALIASES.match)
+    const country = getTagValue(innerBlock, FIELD_ALIASES.country)
+    const league = getTagValue(innerBlock, FIELD_ALIASES.league)
+    const prediction = getTagValue(innerBlock, FIELD_ALIASES.prediction)
+    const oddsRaw = getTagValue(innerBlock, FIELD_ALIASES.odds)
+    const analysis = getTagValue(innerBlock, FIELD_ALIASES.analysis)
+    const status = normalizeStatus(getTagValue(innerBlock, FIELD_ALIASES.status))
+    const resultText = getTagValue(innerBlock, FIELD_ALIASES.resultText)
+    const missingFields = [
+      !sportRaw && "sport",
+      !match && "match",
+      !country && "country",
+      !league && "league",
+      !rawKickoff && "kickoff",
+      !prediction && "prediction",
+      !oddsRaw && "odds",
+    ].filter(Boolean)
 
-    if (!match || !country || !league || !prediction || !oddsRaw || !rawKickoff) {
-      throw new Error(`Липсват задължителни полета в XML на ред ${rowNumber}.`)
+    if (missingFields.length > 0) {
+      throw new Error(
+        `Липсват задължителни полета в XML на ред ${rowNumber}: ${missingFields.join(", ")}.`
+      )
     }
 
     return {
-      sport,
+      sport: normalizeSport(sportRaw, rowNumber),
       match,
       kickoff: normalizeKickoff(rawKickoff, rowNumber),
       country,
