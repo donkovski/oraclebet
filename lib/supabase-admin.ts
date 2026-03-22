@@ -233,6 +233,50 @@ export async function saveAdminPrediction(input: AdminPredictionInput) {
   }
 }
 
+export async function saveAdminPredictionsBatch(inputs: AdminPredictionInput[]) {
+  const config = getSupabaseAdminConfig()
+
+  if (!config) {
+    throw new Error("Supabase admin env vars are missing.")
+  }
+
+  if (inputs.length === 0) {
+    throw new Error("XML файлът не съдържа прогнози за импорт.")
+  }
+
+  const payload = inputs.map((input) => ({
+    sport: input.sport,
+    match: input.match,
+    kickoff: input.kickoff,
+    country: input.country,
+    league: input.league,
+    prediction: input.prediction,
+    analysis: input.analysis,
+    odds: input.odds,
+    status: input.status,
+    result_text: input.result_text,
+  }))
+
+  const response = await fetch(
+    `${config.url}/rest/v1/predictions?on_conflict=sport,match,kickoff,prediction`,
+    {
+      method: "POST",
+      headers: {
+        ...getAdminHeaders(),
+        Prefer: "resolution=merge-duplicates,return=minimal",
+      },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+    }
+  )
+
+  if (!response.ok) {
+    throw new Error(
+      await getSupabaseErrorMessage(response, "Грешка при пакетно качване на прогнозите")
+    )
+  }
+}
+
 export async function deleteAdminPrediction(id: number) {
   const config = getSupabaseAdminConfig()
 

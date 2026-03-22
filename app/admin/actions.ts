@@ -1,6 +1,7 @@
 "use server"
 
 import { redirect } from "next/navigation"
+import { parsePredictionImportXml } from "@/lib/admin-xml"
 import {
   authenticateAdmin,
   clearAdminSession,
@@ -10,6 +11,7 @@ import {
 import {
   deleteAdminPrediction,
   saveAdminPrediction,
+  saveAdminPredictionsBatch,
   toSofiaISOString,
   type AdminPredictionInput,
   type AdminPredictionSport,
@@ -95,6 +97,31 @@ export async function savePredictionAction(formData: FormData) {
   }
 
   redirect("/admin?saved=1")
+}
+
+export async function importPredictionXmlAction(formData: FormData) {
+  const accessGranted = await hasAdminAccess()
+  const isAuthenticated = await isAdminAuthenticated()
+
+  if (!accessGranted || !isAuthenticated) {
+    redirect("/admin")
+  }
+
+  const fileEntry = formData.get("xml_file")
+
+  if (!(fileEntry instanceof File) || fileEntry.size === 0) {
+    redirect("/admin?error=Моля%20избери%20XML%20файл%20за%20импорт.")
+  }
+
+  try {
+    const xmlContent = await fileEntry.text()
+    const predictions = parsePredictionImportXml(xmlContent)
+    await saveAdminPredictionsBatch(predictions)
+    redirect(`/admin?imported=${predictions.length}`)
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Неуспешен XML импорт."
+    redirect(`/admin?error=${encodeURIComponent(message)}`)
+  }
 }
 
 export async function deletePredictionAction(formData: FormData) {

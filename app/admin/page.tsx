@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { PREDICTION_IMPORT_XML_TEMPLATE } from "@/lib/admin-xml"
 import { hasAdminAccess, isAdminAuthenticated, isAdminConfigured } from "@/lib/admin-auth"
 import {
   formatKickoffForInput,
@@ -10,6 +11,7 @@ import {
 } from "@/lib/supabase-admin"
 import {
   deletePredictionAction,
+  importPredictionXmlAction,
   loginAdminAction,
   logoutAdminAction,
   savePredictionAction,
@@ -204,8 +206,8 @@ function VisitorsSection({ rows }: { rows: DailyVisitorRow[] }) {
         <div className="space-y-3">
           {rows.length === 0 ? (
             <p className="text-sm leading-7 text-white/70">
-              Още няма събрани посещения. След като tracker-ът започне да отчита отварянията
-              на сайта, тук ще виждаш дневния брой посетители.
+              Още няма събрани посещения. След като tracker-ът започне да отчита
+              отварянията на сайта, тук ще виждаш дневния брой посетители.
             </p>
           ) : (
             rows.map((row) => (
@@ -219,7 +221,76 @@ function VisitorsSection({ rows }: { rows: DailyVisitorRow[] }) {
             ))
           )}
         </div>
+      </div>
+    </section>
+  )
+}
 
+function PredictionImportCard() {
+  return (
+    <section className="rounded-[28px] border border-white/10 bg-slate-950/18 p-6 backdrop-blur-xl md:p-8">
+      <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+            XML импорт
+          </p>
+          <h2 className="mt-3 text-2xl font-bold text-white">
+            Качи прогнози директно от XML файл
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-white/75">
+            Ръчната форма си остава, но ако имаш подготвен XML файл, можеш да качиш
+            всички прогнози наведнъж. Ако същият мач вече съществува със същата
+            комбинация спорт, мач, час и прогноза, записът ще се обнови, а няма да се
+            дублира.
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <form action={importPredictionXmlAction} className="space-y-4">
+              <label className="block space-y-2">
+                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+                  XML файл
+                </span>
+                <input
+                  required
+                  type="file"
+                  name="xml_file"
+                  accept=".xml,text/xml,application/xml"
+                  className="block w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-sm text-white file:mr-4 file:rounded-full file:border-0 file:bg-orange-400 file:px-4 file:py-2 file:font-semibold file:text-slate-950 hover:file:bg-orange-300"
+                />
+              </label>
+
+              <div className="flex flex-wrap gap-3">
+                <button
+                  type="submit"
+                  className="rounded-full bg-orange-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-orange-300"
+                >
+                  Импортирай прогнози от XML
+                </button>
+                <a
+                  href="/admin/template"
+                  download="oraclebet-predictions-template.xml"
+                  className="rounded-full border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
+                >
+                  Свали примерен XML
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div className="rounded-[24px] border border-white/10 bg-slate-950/25 p-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+            Примерен шаблон
+          </p>
+          <p className="mt-3 text-sm leading-7 text-white/70">
+            Приемат се тагове като `sport`, `match`, `country`, `league`, `kickoff`,
+            `prediction`, `odds`, `analysis`, `status`, `result_text`. Часът може да е
+            например `2026-03-22T22:00` или `22.03.2026 22:00`.
+          </p>
+          <pre className="mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-slate-950/45 p-4 text-xs leading-6 text-white/80">
+            <code>{PREDICTION_IMPORT_XML_TEMPLATE}</code>
+          </pre>
+        </div>
       </div>
     </section>
   )
@@ -372,7 +443,8 @@ function PredictionForm({
 
         <label className="space-y-2">
           <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
-            Анализ</span>
+            Анализ
+          </span>
           <textarea
             name="analysis"
             rows={4}
@@ -496,7 +568,7 @@ function CollapsiblePredictionSection({
               {rows.length} {rows.length === 1 ? "мач" : "мача"}
             </span>
             <span className="inline-flex text-sm font-semibold uppercase tracking-[0.18em] text-orange-200 transition group-open:rotate-180">
-              ˅
+              ↓
             </span>
           </div>
         </summary>
@@ -513,7 +585,7 @@ function CollapsiblePredictionSection({
               {rows.map((row) => (
                 <PredictionForm
                   key={row.id}
-                  title={`${getSportLabel(row.sport)} вЂў ID ${row.id}`}
+                  title={`${getSportLabel(row.sport)} • ID ${row.id}`}
                   row={row}
                 />
               ))}
@@ -529,6 +601,7 @@ type AdminPageProps = {
   searchParams: Promise<{
     deleted?: string
     error?: string
+    imported?: string
     saved?: string
   }>
 }
@@ -586,8 +659,8 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
             </p>
             <h1 className="mt-3 text-4xl font-bold text-white">Управление на прогнозите</h1>
             <p className="mt-4 max-w-3xl leading-7 text-white/75">
-              Оттук добавяш нови мачове и местиш приключилите прогнози към резултати само
-              със смяна на статуса.
+              Оттук добавяш нови мачове, качваш XML импорт и местиш приключилите
+              прогнози към резултати само със смяна на статуса.
             </p>
           </div>
 
@@ -604,6 +677,12 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         {params.saved && (
           <div className="mt-6 rounded-2xl border border-emerald-300/25 bg-emerald-950/60 px-4 py-3 text-sm text-emerald-100">
             Промяната е запазена успешно.
+          </div>
+        )}
+
+        {params.imported && (
+          <div className="mt-6 rounded-2xl border border-emerald-300/25 bg-emerald-950/60 px-4 py-3 text-sm text-emerald-100">
+            XML импортът приключи успешно. Качени или обновени са {params.imported} прогнози.
           </div>
         )}
 
@@ -631,6 +710,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
       </section>
 
       <VisitorsSection rows={dailyVisitors} />
+      <PredictionImportCard />
 
       <PredictionForm title="Нова прогноза" />
 
