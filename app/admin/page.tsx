@@ -165,6 +165,17 @@ function formatVisitorDate(day: string) {
   }).format(new Date(`${day}T00:00:00`))
 }
 
+function formatAdminDateTime(timestamp: string) {
+  return new Intl.DateTimeFormat("bg-BG", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Sofia",
+  }).format(new Date(timestamp))
+}
+
 function getRelativeVisitorDay(offsetDays: number) {
   const date = new Date()
   date.setDate(date.getDate() + offsetDays)
@@ -226,7 +237,7 @@ function VisitorsSection({ rows }: { rows: DailyVisitorRow[] }) {
   )
 }
 
-function PredictionImportCard() {
+function PredictionImportCard({ imported }: { imported?: string }) {
   return (
     <section className="rounded-[28px] border border-white/10 bg-slate-950/18 p-6 backdrop-blur-xl md:p-8">
       <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
@@ -243,6 +254,12 @@ function PredictionImportCard() {
             комбинация спорт, мач, час и прогноза, записът ще се обнови, а няма да се
             дублира.
           </p>
+
+          {imported && (
+            <div className="mt-5 rounded-2xl border border-emerald-300/25 bg-emerald-950/60 px-4 py-3 text-sm text-emerald-100">
+              XML-ът е импортиран успешно. Качени или обновени са {imported} прогнози.
+            </div>
+          )}
 
           <div className="mt-6 flex flex-wrap gap-3">
             <form action={importPredictionXmlAction} className="space-y-4">
@@ -319,9 +336,14 @@ function PredictionForm({
             {title}
           </p>
           {row && (
-            <p className="mt-2 text-sm font-medium text-white/70">
-              {row.match} • {getStatusLabel(row.status)}
-            </p>
+            <div className="mt-2 space-y-1.5">
+              <p className="text-sm font-medium text-white/70">
+                {row.match} • {getStatusLabel(row.status)}
+              </p>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                Добавена: {formatAdminDateTime(row.published_at)}
+              </p>
+            </div>
           )}
         </div>
 
@@ -712,7 +734,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
       </section>
 
       <VisitorsSection rows={dailyVisitors} />
-      <PredictionImportCard />
+      <PredictionImportCard imported={params.imported} />
 
       <PredictionForm title="Нова прогноза" />
 

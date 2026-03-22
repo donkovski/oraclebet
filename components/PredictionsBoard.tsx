@@ -12,6 +12,7 @@ import type { PredictionSport } from "@/lib/sports"
 type PredictionItem = {
   match: string
   kickoff: string
+  publishedAt?: string
   country: string
   league: string
   prediction: string
@@ -125,6 +126,7 @@ export default function PredictionsBoard({
                   key={`started-${item.match}-${item.prediction}`}
                   match={item.match}
                   kickoff={item.kickoff}
+                  publishedAt={item.publishedAt}
                   country={item.country}
                   league={item.league}
                   prediction={item.prediction}
@@ -159,6 +161,12 @@ export default function PredictionsBoard({
                     league={featuredPrediction.league}
                   />
                 </div>
+
+                {featuredPrediction.publishedAt && (
+                  <p className="mt-3 text-xs font-semibold uppercase tracking-[0.14em] text-white/40">
+                    Добавена: {featuredPrediction.publishedAt}
+                  </p>
+                )}
 
                 <div className="mt-6 grid gap-4 md:grid-cols-3">
                   <div className="rounded-2xl border border-white/10 bg-white/6 p-5">
@@ -212,6 +220,7 @@ export default function PredictionsBoard({
                   key={`${item.match}-${item.prediction}`}
                   match={item.match}
                   kickoff={item.kickoff}
+                  publishedAt={item.publishedAt}
                   country={item.country}
                   league={item.league}
                   prediction={item.prediction}

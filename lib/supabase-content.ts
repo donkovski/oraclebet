@@ -10,6 +10,7 @@ type PredictionStatus = "pending" | "live" | "won" | "lost" | "void"
 type SupabasePredictionRow = {
   match: string
   kickoff: string
+  published_at: string
   country: string
   league: string
   prediction: string
@@ -22,6 +23,7 @@ type SupabasePredictionRow = {
 export type DisplayPrediction = {
   match: string
   kickoff: string
+  publishedAt?: string
   country: string
   league: string
   prediction: string
@@ -77,6 +79,7 @@ function mapPredictionRow(row: SupabasePredictionRow): DisplayPrediction {
   return {
     match: row.match,
     kickoff: formatTimestampInSofia(row.kickoff),
+    publishedAt: formatTimestampInSofia(row.published_at),
     country: row.country,
     league: row.league,
     prediction: row.prediction,
@@ -118,7 +121,7 @@ async function fetchPredictionRows(sport: Sport, statuses: PredictionStatus[]) {
   }
 
   const params = new URLSearchParams({
-    select: "match,kickoff,country,league,prediction,analysis,odds,status,result_text",
+    select: "match,kickoff,published_at,country,league,prediction,analysis,odds,status,result_text",
     sport: `eq.${sport}`,
     order: "kickoff.asc",
   })
