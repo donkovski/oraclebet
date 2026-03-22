@@ -26,7 +26,7 @@ export default function DailyVisitTracker() {
       return
     }
 
-    const visitKey = `oraclebet-visit-v2-${getSofiaDateKey()}`
+    const visitKey = `oraclebet-visit-v3-${getSofiaDateKey()}`
     const pendingKey = `${visitKey}-pending`
 
     if (window.localStorage.getItem(visitKey)) {
