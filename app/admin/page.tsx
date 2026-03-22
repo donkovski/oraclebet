@@ -267,11 +267,11 @@ function PredictionImportCard() {
                   Импортирай прогнози от XML
                 </button>
                 <a
-                  href="/admin/template"
-                  download="oraclebet-predictions-template-v3.xml"
+                  href="/admin/template?v=4"
+                  download="oraclebet-predictions-template-v4.xml"
                   className="rounded-full border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
                 >
-                  Свали примерен XML
+                  Свали примерен XML (v4)
                 </a>
               </div>
             </form>

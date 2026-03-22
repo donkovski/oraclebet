@@ -14,7 +14,7 @@ export async function GET() {
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
       "Content-Disposition":
-        'attachment; filename="oraclebet-predictions-template-v3.xml"',
+        'attachment; filename="oraclebet-predictions-template-v4.xml"',
       "Cache-Control": "no-store",
     },
   })
