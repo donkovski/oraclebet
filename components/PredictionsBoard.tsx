@@ -239,9 +239,6 @@ export default function PredictionsBoard({
             <h2 className="mt-4 text-3xl font-black text-white md:text-4xl">
               {finishedTitle}
             </h2>
-            <p className="mt-4 max-w-2xl leading-7 text-white/75">
-              Новите предстоящи мачове ще се покажат автоматично тук, когато публикуваш следващите селекции.
-            </p>
           </section>
         )}
       </div>

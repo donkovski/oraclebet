@@ -19,7 +19,7 @@ export default async function HockeyResultsPage() {
       label="Хокей резултати"
       results={results}
       emptyTitle="Архивът за хокея ще започне да се попълва след първите приключени мачове."
-      emptyDescription="След като публикуваните хокей прогнози приключат, тук автоматично ще започне да се трупа реален архив с резултати и статистика."
+      emptyDescription=""
       predictionHref="/tips/hokei"
       predictionLabel="Към хокей прогнози"
       accentClassName="text-sky-200"

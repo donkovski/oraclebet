@@ -9,7 +9,7 @@ type SportResultsPageProps = {
   label: string
   results: Result[]
   emptyTitle: string
-  emptyDescription: string
+  emptyDescription?: string
   predictionHref: string
   predictionLabel: string
   accentClassName: string
@@ -97,7 +97,9 @@ export default function SportResultsPage({
             {label}
           </p>
           <h1 className="mt-3 text-4xl font-bold text-white">{emptyTitle}</h1>
-          <p className="mt-4 max-w-3xl leading-7 text-white/75">{emptyDescription}</p>
+          {emptyDescription && (
+            <p className="mt-4 max-w-3xl leading-7 text-white/75">{emptyDescription}</p>
+          )}
 
           <div className="mt-6">
             <SportSwitcher currentSport={sport} />

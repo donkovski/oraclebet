@@ -18,7 +18,7 @@ export default async function BaseballTipsPage() {
     <SportPredictionsPage
       sportLabel="Бейзбол прогнози"
       emptyTitle="В момента няма активни бейзболни прогнози."
-      emptyDescription="Секцията е готова и ще започне да се попълва автоматично, когато публикуваш първите бейзболни прогнози."
+      emptyDescription=""
       predictions={predictions}
       introTitle="Днешните бейзболни селекции са вече публикувани."
       finishedTitle="Всички бейзболни прогнози за деня вече са започнали."

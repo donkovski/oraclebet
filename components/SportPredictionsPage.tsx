@@ -18,7 +18,7 @@ type SportSwitchLink = {
 type SportPredictionsPageProps = {
   sportLabel: string
   emptyTitle: string
-  emptyDescription: string
+  emptyDescription?: string
   predictions: DisplayPrediction[]
   introTitle: string
   finishedTitle: string
@@ -84,7 +84,9 @@ export default function SportPredictionsPage({
           <h1 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl">
             {emptyTitle}
           </h1>
-          <p className="mt-4 max-w-2xl leading-7 text-white/75">{emptyDescription}</p>
+          {emptyDescription && (
+            <p className="mt-4 max-w-2xl leading-7 text-white/75">{emptyDescription}</p>
+          )}
 
           <div className="mt-6">
             <SportSwitcher currentSport={sport} />

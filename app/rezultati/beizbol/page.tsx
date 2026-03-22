@@ -19,7 +19,7 @@ export default async function BaseballResultsPage() {
       label="Бейзбол резултати"
       results={results}
       emptyTitle="Архивът за бейзбола ще започне да се попълва след първите приключени мачове."
-      emptyDescription="След като публикуваните бейзболни прогнози приключат, тук автоматично ще започне да се трупа реален архив с резултати и статистика."
+      emptyDescription=""
       predictionHref="/tips/beizbol"
       predictionLabel="Към бейзбол прогнози"
       accentClassName="text-emerald-200"

@@ -19,7 +19,7 @@ export default async function FootballResultsPage() {
       label="Футболни резултати"
       results={results}
       emptyTitle="Архивът за футбола ще започне да се попълва след първите приключени мачове."
-      emptyDescription="След като публикуваните футболни прогнози приключат, тук автоматично ще започне да се трупа реален архив с резултати и статистика."
+      emptyDescription=""
       predictionHref="/tips/futbol"
       predictionLabel="Към футболни прогнози"
       accentClassName="text-orange-200"

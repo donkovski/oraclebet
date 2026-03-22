@@ -18,7 +18,7 @@ export default async function HockeyTipsPage() {
     <SportPredictionsPage
       sportLabel="Хокей прогнози"
       emptyTitle="В момента няма активни хокей прогнози."
-      emptyDescription="Когато има нови хокей селекции, те ще се появят тук автоматично."
+      emptyDescription=""
       predictions={predictions}
       introTitle="Днешните хокей селекции са вече публикувани."
       finishedTitle="Всички хокей прогнози за деня вече са започнали."

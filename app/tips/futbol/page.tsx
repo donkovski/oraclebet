@@ -18,7 +18,7 @@ export default async function FootballTipsPage() {
     <SportPredictionsPage
       sportLabel="Футболни прогнози"
       emptyTitle="В момента няма активни футболни прогнози."
-      emptyDescription="Когато има нови футболни селекции за деня, те ще се появят тук автоматично."
+      emptyDescription=""
       predictions={predictions}
       introTitle="Днешните футболни селекции са вече публикувани."
       finishedTitle="Всички футболни прогнози за деня вече са започнали."

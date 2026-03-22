@@ -19,7 +19,7 @@ export default async function BasketballResultsPage() {
       label="Баскетбол резултати"
       results={results}
       emptyTitle="Архивът за баскетбола ще започне да се попълва след първите приключени мачове."
-      emptyDescription="След като публикуваните баскетболни прогнози приключат, тук автоматично ще започне да се трупа реален архив с резултати и статистика."
+      emptyDescription=""
       predictionHref="/tips/basketbol"
       predictionLabel="Към баскетбол прогнози"
       accentClassName="text-amber-200"
