@@ -31,6 +31,8 @@ const SPORT_ALIASES: Record<string, AdminPredictionSport> = {
   "баскетбол": "basketball",
   baseball: "baseball",
   "бейзбол": "baseball",
+  tennis: "tennis",
+  "тенис": "tennis",
 }
 
 const STATUS_ALIASES: Record<string, AdminPredictionStatus> = {
@@ -44,6 +46,7 @@ const STATUS_ALIASES: Record<string, AdminPredictionStatus> = {
   "играе се": "live",
   "печеливша": "won",
   "губеща": "lost",
+  "анулирана": "void",
 }
 
 const FIELD_ALIASES = {
@@ -76,6 +79,44 @@ function decodeXmlEntities(value: string) {
     .replace(/&gt;/g, ">")
     .replace(/&amp;/g, "&")
     .trim()
+}
+
+function normalizeXmlInput(input: string | ArrayBuffer | Uint8Array) {
+  if (typeof input === "string") {
+    return input
+  }
+
+  const bytes = input instanceof Uint8Array ? input : new Uint8Array(input)
+  const preview = new TextDecoder("ascii").decode(bytes.slice(0, 256))
+  const declaredEncoding =
+    preview.match(/encoding=["']([^"']+)["']/i)?.[1]?.trim().toLowerCase() ?? "utf-8"
+
+  const preferredEncoding =
+    declaredEncoding === "windows-1251" || declaredEncoding === "cp1251"
+      ? "windows-1251"
+      : "utf-8"
+
+  const decoders = [preferredEncoding, preferredEncoding === "utf-8" ? "windows-1251" : "utf-8"]
+
+  for (const encoding of decoders) {
+    try {
+      const decoded = new TextDecoder(encoding, { fatal: false }).decode(bytes)
+
+      if (!decoded.includes("<predictions") || !decoded.includes("</predictions>")) {
+        continue
+      }
+
+      if (encoding === "utf-8" && decoded.includes("\uFFFD")) {
+        continue
+      }
+
+      return decoded
+    } catch {
+      continue
+    }
+  }
+
+  return new TextDecoder("utf-8").decode(bytes)
 }
 
 function getTagValue(block: string, tagNames: readonly string[]) {
@@ -144,7 +185,9 @@ function normalizeKickoff(value: string, rowNumber: number) {
     return toSofiaISOString(`${year}-${month}-${day}T${timePart}`)
   }
 
-  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(trimmedValue)) {
+  if (
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(trimmedValue)
+  ) {
     return new Date(trimmedValue).toISOString()
   }
 
@@ -154,16 +197,48 @@ function normalizeKickoff(value: string, rowNumber: number) {
 }
 
 function getPredictionBlocks(xml: string) {
-  return xml.match(/<prediction\b[\s\S]*?<\/prediction>/gi) ?? []
+  const blocks: string[] = []
+  const tagPattern = /<\/?prediction\b[^>]*>/gi
+  let depth = 0
+  let startIndex = -1
+
+  for (const match of xml.matchAll(tagPattern)) {
+    const tag = match[0]
+    const index = match.index ?? -1
+    const isClosingTag = /^<\//.test(tag)
+    const isSelfClosingTag = /\/>$/.test(tag)
+
+    if (!isClosingTag) {
+      if (depth === 0) {
+        startIndex = index
+      }
+
+      depth += 1
+
+      if (isSelfClosingTag) {
+        depth -= 1
+      }
+    } else {
+      depth -= 1
+    }
+
+    if (depth === 0 && startIndex !== -1) {
+      blocks.push(xml.slice(startIndex, index + tag.length))
+      startIndex = -1
+    }
+  }
+
+  return blocks
 }
 
 function getPredictionInnerBlock(block: string) {
-  return block
-    .replace(/^<prediction\b[^>]*>/i, "")
-    .replace(/<\/prediction>\s*$/i, "")
+  return block.replace(/^<prediction\b[^>]*>/i, "").replace(/<\/prediction>\s*$/i, "")
 }
 
-export function parsePredictionImportXml(xml: string): AdminPredictionInput[] {
+export function parsePredictionImportXml(
+  input: string | ArrayBuffer | Uint8Array
+): AdminPredictionInput[] {
+  const xml = normalizeXmlInput(input)
   const blocks = getPredictionBlocks(xml)
 
   if (blocks.length === 0) {

@@ -114,8 +114,8 @@ export async function importPredictionXmlAction(formData: FormData) {
   }
 
   try {
-    const xmlContent = await fileEntry.text()
-    const predictions = parsePredictionImportXml(xmlContent)
+    const xmlBuffer = await fileEntry.arrayBuffer()
+    const predictions = parsePredictionImportXml(xmlBuffer)
     await saveAdminPredictionsBatch(predictions)
     redirect(`/admin?imported=${predictions.length}`)
   } catch (error) {
