@@ -284,8 +284,8 @@ function PredictionImportCard() {
           </p>
           <p className="mt-3 text-sm leading-7 text-white/70">
             Приемат се тагове като `sport`, `match`, `country`, `league`, `kickoff`,
-            `prediction`, `odds`, `analysis`, `status`, `result_text`. Часът може да е
-            например `2026-03-22T22:00` или `22.03.2026 22:00`.
+            `pick` или `prediction`, `odds`, `analysis`, `status`, `result_text`.
+            Часът може да е например `2026-03-22T22:00` или `22.03.2026 22:00`.
           </p>
           <pre className="mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-slate-950/45 p-4 text-xs leading-6 text-white/80">
             <code>{PREDICTION_IMPORT_XML_TEMPLATE}</code>

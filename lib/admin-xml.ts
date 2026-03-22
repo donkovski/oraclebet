@@ -13,7 +13,7 @@ export const PREDICTION_IMPORT_XML_TEMPLATE = `<?xml version="1.0" encoding="UTF
     <country>Испания</country>
     <league>Ла Лига</league>
     <kickoff>2026-03-22T22:00</kickoff>
-    <prediction>Над 5.5 картона</prediction>
+    <pick>Над 5.5 картона</pick>
     <odds>2.00</odds>
     <analysis>Кратък анализ на мача.</analysis>
     <status>pending</status>
@@ -57,7 +57,7 @@ const FIELD_ALIASES = {
   kickoff: ["kickoff", "start_time", "datetime", "час_на_започване", "начало"],
   date: ["date", "дата"],
   time: ["time", "час"],
-  prediction: ["prediction", "pick", "прогноза"],
+  prediction: ["pick", "prediction", "selection", "прогноза"],
   odds: ["odds", "коефициент"],
   analysis: ["analysis", "анализ"],
   status: ["status", "статус"],
