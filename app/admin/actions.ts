@@ -114,8 +114,27 @@ export async function importPredictionXmlAction(formData: FormData) {
   }
 
   try {
-    const xmlBuffer = await fileEntry.arrayBuffer()
-    const predictions = parsePredictionImportXml(xmlBuffer)
+    const attempts: Array<() => Promise<AdminPredictionInput[]>> = [
+      async () => parsePredictionImportXml(await fileEntry.arrayBuffer()),
+      async () => parsePredictionImportXml(await fileEntry.text()),
+    ]
+
+    let predictions: AdminPredictionInput[] | null = null
+    let lastError: unknown = null
+
+    for (const attempt of attempts) {
+      try {
+        predictions = await attempt()
+        break
+      } catch (error) {
+        lastError = error
+      }
+    }
+
+    if (!predictions) {
+      throw lastError ?? new Error("Неуспешен XML импорт.")
+    }
+
     await saveAdminPredictionsBatch(predictions)
     redirect(`/admin?imported=${predictions.length}`)
   } catch (error) {

@@ -6,6 +6,7 @@ import {
 } from "@/lib/supabase-admin"
 
 export const PREDICTION_IMPORT_XML_TEMPLATE = `<?xml version="1.0" encoding="UTF-8"?>
+<!-- oraclebet-template-version: 3 -->
 <predictions>
   <prediction>
     <sport>football</sport>
