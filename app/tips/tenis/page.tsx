@@ -17,7 +17,7 @@ export default async function TennisTipsPage() {
   return (
     <SportPredictionsPage
       sportLabel="Тенис прогнози"
-      emptyTitle="В момента няма активни тенис прогнози."
+      emptyTitle="Очаквайте скоро."
       emptyDescription=""
       predictions={predictions}
       introTitle="Днешните тенис селекции са вече публикувани."
