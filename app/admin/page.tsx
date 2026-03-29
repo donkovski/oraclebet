@@ -214,24 +214,43 @@ function VisitorsSection({ rows }: { rows: DailyVisitorRow[] }) {
       </div>
 
       <div className="rounded-[28px] border border-white/10 bg-slate-950/18 p-6 backdrop-blur-xl">
-        <div className="space-y-3">
-          {rows.length === 0 ? (
-            <p className="text-sm leading-7 text-white/70">
-              Още няма събрани посещения. След като tracker-ът започне да отчита
-              отварянията на сайта, тук ще виждаш дневния брой посетители.
-            </p>
-          ) : (
-            rows.map((row) => (
-              <div
-                key={row.day}
-                className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
-              >
-                <p className="text-sm font-medium text-white/75">{formatVisitorDate(row.day)}</p>
-                <p className="text-lg font-bold text-white">{row.visits}</p>
+        {rows.length === 0 ? (
+          <p className="text-sm leading-7 text-white/70">
+            Още няма събрани посещения. След като tracker-ът започне да отчита
+            отварянията на сайта, тук ще виждаш дневния брой посетители.
+          </p>
+        ) : (
+          <details className="group">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left transition hover:bg-white/10">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.14em] text-white/45">
+                  Архив по дни
+                </p>
+                <p className="mt-1 text-sm text-white/75">
+                  Разгъни, за да видиш всички отчетени дни и посещения.
+                </p>
               </div>
-            ))
-          )}
-        </div>
+              <div className="flex items-center gap-3">
+                <div className="rounded-full border border-white/10 bg-slate-950/45 px-3 py-1 text-sm font-semibold text-white/75">
+                  {rows.length}
+                </div>
+                <span className="text-xl text-white/55 transition group-open:rotate-180">⌄</span>
+              </div>
+            </summary>
+
+            <div className="mt-4 space-y-3">
+              {rows.map((row) => (
+                <div
+                  key={row.day}
+                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
+                >
+                  <p className="text-sm font-medium text-white/75">{formatVisitorDate(row.day)}</p>
+                  <p className="text-lg font-bold text-white">{row.visits}</p>
+                </div>
+              ))}
+            </div>
+          </details>
+        )}
       </div>
     </section>
   )
