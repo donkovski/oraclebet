@@ -32,6 +32,9 @@ const SPORT_ALIASES: Record<string, AdminPredictionSport> = {
   "баскетбол": "basketball",
   baseball: "baseball",
   "бейзбол": "baseball",
+  tennis: "tennis",
+  tenis: "tennis",
+  "тенис": "tennis",
 }
 
 const STATUS_ALIASES: Record<string, AdminPredictionStatus> = {

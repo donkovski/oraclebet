@@ -73,6 +73,8 @@ function getSportLabel(sport: AdminPredictionRow["sport"]) {
       return "Баскетбол"
     case "baseball":
       return "Бейзбол"
+    case "tennis":
+      return "Тенис"
     default:
       return sport
   }
@@ -396,6 +398,7 @@ function PredictionForm({
               <option value="hockey">Хокей</option>
               <option value="basketball">Баскетбол</option>
               <option value="baseball">Бейзбол</option>
+              <option value="tennis">Тенис</option>
             </select>
           </label>
 
@@ -685,6 +688,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
   const hockeyCount = predictions.filter((row) => row.sport === "hockey").length
   const basketballCount = predictions.filter((row) => row.sport === "basketball").length
   const baseballCount = predictions.filter((row) => row.sport === "baseball").length
+  const tennisCount = predictions.filter((row) => row.sport === "tennis").length
   const activePredictions = predictions
     .filter((row) => row.status === "pending" || row.status === "live")
     .sort(sortByKickoffAscending)
@@ -742,7 +746,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         )}
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-7">
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-8">
         <SummaryCard label="Общо" value={predictions.length} />
         <SummaryCard label="Текущи" value={activePredictions.length} />
         <SummaryCard label="Приключени" value={archivedPredictions.length} />
@@ -750,6 +754,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         <SummaryCard label="Хокей" value={hockeyCount} />
         <SummaryCard label="Баскетбол" value={basketballCount} />
         <SummaryCard label="Бейзбол" value={baseballCount} />
+        <SummaryCard label="Тенис" value={tennisCount} />
       </section>
 
       <VisitorsSection rows={dailyVisitors} />

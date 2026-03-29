@@ -5,25 +5,27 @@ import {
   getBasketballPredictions,
   getFootballPredictions,
   getHockeyPredictions,
+  getTennisPredictions,
 } from "@/lib/supabase-content"
 import { sortPredictionsByKickoff } from "@/lib/prediction-utils"
 
 export const metadata: Metadata = {
   title: "Днешни спортни прогнози",
   description:
-    "Разгледай днешните прогнози в OracleBet по отделни спортове с удобна структура за прогнози и резултати.",
+    "Разгледай днешните прогнози в OracleBet по отделни спортове с удобна структура за прогнози и резултати за футбол, хокей, баскетбол, бейзбол и тенис.",
   alternates: {
     canonical: "/",
   },
 }
 
 export default async function Home() {
-  const [footballPredictions, hockeyPredictions, basketballPredictions, baseballPredictions] =
+  const [footballPredictions, hockeyPredictions, basketballPredictions, baseballPredictions, tennisPredictions] =
     await Promise.all([
       getFootballPredictions(),
       getHockeyPredictions(),
       getBasketballPredictions(),
       getBaseballPredictions(),
+      getTennisPredictions(),
     ])
 
   const groupedPredictions = {
@@ -31,6 +33,7 @@ export default async function Home() {
     hockey: sortPredictionsByKickoff(hockeyPredictions),
     basketball: sortPredictionsByKickoff(basketballPredictions),
     baseball: sortPredictionsByKickoff(baseballPredictions),
+    tennis: sortPredictionsByKickoff(tennisPredictions),
   }
 
   const allPredictions = sortPredictionsByKickoff([
@@ -38,6 +41,7 @@ export default async function Home() {
     ...groupedPredictions.hockey,
     ...groupedPredictions.basketball,
     ...groupedPredictions.baseball,
+    ...groupedPredictions.tennis,
   ])
 
   const totalPredictions = allPredictions.length
@@ -57,7 +61,7 @@ export default async function Home() {
             </h1>
 
             <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">
-              Сайтът вече има отделни секции за футбол, хокей, баскетбол и бейзбол. Влизаш
+              Сайтът вече има отделни секции за футбол, хокей, баскетбол, бейзбол и тенис. Влизаш
               първо в общите страници <span className="font-semibold text-white">Прогнози</span> и{" "}
               <span className="font-semibold text-white">Резултати</span>, а после избираш спорта,
               който искаш да следиш.
@@ -130,6 +134,15 @@ export default async function Home() {
                 </p>
                 <p className="mt-2 text-2xl font-bold text-white">
                   {groupedPredictions.baseball.length}
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
+                  Тенис
+                </p>
+                <p className="mt-2 text-2xl font-bold text-white">
+                  {groupedPredictions.tennis.length}
                 </p>
               </div>
             </div>

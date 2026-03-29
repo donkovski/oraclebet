@@ -34,7 +34,7 @@ export default function SportsHubPage({
         <p className="mt-4 max-w-3xl leading-7 text-white/75">{description}</p>
       </section>
 
-      <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
         {cards.map((card) => (
           <Link
             key={card.href}

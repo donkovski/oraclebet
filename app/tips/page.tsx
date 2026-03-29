@@ -4,7 +4,7 @@ import SportsHubPage from "@/components/SportsHubPage"
 export const metadata: Metadata = {
   title: "Прогнози",
   description:
-    "Избери спорт и разгледай прогнозите в OracleBet за футбол, хокей, баскетбол и бейзбол.",
+    "Избери спорт и разгледай прогнозите в OracleBet за футбол, хокей, баскетбол, бейзбол и тенис.",
   alternates: {
     canonical: "/tips",
   },
@@ -15,7 +15,7 @@ export default function TipsHubPage() {
     <SportsHubPage
       eyebrow="Прогнози"
       title="Избери спортната секция за днешните прогнози."
-      description="Всички прогнози вече са подредени по спортове, за да намираш по-бързо активните мачове и архивите им. Оттук можеш да влезеш във футбол, хокей, баскетбол и бейзбол."
+      description="Всички прогнози вече са подредени по спортове, за да намираш по-бързо активните мачове и архивите им. Оттук можеш да влезеш във футбол, хокей, баскетбол, бейзбол и тенис."
       cards={[
         {
           href: "/tips/futbol",
@@ -40,6 +40,12 @@ export default function TipsHubPage() {
           label: "Бейзбол",
           description: "Подготвена секция за бейзболни прогнози и бъдещо публикуване.",
           accentClassName: "border-emerald-300/35 bg-emerald-300/12 text-emerald-100",
+        },
+        {
+          href: "/tips/tenis",
+          label: "Тенис",
+          description: "Тенис прогнози по турнири и мачове, подредени в отделна секция.",
+          accentClassName: "border-fuchsia-300/35 bg-fuchsia-300/12 text-fuchsia-100",
         },
       ]}
     />

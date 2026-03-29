@@ -62,6 +62,10 @@ export function getPredictionCategory(
     return "totals" as const
   }
 
+  if (sport === "tennis" && (normalized.includes("гейм") || normalized.includes("game"))) {
+    return "totals" as const
+  }
+
   return "market" as const
 }
 
@@ -82,6 +86,10 @@ export function getPredictionCategoryLabel(
 
     if (sport === "baseball") {
       return "Рънове"
+    }
+
+    if (sport === "tennis") {
+      return "Геймове"
     }
 
     return "Голове"

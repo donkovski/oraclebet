@@ -4,7 +4,7 @@ import { predictions as fallbackFootballPredictions } from "@/data/predictions"
 import { results as fallbackFootballResults } from "@/data/results"
 import type { Result } from "@/types/results"
 
-export type Sport = "football" | "hockey" | "basketball" | "baseball"
+export type Sport = "football" | "hockey" | "basketball" | "baseball" | "tennis"
 type PredictionStatus = "pending" | "live" | "won" | "lost" | "void"
 
 type SupabasePredictionRow = {
@@ -187,6 +187,10 @@ export async function getBaseballPredictions() {
   return getPredictionsBySport("baseball", emptyPredictions)
 }
 
+export async function getTennisPredictions() {
+  return getPredictionsBySport("tennis", emptyPredictions)
+}
+
 export async function getFootballResults() {
   return getResultsBySport("football", fallbackFootballResults)
 }
@@ -201,4 +205,8 @@ export async function getBasketballResults() {
 
 export async function getBaseballResults() {
   return getResultsBySport("baseball", emptyResults)
+}
+
+export async function getTennisResults() {
+  return getResultsBySport("tennis", emptyResults)
 }

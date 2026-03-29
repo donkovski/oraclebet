@@ -42,6 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     },
     {
+      url: `${siteConfig.siteUrl}/tips/tenis`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.75,
+    },
+    {
       url: `${siteConfig.siteUrl}/rezultati`,
       lastModified: now,
       changeFrequency: "daily",
@@ -67,6 +73,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${siteConfig.siteUrl}/rezultati/beizbol`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.65,
+    },
+    {
+      url: `${siteConfig.siteUrl}/rezultati/tenis`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.65,

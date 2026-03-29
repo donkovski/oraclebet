@@ -1,1 +1,1 @@
-export type PredictionSport = "football" | "hockey" | "basketball" | "baseball"
+export type PredictionSport = "football" | "hockey" | "basketball" | "baseball" | "tennis"

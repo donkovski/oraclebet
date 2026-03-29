@@ -32,6 +32,7 @@ const sportSwitchLinks: SportSwitchLink[] = [
   { href: "/tips/hokei", label: "Хокей", sport: "hockey" },
   { href: "/tips/basketbol", label: "Баскетбол", sport: "basketball" },
   { href: "/tips/beizbol", label: "Бейзбол", sport: "baseball" },
+  { href: "/tips/tenis", label: "Тенис", sport: "tennis" },
 ]
 
 function SportSwitcher({ currentSport }: { currentSport: PredictionSport }) {

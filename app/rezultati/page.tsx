@@ -4,7 +4,7 @@ import SportsHubPage from "@/components/SportsHubPage"
 export const metadata: Metadata = {
   title: "Резултати",
   description:
-    "Избери спорт и разгледай резултатите и архивите в OracleBet за футбол, хокей, баскетбол и бейзбол.",
+    "Избери спорт и разгледай резултатите и архивите в OracleBet за футбол, хокей, баскетбол, бейзбол и тенис.",
   alternates: {
     canonical: "/rezultati",
   },
@@ -40,6 +40,12 @@ export default function ResultsHubPage() {
           label: "Бейзбол",
           description: "Подготвена секция за бейзболни резултати и бъдеща статистика.",
           accentClassName: "border-emerald-300/35 bg-emerald-300/12 text-emerald-100",
+        },
+        {
+          href: "/rezultati/tenis",
+          label: "Тенис",
+          description: "Архив за тенис резултати, статистика и бъдещи завършени прогнози.",
+          accentClassName: "border-fuchsia-300/35 bg-fuchsia-300/12 text-fuchsia-100",
         },
       ]}
     />
