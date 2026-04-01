@@ -22,6 +22,33 @@ function getStringValue(formData: FormData, key: string) {
   return String(formData.get(key) ?? "").trim()
 }
 
+function buildAdminRedirectUrl(
+  formData: FormData,
+  extraParams?: Record<string, string | number | undefined>
+) {
+  const params = new URLSearchParams()
+  const sport = getStringValue(formData, "redirect_sport")
+  const view = getStringValue(formData, "redirect_view")
+
+  if (sport && sport !== "all") {
+    params.set("sport", sport)
+  }
+
+  if (view && view !== "current") {
+    params.set("view", view)
+  }
+
+  for (const [key, value] of Object.entries(extraParams ?? {})) {
+    if (value !== undefined && value !== "") {
+      params.set(key, String(value))
+    }
+  }
+
+  const query = params.toString()
+
+  return query ? `/admin?${query}` : "/admin"
+}
+
 function parsePredictionPayload(formData: FormData): AdminPredictionInput {
   const id = getStringValue(formData, "id")
   const sport = getStringValue(formData, "sport") as AdminPredictionSport
@@ -93,10 +120,10 @@ export async function savePredictionAction(formData: FormData) {
     await saveAdminPrediction(payload)
   } catch (error) {
     const message = error instanceof Error ? error.message : "Неуспешен запис."
-    redirect(`/admin?error=${encodeURIComponent(message)}`)
+    redirect(buildAdminRedirectUrl(formData, { error: message }))
   }
 
-  redirect("/admin?saved=1")
+  redirect(buildAdminRedirectUrl(formData, { saved: 1 }))
 }
 
 export async function importPredictionXmlAction(formData: FormData) {
@@ -110,7 +137,7 @@ export async function importPredictionXmlAction(formData: FormData) {
   const fileEntry = formData.get("xml_file")
 
   if (!(fileEntry instanceof File) || fileEntry.size === 0) {
-    redirect("/admin?error=Моля%20избери%20XML%20файл%20за%20импорт.")
+    redirect(buildAdminRedirectUrl(formData, { error: "Моля избери XML файл за импорт." }))
   }
 
   try {
@@ -136,10 +163,10 @@ export async function importPredictionXmlAction(formData: FormData) {
     }
 
     await saveAdminPredictionsBatch(predictions)
-    redirect(`/admin?imported=${predictions.length}`)
+    redirect(buildAdminRedirectUrl(formData, { imported: predictions.length }))
   } catch (error) {
     const message = error instanceof Error ? error.message : "Неуспешен XML импорт."
-    redirect(`/admin?error=${encodeURIComponent(message)}`)
+    redirect(buildAdminRedirectUrl(formData, { error: message }))
   }
 }
 
@@ -154,15 +181,15 @@ export async function deletePredictionAction(formData: FormData) {
   const id = Number(getStringValue(formData, "id"))
 
   if (!Number.isInteger(id) || id <= 0) {
-    redirect("/admin?error=Невалиден%20идентификатор%20за%20изтриване.")
+    redirect(buildAdminRedirectUrl(formData, { error: "Невалиден идентификатор за изтриване." }))
   }
 
   try {
     await deleteAdminPrediction(id)
   } catch (error) {
     const message = error instanceof Error ? error.message : "Неуспешно изтриване."
-    redirect(`/admin?error=${encodeURIComponent(message)}`)
+    redirect(buildAdminRedirectUrl(formData, { error: message }))
   }
 
-  redirect("/admin?deleted=1")
+  redirect(buildAdminRedirectUrl(formData, { deleted: 1 }))
 }

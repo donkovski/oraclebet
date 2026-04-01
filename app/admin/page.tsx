@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   },
 }
 
+type AdminViewFilter = "current" | "archived"
+type AdminSportFilter = "all" | AdminPredictionRow["sport"]
+
 function getStatusClasses(status: AdminPredictionRow["status"]) {
   if (status === "won") {
     return "border-emerald-300/35 bg-emerald-950/65"
@@ -86,6 +89,47 @@ function sortByKickoffAscending(left: AdminPredictionRow, right: AdminPrediction
 
 function sortByKickoffDescending(left: AdminPredictionRow, right: AdminPredictionRow) {
   return new Date(right.kickoff).getTime() - new Date(left.kickoff).getTime()
+}
+
+function buildAdminUrl(view: AdminViewFilter, sport: AdminSportFilter) {
+  const params = new URLSearchParams()
+
+  if (view !== "current") {
+    params.set("view", view)
+  }
+
+  if (sport !== "all") {
+    params.set("sport", sport)
+  }
+
+  const query = params.toString()
+
+  return query ? `/admin?${query}` : "/admin"
+}
+
+function getSelectedView(value?: string): AdminViewFilter {
+  return value === "archived" ? "archived" : "current"
+}
+
+function getSelectedSport(value?: string): AdminSportFilter {
+  switch (value) {
+    case "football":
+    case "hockey":
+    case "basketball":
+    case "baseball":
+    case "tennis":
+      return value
+    default:
+      return "all"
+  }
+}
+
+function filterPredictionsBySport(rows: AdminPredictionRow[], sport: AdminSportFilter) {
+  if (sport === "all") {
+    return rows
+  }
+
+  return rows.filter((row) => row.sport === sport)
 }
 
 function AdminSetupCard() {
@@ -156,6 +200,38 @@ function SummaryCard({ label, value }: { label: string; value: string | number }
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">{label}</p>
       <p className="mt-2 text-2xl font-bold text-white">{value}</p>
     </div>
+  )
+}
+
+function AdminFilterPill({
+  href,
+  label,
+  count,
+  active,
+}: {
+  href: string
+  label: string
+  count: number
+  active: boolean
+}) {
+  return (
+    <a
+      href={href}
+      className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition ${
+        active
+          ? "border-orange-300/45 bg-orange-400 text-slate-950"
+          : "border-white/10 bg-white/5 text-white/75 hover:bg-white/10"
+      }`}
+    >
+      <span>{label}</span>
+      <span
+        className={`rounded-full px-2 py-0.5 text-xs ${
+          active ? "bg-slate-950/15 text-slate-950" : "bg-slate-950/45 text-white/75"
+        }`}
+      >
+        {count}
+      </span>
+    </a>
   )
 }
 
@@ -258,7 +334,111 @@ function VisitorsSection({ rows }: { rows: DailyVisitorRow[] }) {
   )
 }
 
-function PredictionImportCard({ imported }: { imported?: string }) {
+function FilterSection({
+  currentView,
+  currentSport,
+  activeCount,
+  archivedCount,
+  sportCounts,
+}: {
+  currentView: AdminViewFilter
+  currentSport: AdminSportFilter
+  activeCount: number
+  archivedCount: number
+  sportCounts: Record<AdminSportFilter, number>
+}) {
+  return (
+    <section className="rounded-[28px] border border-white/10 bg-slate-950/18 p-6 backdrop-blur-xl md:p-8">
+      <div className="space-y-6">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
+            Работен изглед
+          </p>
+          <h2 className="mt-2 text-2xl font-bold text-white">Бързо разделение на прогнозите</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-white/70">
+            Избери дали обработваш текущите или приключените прогнози, а после
+            филтрирай по спорт. Така не се рендерират всички редакционни карти наведнъж
+            и админът работи по-леко.
+          </p>
+        </div>
+
+        <div className="space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/45">
+            Статус
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <AdminFilterPill
+              href={buildAdminUrl("current", currentSport)}
+              label="Текущи"
+              count={activeCount}
+              active={currentView === "current"}
+            />
+            <AdminFilterPill
+              href={buildAdminUrl("archived", currentSport)}
+              label="Приключени"
+              count={archivedCount}
+              active={currentView === "archived"}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/45">
+            Спорт
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <AdminFilterPill
+              href={buildAdminUrl(currentView, "all")}
+              label="Всички"
+              count={sportCounts.all}
+              active={currentSport === "all"}
+            />
+            <AdminFilterPill
+              href={buildAdminUrl(currentView, "football")}
+              label="Футбол"
+              count={sportCounts.football}
+              active={currentSport === "football"}
+            />
+            <AdminFilterPill
+              href={buildAdminUrl(currentView, "hockey")}
+              label="Хокей"
+              count={sportCounts.hockey}
+              active={currentSport === "hockey"}
+            />
+            <AdminFilterPill
+              href={buildAdminUrl(currentView, "basketball")}
+              label="Баскетбол"
+              count={sportCounts.basketball}
+              active={currentSport === "basketball"}
+            />
+            <AdminFilterPill
+              href={buildAdminUrl(currentView, "baseball")}
+              label="Бейзбол"
+              count={sportCounts.baseball}
+              active={currentSport === "baseball"}
+            />
+            <AdminFilterPill
+              href={buildAdminUrl(currentView, "tennis")}
+              label="Тенис"
+              count={sportCounts.tennis}
+              active={currentSport === "tennis"}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function PredictionImportCard({
+  imported,
+  currentSportFilter,
+  currentView,
+}: {
+  imported?: string
+  currentSportFilter: AdminSportFilter
+  currentView: AdminViewFilter
+}) {
   return (
     <section className="rounded-[28px] border border-white/10 bg-slate-950/18 p-6 backdrop-blur-xl md:p-8">
       <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
@@ -284,6 +464,9 @@ function PredictionImportCard({ imported }: { imported?: string }) {
 
           <div className="mt-6 flex flex-wrap gap-3">
             <form action={importPredictionXmlAction} className="space-y-4">
+              <input type="hidden" name="redirect_sport" value={currentSportFilter} />
+              <input type="hidden" name="redirect_view" value={currentView} />
+
               <label className="block space-y-2">
                 <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
                   XML файл
@@ -339,9 +522,15 @@ function PredictionImportCard({ imported }: { imported?: string }) {
 function PredictionForm({
   title,
   row,
+  currentSportFilter,
+  currentView,
+  initialSport,
 }: {
   title: string
   row?: AdminPredictionRow
+  currentSportFilter: AdminSportFilter
+  currentView: AdminViewFilter
+  initialSport: AdminPredictionRow["sport"]
 }) {
   const isEditing = Boolean(row)
 
@@ -371,6 +560,8 @@ function PredictionForm({
         {row && (
           <form action={deletePredictionAction}>
             <input type="hidden" name="id" value={row.id} />
+            <input type="hidden" name="redirect_sport" value={currentSportFilter} />
+            <input type="hidden" name="redirect_view" value={currentView} />
             <button
               type="submit"
               className="rounded-full border border-rose-300/25 bg-rose-950/60 px-4 py-2 text-sm font-semibold text-rose-100 transition hover:border-rose-200/45 hover:bg-rose-900/70"
@@ -383,6 +574,8 @@ function PredictionForm({
 
       <form action={savePredictionAction} className="space-y-4">
         {row && <input type="hidden" name="id" value={row.id} />}
+        <input type="hidden" name="redirect_sport" value={currentSportFilter} />
+        <input type="hidden" name="redirect_view" value={currentView} />
 
         <div className="grid gap-4 md:grid-cols-2">
           <label className="space-y-2">
@@ -391,7 +584,7 @@ function PredictionForm({
             </span>
             <select
               name="sport"
-              defaultValue={row?.sport ?? "football"}
+              defaultValue={row?.sport ?? initialSport}
               className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
             >
               <option value="football">Футбол</option>
@@ -549,12 +742,16 @@ function PredictionSection({
   description,
   rows,
   emptyMessage,
+  currentSportFilter,
+  currentView,
 }: {
   eyebrow: string
   title: string
   description: string
   rows: AdminPredictionRow[]
   emptyMessage: string
+  currentSportFilter: AdminSportFilter
+  currentView: AdminViewFilter
 }) {
   return (
     <section className="space-y-4">
@@ -577,6 +774,9 @@ function PredictionSection({
               key={row.id}
               title={`${getSportLabel(row.sport)} • ID ${row.id}`}
               row={row}
+              currentSportFilter={currentSportFilter}
+              currentView={currentView}
+              initialSport={row.sport}
             />
           ))}
         </div>
@@ -586,6 +786,29 @@ function PredictionSection({
 }
 
 function CollapsiblePredictionSection({
+  eyebrow,
+  title,
+  description,
+  rows,
+  emptyMessage,
+}: {
+  eyebrow: string
+  title: string
+  description: string
+  rows: AdminPredictionRow[]
+  emptyMessage: string
+}) {
+  void eyebrow
+  void title
+  void description
+  void rows
+  void emptyMessage
+
+  return null
+}
+
+/*
+function LegacyCollapsiblePredictionSection({
   eyebrow,
   title,
   description,
@@ -642,6 +865,7 @@ function CollapsiblePredictionSection({
     </section>
   )
 }
+*/
 
 type AdminPageProps = {
   searchParams: Promise<{
@@ -649,6 +873,8 @@ type AdminPageProps = {
     error?: string
     imported?: string
     saved?: string
+    sport?: string
+    view?: string
   }>
 }
 
@@ -682,6 +908,8 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
     )
   }
 
+  const currentView = getSelectedView(params.view)
+  const currentSport = getSelectedSport(params.sport)
   const predictions = await getAdminPredictions()
   const dailyVisitors = await getAdminDailyVisitors()
   const footballCount = predictions.filter((row) => row.sport === "football").length
@@ -695,6 +923,31 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
   const archivedPredictions = predictions
     .filter((row) => row.status === "won" || row.status === "lost" || row.status === "void")
     .sort(sortByKickoffDescending)
+  const filteredRows = filterPredictionsBySport(
+    currentView === "current" ? activePredictions : archivedPredictions,
+    currentSport
+  )
+  const initialSport = currentSport === "all" ? "football" : currentSport
+  const sectionTitle =
+    currentSport === "all"
+      ? currentView === "current"
+        ? "Текущи прогнози"
+        : "Приключени прогнози"
+      : `${currentView === "current" ? "Текущи" : "Приключени"} прогнози • ${getSportLabel(
+          currentSport
+        )}`
+  const sectionDescription =
+    currentView === "current"
+      ? "Показани са само чакащите и започналите мачове за избрания филтър. Така се работи по-бързо и не се зареждат излишни редакционни форми."
+      : "Показани са само приключилите прогнози за избрания филтър. Оттук можеш бързо да редактираш резултата или статуса при нужда."
+  const emptyMessage =
+    currentSport === "all"
+      ? currentView === "current"
+        ? "В момента няма текущи прогнози."
+        : "В момента няма приключени прогнози."
+      : currentView === "current"
+        ? `В момента няма текущи прогнози за ${getSportLabel(currentSport).toLowerCase()}.`
+        : `В момента няма приключени прогнози за ${getSportLabel(currentSport).toLowerCase()}.`
 
   return (
     <main className="space-y-8">
@@ -757,17 +1010,43 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         <SummaryCard label="Тенис" value={tennisCount} />
       </section>
 
-      <VisitorsSection rows={dailyVisitors} />
-      <PredictionImportCard imported={params.imported} />
+      <FilterSection
+        currentView={currentView}
+        currentSport={currentSport}
+        activeCount={activePredictions.length}
+        archivedCount={archivedPredictions.length}
+        sportCounts={{
+          all: predictions.length,
+          football: footballCount,
+          hockey: hockeyCount,
+          basketball: basketballCount,
+          baseball: baseballCount,
+          tennis: tennisCount,
+        }}
+      />
 
-      <PredictionForm title="Нова прогноза" />
+      <VisitorsSection rows={dailyVisitors} />
+      <PredictionImportCard
+        imported={params.imported}
+        currentSportFilter={currentSport}
+        currentView={currentView}
+      />
+
+      <PredictionForm
+        title="Нова прогноза"
+        currentSportFilter={currentSport}
+        currentView={currentView}
+        initialSport={initialSport}
+      />
 
       <PredictionSection
-        eyebrow="Текущи прогнози"
-        title="Управление на активните мачове"
-        description="Тук са само прогнозите със статус чакаща или играе се. Така по-лесно следиш мачовете, които още не са приключили."
-        rows={activePredictions}
-        emptyMessage="В момента няма текущи прогнози."
+        eyebrow={currentView === "current" ? "Текущи прогнози" : "Приключени прогнози"}
+        title={sectionTitle}
+        description={sectionDescription}
+        rows={filteredRows}
+        emptyMessage={emptyMessage}
+        currentSportFilter={currentSport}
+        currentView={currentView}
       />
 
       <CollapsiblePredictionSection
