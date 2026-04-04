@@ -27,7 +27,7 @@ export default function PredictionCard({
   sport = "football",
 }: Props) {
   return (
-    <article className="group relative overflow-hidden rounded-[24px] border border-white/10 bg-slate-950/24 p-5 shadow-[0_18px_40px_rgba(8,15,34,0.2)] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-orange-300/45 hover:bg-slate-950/32">
+    <article className="group relative overflow-hidden rounded-[24px] border border-white/12 bg-slate-950/10 p-5 shadow-[0_18px_40px_rgba(8,15,34,0.14)] transition duration-200 hover:-translate-y-0.5 hover:border-orange-300/45 hover:bg-slate-950/16">
       <div className="relative z-10">
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -56,7 +56,7 @@ export default function PredictionCard({
           )}
         </div>
 
-        <div className="mt-4 rounded-2xl border border-white/10 bg-white/6 p-3.5">
+        <div className="mt-4 rounded-2xl border border-white/12 bg-white/[0.04] p-3.5">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
             Прогноза
           </p>
@@ -64,7 +64,7 @@ export default function PredictionCard({
         </div>
 
         {analysis && (
-          <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/28 p-3.5">
+          <div className="mt-4 rounded-2xl border border-white/12 bg-slate-950/12 p-3.5">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
               Анализ
             </p>

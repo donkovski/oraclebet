@@ -32,7 +32,7 @@ const sportSwitchLinks: SportSwitchLink[] = [
 
 function SportSwitcher({ currentSport }: { currentSport: PredictionSport }) {
   return (
-    <section className="rounded-[28px] border border-white/10 bg-slate-950/16 p-4 backdrop-blur-xl">
+    <section className="rounded-[28px] border border-white/12 bg-slate-950/10 p-4 backdrop-blur-sm">
       <div className="flex flex-wrap gap-3">
         {sportSwitchLinks.map((link) => {
           const isActive = link.sport === currentSport
@@ -93,7 +93,7 @@ export default function SportResultsPage({
   if (results.length === 0) {
     return (
       <main className="space-y-8">
-        <section className="rounded-[28px] border border-white/10 bg-slate-950/15 p-6 backdrop-blur-lg md:p-8">
+        <section className="rounded-[28px] border border-white/12 bg-slate-950/12 p-6 backdrop-blur-sm md:p-8">
           <p className={`text-sm font-semibold uppercase tracking-[0.18em] ${accentClassName}`}>
             {label}
           </p>
@@ -121,7 +121,7 @@ export default function SportResultsPage({
 
   return (
     <main className="space-y-8">
-      <section className="rounded-[28px] border border-white/10 bg-slate-950/15 p-6 backdrop-blur-lg md:p-8">
+      <section className="rounded-[28px] border border-white/12 bg-slate-950/12 p-6 backdrop-blur-sm md:p-8">
         <p className={`text-sm font-semibold uppercase tracking-[0.18em] ${accentClassName}`}>
           Архив и статистика
         </p>
@@ -134,32 +134,32 @@ export default function SportResultsPage({
 
       <section className="space-y-6">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-          <div className="rounded-2xl border border-white/10 bg-slate-950/15 p-4 text-center backdrop-blur-lg">
+          <div className="rounded-2xl border border-white/12 bg-slate-950/10 p-4 text-center">
             <p className="text-sm text-white/55">Общо</p>
             <p className="text-xl font-bold text-white">{total}</p>
           </div>
 
-          <div className="rounded-2xl border border-emerald-300/35 bg-emerald-950/70 p-4 text-center backdrop-blur-lg">
+          <div className="rounded-2xl border border-emerald-300/35 bg-emerald-950/50 p-4 text-center">
             <p className="text-sm text-emerald-100">WIN</p>
             <p className="text-xl font-bold text-white">{wins}</p>
           </div>
 
-          <div className="rounded-2xl border border-rose-300/35 bg-rose-950/70 p-4 text-center backdrop-blur-lg">
+          <div className="rounded-2xl border border-rose-300/35 bg-rose-950/50 p-4 text-center">
             <p className="text-sm text-rose-100">LOSE</p>
             <p className="text-xl font-bold text-white">{losses}</p>
           </div>
 
-          <div className="rounded-2xl border border-white/15 bg-slate-900/55 p-4 text-center backdrop-blur-lg">
+          <div className="rounded-2xl border border-white/15 bg-slate-900/38 p-4 text-center">
             <p className="text-sm text-white/65">VOID</p>
             <p className="text-xl font-bold text-white">{voids}</p>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-slate-950/15 p-4 text-center backdrop-blur-lg">
+          <div className="rounded-2xl border border-white/12 bg-slate-950/10 p-4 text-center">
             <p className="text-sm text-white/55">Win Rate</p>
             <p className="text-xl font-bold text-green-400">{winRate}%</p>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-slate-950/15 p-4 text-center backdrop-blur-lg">
+          <div className="rounded-2xl border border-white/12 bg-slate-950/10 p-4 text-center">
             <p className="text-sm text-white/55">ROI</p>
             <p className={`text-xl font-bold ${roiColor}`}>{roi}%</p>
           </div>

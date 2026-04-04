@@ -71,7 +71,7 @@ export default function PredictionsBoard({
 
   return (
     <main className="space-y-8">
-      <section className="rounded-[30px] border border-white/10 bg-slate-950/22 p-6 shadow-[0_22px_60px_rgba(8,15,34,0.22)] backdrop-blur-xl md:p-8">
+      <section className="rounded-[30px] border border-white/12 bg-slate-950/12 p-6 shadow-[0_22px_60px_rgba(8,15,34,0.18)] backdrop-blur-sm md:p-8">
         <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
           <div>
             <p className="inline-flex rounded-full border border-orange-300/35 bg-orange-300/12 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-orange-100">
@@ -83,19 +83,19 @@ export default function PredictionsBoard({
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl border border-white/10 bg-white/6 p-4 text-center">
+            <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-4 text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
                 Общо
               </p>
               <p className="mt-2 text-2xl font-bold text-white">{totalPredictions}</p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-white/6 p-4 text-center">
+            <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-4 text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
                 Средно
               </p>
               <p className="mt-2 text-2xl font-bold text-orange-100">{averageOdds}</p>
             </div>
-            <div className="col-span-2 rounded-2xl border border-white/10 bg-white/6 p-4 text-center">
+            <div className="col-span-2 rounded-2xl border border-white/12 bg-white/[0.04] p-4 text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
                 Дата
               </p>
@@ -115,7 +115,7 @@ export default function PredictionsBoard({
                 Започнали
               </p>
 
-              <div className="rounded-full border border-white/10 bg-white/6 px-4 py-2 text-sm font-semibold text-white/75">
+              <div className="rounded-full border border-white/12 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white/75">
                 {startedPredictions.length} {startedPredictions.length === 1 ? "мач" : "мача"}
               </div>
             </div>
@@ -145,7 +145,7 @@ export default function PredictionsBoard({
               Следващ мач
             </p>
 
-            <article className="relative overflow-hidden rounded-[30px] border border-orange-300/28 bg-slate-950/26 p-6 shadow-[0_20px_48px_rgba(8,15,34,0.2)] backdrop-blur-xl md:p-8">
+            <article className="relative overflow-hidden rounded-[30px] border border-orange-300/28 bg-slate-950/14 p-6 shadow-[0_20px_48px_rgba(8,15,34,0.16)] backdrop-blur-sm md:p-8">
               <div className="relative z-10">
                 <h2 className="text-3xl font-black text-white md:text-4xl">
                   {featuredPrediction.match}
@@ -169,7 +169,7 @@ export default function PredictionsBoard({
                 )}
 
                 <div className="mt-6 grid gap-4 md:grid-cols-3">
-                  <div className="rounded-2xl border border-white/10 bg-white/6 p-5">
+                  <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-5">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
                       Начало
                     </p>
@@ -178,7 +178,7 @@ export default function PredictionsBoard({
                     </p>
                   </div>
 
-                  <div className="rounded-2xl border border-white/10 bg-white/6 p-5">
+                  <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-5">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
                       Прогноза
                     </p>
@@ -198,7 +198,7 @@ export default function PredictionsBoard({
                 </div>
 
                 {featuredPrediction.analysis && (
-                  <div className="mt-4 rounded-2xl border border-white/10 bg-white/6 p-5">
+                  <div className="mt-4 rounded-2xl border border-white/12 bg-white/[0.04] p-5">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
                       Анализ
                     </p>
@@ -232,7 +232,7 @@ export default function PredictionsBoard({
             </div>
           </section>
         ) : (
-          <section className="rounded-[30px] border border-white/10 bg-slate-950/22 p-6 shadow-[0_22px_60px_rgba(8,15,34,0.22)] backdrop-blur-xl md:p-8">
+          <section className="rounded-[30px] border border-white/12 bg-slate-950/12 p-6 shadow-[0_22px_60px_rgba(8,15,34,0.18)] backdrop-blur-sm md:p-8">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
               Следващ мач
             </p>

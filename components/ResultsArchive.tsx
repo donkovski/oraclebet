@@ -61,14 +61,14 @@ function formatOdds(odds: number) {
 
 function getCardClasses(status: Result["status"]) {
   if (status === "WIN") {
-    return "border-emerald-300/45 bg-emerald-950/70"
+    return "border-emerald-300/45 bg-emerald-950/48"
   }
 
   if (status === "LOSE") {
-    return "border-rose-300/45 bg-rose-950/70"
+    return "border-rose-300/45 bg-rose-950/48"
   }
 
-  return "border-white/15 bg-slate-900/55"
+  return "border-white/15 bg-slate-900/36"
 }
 
 function getBadgeClasses(status: Result["status"]) {
@@ -198,7 +198,7 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
 
   return (
     <section className="space-y-4">
-      <div className="rounded-[28px] border border-white/10 bg-slate-950/18 p-5 backdrop-blur-xl md:p-6">
+      <div className="rounded-[28px] border border-white/12 bg-slate-950/10 p-5 backdrop-blur-sm md:p-6">
         <div className="grid gap-4 md:grid-cols-3">
           <SelectField
             id="results-year"
@@ -250,7 +250,7 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
         </div>
       </div>
 
-      <div className="rounded-[28px] border border-white/10 bg-slate-950/18 p-6 shadow-[0_18px_40px_rgba(8,15,34,0.18)] backdrop-blur-xl md:p-8">
+      <div className="rounded-[28px] border border-white/12 bg-slate-950/10 p-6 shadow-[0_18px_40px_rgba(8,15,34,0.14)] backdrop-blur-sm md:p-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
