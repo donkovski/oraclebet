@@ -82,7 +82,7 @@ export default async function Home() {
               </Link>
               <Link
                 href="/rezultati"
-                className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+                className="rounded-full border border-white/12 bg-white/[0.04] px-6 py-3 font-semibold text-white transition hover:bg-white/[0.08]"
               >
                 Към резултати
               </Link>

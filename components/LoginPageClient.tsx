@@ -46,7 +46,7 @@ export default function LoginPageClient() {
   if (savedEmail) {
     return (
       <main className="grid gap-6 lg:grid-cols-[1fr_0.95fr]">
-        <section className="rounded-[30px] border border-white/10 bg-slate-950/20 p-8 shadow-[0_22px_60px_rgba(8,15,34,0.22)] backdrop-blur-xl">
+        <section className="rounded-[30px] border border-white/12 bg-slate-950/12 p-8 shadow-[0_22px_60px_rgba(8,15,34,0.18)] backdrop-blur-sm">
           <p className="inline-flex rounded-full border border-emerald-300/35 bg-emerald-300/12 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-100">
             Активен профил
           </p>
@@ -67,7 +67,7 @@ export default function LoginPageClient() {
             </Link>
             <Link
               href="/rezultati"
-              className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+              className="rounded-full border border-white/12 bg-white/[0.04] px-6 py-3 font-semibold text-white transition hover:bg-white/[0.08]"
             >
               Към футболни резултати
             </Link>
@@ -81,7 +81,7 @@ export default function LoginPageClient() {
           </div>
         </section>
 
-        <section className="rounded-[30px] border border-white/10 bg-slate-950/18 p-8 backdrop-blur-xl">
+        <section className="rounded-[30px] border border-white/12 bg-slate-950/10 p-8 backdrop-blur-sm">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
             Твоят профил
           </p>
@@ -93,7 +93,7 @@ export default function LoginPageClient() {
             {loginBenefits.map((item) => (
               <div
                 key={item}
-                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white/80"
+                className="rounded-2xl border border-white/12 bg-white/[0.04] px-4 py-3 text-white/80"
               >
                 {item}
               </div>
@@ -106,7 +106,7 @@ export default function LoginPageClient() {
 
   return (
     <main className="grid gap-6 lg:grid-cols-[1fr_0.95fr]">
-      <section className="rounded-[30px] border border-white/10 bg-slate-950/20 p-8 shadow-[0_22px_60px_rgba(8,15,34,0.22)] backdrop-blur-xl">
+      <section className="rounded-[30px] border border-white/12 bg-slate-950/12 p-8 shadow-[0_22px_60px_rgba(8,15,34,0.18)] backdrop-blur-sm">
         <p className="inline-flex rounded-full border border-orange-300/35 bg-orange-300/12 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-orange-100">
           Вход за потребители
         </p>
@@ -122,7 +122,7 @@ export default function LoginPageClient() {
           {loginBenefits.map((item) => (
             <div
               key={item}
-              className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white/80"
+              className="rounded-2xl border border-white/12 bg-white/[0.04] px-4 py-3 text-white/80"
             >
               {item}
             </div>
@@ -130,7 +130,7 @@ export default function LoginPageClient() {
         </div>
       </section>
 
-      <section className="rounded-[30px] border border-white/10 bg-slate-950/18 p-8 backdrop-blur-xl">
+      <section className="rounded-[30px] border border-white/12 bg-slate-950/10 p-8 backdrop-blur-sm">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
           Вход
         </p>
@@ -149,7 +149,7 @@ export default function LoginPageClient() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="name@example.com"
-              className="w-full rounded-2xl border border-white/10 bg-white/6 px-4 py-3 text-white outline-none transition placeholder:text-white/35 focus:border-orange-300/45"
+              className="w-full rounded-2xl border border-white/12 bg-white/[0.04] px-4 py-3 text-white outline-none transition placeholder:text-white/35 focus:border-orange-300/45 focus:bg-white/[0.06]"
             />
           </div>
 
@@ -166,7 +166,7 @@ export default function LoginPageClient() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Въведи парола"
-              className="w-full rounded-2xl border border-white/10 bg-white/6 px-4 py-3 text-white outline-none transition placeholder:text-white/35 focus:border-orange-300/45"
+              className="w-full rounded-2xl border border-white/12 bg-white/[0.04] px-4 py-3 text-white outline-none transition placeholder:text-white/35 focus:border-orange-300/45 focus:bg-white/[0.06]"
             />
           </div>
 

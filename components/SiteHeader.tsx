@@ -10,7 +10,7 @@ type Props = {
 
 export default function SiteHeader({ vipEnabled, authEnabled }: Props) {
   return (
-    <header className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/20 backdrop-blur-xl">
+    <header className="sticky top-0 z-20 border-b border-white/12 bg-slate-950/12 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-5 md:flex-row md:items-center md:justify-between md:px-8">
         <Link
           href="/"

@@ -154,7 +154,7 @@ function SelectField({
           id={id}
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          className="w-full appearance-none rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 pr-10 text-sm font-medium text-white outline-none transition focus:border-orange-300/55 focus:bg-slate-950/45 focus-visible:ring-2 focus-visible:ring-orange-300/35"
+          className="w-full appearance-none rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 pr-10 text-sm font-medium text-white outline-none transition focus:border-orange-300/55 focus:bg-slate-950/18 focus-visible:ring-2 focus-visible:ring-orange-300/35"
         >
           {children}
         </select>
@@ -263,7 +263,7 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
           </div>
 
           <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/75">
-            <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2">
+            <span className="rounded-full border border-white/12 bg-white/[0.04] px-4 py-2">
               {formatCount(activeDateGroup.items.length, "прогноза", "прогнози")}
             </span>
             <span className="rounded-full border border-emerald-300/30 bg-emerald-400/15 px-4 py-2 text-emerald-50">
@@ -272,7 +272,7 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
             <span className="rounded-full border border-rose-300/30 bg-rose-400/15 px-4 py-2 text-rose-50">
               {dayLosses} LOSE
             </span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-white/70">
+            <span className="rounded-full border border-white/12 bg-white/[0.04] px-4 py-2 text-white/70">
               {dayVoids} VOID
             </span>
           </div>
@@ -318,7 +318,7 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
                   [activeDateGroup.key]: !showAll,
                 }))
               }
-              className="rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-300"
+              className="rounded-full border border-white/12 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/[0.08] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-300"
             >
               {showAll
                 ? "Покажи по-малко"

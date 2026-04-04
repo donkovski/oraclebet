@@ -72,7 +72,7 @@ export default function VipPageClient() {
 
       {authorized ? (
         <>
-          <div className="bg-slate-900 border border-orange-500 rounded-2xl p-8 mb-8">
+          <div className="mb-8 rounded-2xl border border-orange-500/70 bg-slate-950/12 p-8 shadow-[0_18px_40px_rgba(8,15,34,0.16)] backdrop-blur-sm">
             <p className="text-2xl font-semibold text-orange-400 mb-4">
               VIP отключен
             </p>
@@ -97,7 +97,7 @@ export default function VipPageClient() {
       ) : (
         <>
           <div className="grid lg:grid-cols-3 gap-6 mb-10">
-            <div className="lg:col-span-1 bg-slate-900 border border-orange-500 rounded-2xl p-8">
+            <div className="lg:col-span-1 rounded-2xl border border-orange-500/70 bg-slate-950/12 p-8 shadow-[0_18px_40px_rgba(8,15,34,0.16)] backdrop-blur-sm">
               <p className="text-2xl font-semibold text-orange-400 mb-4">
                 VIP секция
               </p>
@@ -128,10 +128,10 @@ export default function VipPageClient() {
                     key={plan.id}
                     className={`relative rounded-2xl p-6 text-center border ${
                       isBest
-                        ? "bg-slate-900 border-green-500"
+                        ? "bg-slate-950/12 border-green-500/70 backdrop-blur-sm shadow-[0_18px_40px_rgba(8,15,34,0.16)]"
                         : isBetter
-                        ? "bg-slate-900 border-orange-500"
-                        : "bg-slate-900 border-slate-700"
+                        ? "bg-slate-950/12 border-orange-500/70 backdrop-blur-sm shadow-[0_18px_40px_rgba(8,15,34,0.16)]"
+                        : "bg-slate-950/12 border-slate-600/70 backdrop-blur-sm shadow-[0_18px_40px_rgba(8,15,34,0.16)]"
                     }`}
                   >
                     {plan.badge && (
@@ -156,7 +156,7 @@ export default function VipPageClient() {
                       около {totalPriceBgn} лв общо
                     </p>
 
-                    <div className="bg-slate-800 rounded-xl p-3 mb-5">
+                    <div className="mb-5 rounded-xl border border-white/12 bg-white/[0.04] p-3">
                       <p className="text-slate-400 text-sm">Цена на месец</p>
                       <p className="text-xl font-bold text-white">
                         {plan.monthlyPriceEur.toFixed(2)} EUR
@@ -202,7 +202,7 @@ export default function VipPageClient() {
             </div>
 
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="bg-slate-950/90 border border-orange-500 rounded-2xl p-8 text-center max-w-md">
+              <div className="max-w-md rounded-2xl border border-orange-500/70 bg-slate-950/22 p-8 text-center shadow-[0_18px_40px_rgba(8,15,34,0.16)] backdrop-blur-sm">
                 <p className="text-2xl font-bold text-orange-400 mb-4">
                   Отключи VIP прогнозите
                 </p>

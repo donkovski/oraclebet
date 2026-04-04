@@ -60,8 +60,8 @@ export default function PredictionMarketBadge({
   }
 
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/6 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-white/70">
-      <span className="inline-flex min-w-[2rem] items-center justify-center rounded-full border border-white/12 bg-white/8 px-1.5 py-0.5 text-[0.62rem] font-black tracking-[0.12em] text-white/80">
+    <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-white/70">
+      <span className="inline-flex min-w-[2rem] items-center justify-center rounded-full border border-white/12 bg-white/[0.05] px-1.5 py-0.5 text-[0.62rem] font-black tracking-[0.12em] text-white/80">
         1X2
       </span>
       {label}

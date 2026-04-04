@@ -39,7 +39,7 @@ export default function ResultsPieChart({ results }: Props) {
   }
 
   return (
-    <div className="mb-10 rounded-xl bg-slate-800 p-6">
+    <div className="mb-10 rounded-xl border border-white/12 bg-slate-950/10 p-6 shadow-[0_18px_40px_rgba(8,15,34,0.14)] backdrop-blur-sm">
       <h2 className="mb-6 text-2xl font-bold">Win / Lose графика</h2>
 
       <div className="h-80">

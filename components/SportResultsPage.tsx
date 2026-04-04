@@ -45,7 +45,7 @@ function SportSwitcher({ currentSport }: { currentSport: PredictionSport }) {
               className={
                 isActive
                   ? "rounded-full border border-orange-300/35 bg-orange-300/12 px-5 py-2 text-sm font-semibold text-orange-100"
-                  : "rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-semibold text-white/80 transition hover:bg-white/10"
+                  : "rounded-full border border-white/12 bg-white/[0.04] px-5 py-2 text-sm font-semibold text-white/80 transition hover:bg-white/[0.08]"
               }
             >
               {link.label}

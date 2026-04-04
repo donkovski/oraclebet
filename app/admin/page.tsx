@@ -31,22 +31,22 @@ type AdminSportFilter = "all" | AdminPredictionRow["sport"]
 
 function getStatusClasses(status: AdminPredictionRow["status"]) {
   if (status === "won") {
-    return "border-emerald-300/35 bg-emerald-950/65"
+    return "border-emerald-300/35 bg-emerald-950/48"
   }
 
   if (status === "lost") {
-    return "border-rose-300/35 bg-rose-950/65"
+    return "border-rose-300/35 bg-rose-950/48"
   }
 
   if (status === "live") {
-    return "border-sky-300/35 bg-sky-950/60"
+    return "border-sky-300/35 bg-sky-950/44"
   }
 
   if (status === "void") {
-    return "border-white/15 bg-slate-900/60"
+    return "border-white/15 bg-slate-900/36"
   }
 
-  return "border-white/10 bg-slate-950/20"
+  return "border-white/12 bg-slate-950/10"
 }
 
 function getStatusLabel(status: AdminPredictionRow["status"]) {
@@ -134,7 +134,7 @@ function filterPredictionsBySport(rows: AdminPredictionRow[], sport: AdminSportF
 
 function AdminSetupCard() {
   return (
-    <section className="mx-auto max-w-3xl rounded-[28px] border border-amber-300/25 bg-slate-950/30 p-8 backdrop-blur-xl">
+    <section className="mx-auto max-w-3xl rounded-[28px] border border-amber-300/25 bg-slate-950/14 p-8 backdrop-blur-sm">
       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-amber-200">
         Админ панел
       </p>
@@ -143,7 +143,7 @@ function AdminSetupCard() {
       </h1>
       <div className="mt-6 space-y-4 text-white/75">
         <p>Добави тези променливи локално и във Vercel:</p>
-        <div className="rounded-2xl border border-white/10 bg-slate-950/35 p-5 font-mono text-sm text-white/85">
+        <div className="rounded-2xl border border-white/12 bg-slate-950/16 p-5 font-mono text-sm text-white/85">
           <p>SUPABASE_SERVICE_ROLE_KEY=...</p>
           <p className="mt-2">ORACLEBET_ADMIN_PASSWORD=...</p>
           <p className="mt-2">ORACLEBET_ADMIN_ACCESS_KEY=...</p>
@@ -159,7 +159,7 @@ function AdminSetupCard() {
 
 function AdminLoginCard({ error }: { error?: string }) {
   return (
-    <section className="mx-auto max-w-md rounded-[28px] border border-white/10 bg-slate-950/20 p-8 backdrop-blur-xl">
+    <section className="mx-auto max-w-md rounded-[28px] border border-white/12 bg-slate-950/12 p-8 backdrop-blur-sm">
       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
         Админ вход
       </p>
@@ -179,7 +179,7 @@ function AdminLoginCard({ error }: { error?: string }) {
             autoFocus
             type="password"
             name="password"
-            className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45 focus:bg-slate-950/45"
+            className="w-full rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 text-white outline-none transition focus:border-orange-300/45 focus:bg-slate-950/18"
           />
         </label>
 
@@ -196,7 +196,7 @@ function AdminLoginCard({ error }: { error?: string }) {
 
 function SummaryCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-slate-950/18 p-4 text-center backdrop-blur-lg">
+    <div className="rounded-2xl border border-white/12 bg-slate-950/10 p-4 text-center backdrop-blur-sm">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">{label}</p>
       <p className="mt-2 text-2xl font-bold text-white">{value}</p>
     </div>
@@ -220,13 +220,13 @@ function AdminFilterPill({
       className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition ${
         active
           ? "border-orange-300/45 bg-orange-400 text-slate-950"
-          : "border-white/10 bg-white/5 text-white/75 hover:bg-white/10"
+          : "border-white/12 bg-white/[0.04] text-white/75 hover:bg-white/[0.08]"
       }`}
     >
       <span>{label}</span>
       <span
         className={`rounded-full px-2 py-0.5 text-xs ${
-          active ? "bg-slate-950/15 text-slate-950" : "bg-slate-950/45 text-white/75"
+          active ? "bg-slate-950/15 text-slate-950" : "bg-slate-950/18 text-white/75"
         }`}
       >
         {count}
@@ -291,7 +291,7 @@ function VisitorsSection({ rows }: { rows: DailyVisitorRow[] }) {
         <SummaryCard label="Отчетени дни" value={rows.length} />
       </div>
 
-      <div className="rounded-[28px] border border-white/10 bg-slate-950/18 p-6 backdrop-blur-xl">
+      <div className="rounded-[28px] border border-white/12 bg-slate-950/10 p-6 backdrop-blur-sm">
         {rows.length === 0 ? (
           <p className="text-sm leading-7 text-white/70">
             Още няма събрани посещения. След като tracker-ът започне да отчита
@@ -299,7 +299,7 @@ function VisitorsSection({ rows }: { rows: DailyVisitorRow[] }) {
           </p>
         ) : (
           <details className="group">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left transition hover:bg-white/10">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl border border-white/12 bg-white/[0.04] px-4 py-3 text-left transition hover:bg-white/[0.08]">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.14em] text-white/45">
                   Архив по дни
@@ -309,7 +309,7 @@ function VisitorsSection({ rows }: { rows: DailyVisitorRow[] }) {
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <div className="rounded-full border border-white/10 bg-slate-950/45 px-3 py-1 text-sm font-semibold text-white/75">
+                <div className="rounded-full border border-white/12 bg-slate-950/16 px-3 py-1 text-sm font-semibold text-white/75">
                   {rows.length}
                 </div>
                 <span className="text-xl text-white/55 transition group-open:rotate-180">⌄</span>
@@ -320,7 +320,7 @@ function VisitorsSection({ rows }: { rows: DailyVisitorRow[] }) {
               {rows.map((row) => (
                 <div
                   key={row.day}
-                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
+                  className="flex items-center justify-between rounded-2xl border border-white/12 bg-white/[0.04] px-4 py-3"
                 >
                   <p className="text-sm font-medium text-white/75">{formatVisitorDate(row.day)}</p>
                   <p className="text-lg font-bold text-white">{row.visits}</p>
@@ -348,7 +348,7 @@ function FilterSection({
   sportCounts: Record<AdminSportFilter, number>
 }) {
   return (
-    <section className="rounded-[28px] border border-white/10 bg-slate-950/18 p-6 backdrop-blur-xl md:p-8">
+    <section className="rounded-[28px] border border-white/12 bg-slate-950/10 p-6 backdrop-blur-sm md:p-8">
       <div className="space-y-6">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
@@ -440,7 +440,7 @@ function PredictionImportCard({
   currentView: AdminViewFilter
 }) {
   return (
-    <section className="rounded-[28px] border border-white/10 bg-slate-950/18 p-6 backdrop-blur-xl md:p-8">
+    <section className="rounded-[28px] border border-white/12 bg-slate-950/10 p-6 backdrop-blur-sm md:p-8">
       <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
@@ -476,7 +476,7 @@ function PredictionImportCard({
                   type="file"
                   name="xml_file"
                   accept=".xml,text/xml,application/xml"
-                  className="block w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-sm text-white file:mr-4 file:rounded-full file:border-0 file:bg-orange-400 file:px-4 file:py-2 file:font-semibold file:text-slate-950 hover:file:bg-orange-300"
+                  className="block w-full rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 text-sm text-white file:mr-4 file:rounded-full file:border-0 file:bg-orange-400 file:px-4 file:py-2 file:font-semibold file:text-slate-950 hover:file:bg-orange-300"
                 />
               </label>
 
@@ -490,7 +490,7 @@ function PredictionImportCard({
                 <a
                   href="/admin/template?v=4"
                   download="oraclebet-predictions-template-v4.xml"
-                  className="rounded-full border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
+                  className="rounded-full border border-white/12 bg-white/[0.04] px-5 py-3 font-semibold text-white transition hover:bg-white/[0.08]"
                 >
                   Свали примерен XML (v4)
                 </a>
@@ -499,7 +499,7 @@ function PredictionImportCard({
           </div>
         </div>
 
-        <div className="rounded-[24px] border border-white/10 bg-slate-950/25 p-5">
+        <div className="rounded-[24px] border border-white/12 bg-slate-950/12 p-5 backdrop-blur-sm">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
             Примерен шаблон
           </p>
@@ -510,7 +510,7 @@ function PredictionImportCard({
             За тест винаги сваляй наново примерния файл, за да не качиш стара версия
             от Downloads.
           </p>
-          <pre className="mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-slate-950/45 p-4 text-xs leading-6 text-white/80">
+          <pre className="mt-4 overflow-x-auto rounded-2xl border border-white/12 bg-slate-950/18 p-4 text-xs leading-6 text-white/80">
             <code>{PREDICTION_IMPORT_XML_TEMPLATE}</code>
           </pre>
         </div>
@@ -536,7 +536,7 @@ function PredictionForm({
 
   return (
     <div
-      className={`rounded-[28px] border p-6 backdrop-blur-xl ${getStatusClasses(
+      className={`rounded-[28px] border p-6 backdrop-blur-sm ${getStatusClasses(
         row?.status ?? "pending"
       )}`}
     >
@@ -585,7 +585,7 @@ function PredictionForm({
             <select
               name="sport"
               defaultValue={row?.sport ?? initialSport}
-              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+              className="w-full rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 text-white outline-none transition focus:border-orange-300/45 focus:bg-slate-950/18"
             >
               <option value="football">Футбол</option>
               <option value="hockey">Хокей</option>
@@ -604,7 +604,7 @@ function PredictionForm({
               type="datetime-local"
               name="kickoff"
               defaultValue={row ? formatKickoffForInput(row.kickoff) : ""}
-              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+              className="w-full rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 text-white outline-none transition focus:border-orange-300/45 focus:bg-slate-950/18"
             />
           </label>
         </div>
@@ -618,7 +618,7 @@ function PredictionForm({
             type="text"
             name="match"
             defaultValue={row?.match ?? ""}
-            className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+            className="w-full rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 text-white outline-none transition focus:border-orange-300/45 focus:bg-slate-950/18"
           />
         </label>
 
@@ -632,7 +632,7 @@ function PredictionForm({
               type="text"
               name="country"
               defaultValue={row?.country ?? ""}
-              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+              className="w-full rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 text-white outline-none transition focus:border-orange-300/45 focus:bg-slate-950/18"
             />
           </label>
 
@@ -645,7 +645,7 @@ function PredictionForm({
               type="text"
               name="league"
               defaultValue={row?.league ?? ""}
-              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+              className="w-full rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 text-white outline-none transition focus:border-orange-300/45 focus:bg-slate-950/18"
             />
           </label>
         </div>
@@ -660,7 +660,7 @@ function PredictionForm({
               type="text"
               name="prediction"
               defaultValue={row?.prediction ?? ""}
-              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+              className="w-full rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 text-white outline-none transition focus:border-orange-300/45 focus:bg-slate-950/18"
             />
           </label>
 
@@ -675,7 +675,7 @@ function PredictionForm({
               min="1.01"
               step="0.01"
               defaultValue={row?.odds.toFixed(2) ?? ""}
-              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+              className="w-full rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 text-white outline-none transition focus:border-orange-300/45 focus:bg-slate-950/18"
             />
           </label>
         </div>
@@ -689,7 +689,7 @@ function PredictionForm({
             rows={4}
             defaultValue={row?.analysis ?? ""}
             placeholder="Кратък анализ за формата, стила на мача и логиката на прогнозата."
-            className="min-h-[120px] w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+            className="min-h-[120px] w-full rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 text-white outline-none transition focus:border-orange-300/45 focus:bg-slate-950/18"
           />
         </label>
 
@@ -701,7 +701,7 @@ function PredictionForm({
             <select
               name="status"
               defaultValue={row?.status ?? "pending"}
-              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+              className="w-full rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 text-white outline-none transition focus:border-orange-300/45 focus:bg-slate-950/18"
             >
               <option value="pending">Чакаща</option>
               <option value="live">Играе се</option>
@@ -720,7 +720,7 @@ function PredictionForm({
               name="result_text"
               defaultValue={row?.result_text ?? ""}
               placeholder="например 1:0 или 6 жълти + 1 червен = 8 картона"
-              className="w-full rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white outline-none transition focus:border-orange-300/45"
+              className="w-full rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 text-white outline-none transition focus:border-orange-300/45 focus:bg-slate-950/18"
             />
           </label>
         </div>
@@ -764,7 +764,7 @@ function PredictionSection({
       </div>
 
       {rows.length === 0 ? (
-        <div className="rounded-[28px] border border-white/10 bg-slate-950/18 p-6 text-white/70 backdrop-blur-xl">
+        <div className="rounded-[28px] border border-white/12 bg-slate-950/10 p-6 text-white/70 backdrop-blur-sm">
           {emptyMessage}
         </div>
       ) : (
@@ -951,7 +951,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
 
   return (
     <main className="space-y-8">
-      <section className="rounded-[28px] border border-white/10 bg-slate-950/20 p-6 backdrop-blur-xl md:p-8">
+      <section className="rounded-[28px] border border-white/12 bg-slate-950/12 p-6 backdrop-blur-sm md:p-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
@@ -967,7 +967,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
           <form action={logoutAdminAction}>
             <button
               type="submit"
-              className="rounded-full border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
+              className="rounded-full border border-white/12 bg-white/[0.04] px-5 py-3 font-semibold text-white transition hover:bg-white/[0.08]"
             >
               Изход
             </button>

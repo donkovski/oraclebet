@@ -27,7 +27,7 @@ export default function SiteAuthLink() {
       </Link>
       <Link
         href="/register"
-        className="rounded-full border border-white/15 bg-white/5 px-4 py-2 transition hover:bg-white/10 hover:text-white"
+        className="rounded-full border border-white/12 bg-white/[0.04] px-4 py-2 transition hover:bg-white/[0.08] hover:text-white"
       >
         Регистрация
       </Link>
