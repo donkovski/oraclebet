@@ -24,7 +24,7 @@ export default function SportsHubPage({
 }: SportsHubPageProps) {
   return (
     <main className="space-y-8">
-      <section className="rounded-[30px] border border-white/12 bg-slate-950/12 p-6 shadow-[0_22px_60px_rgba(8,15,34,0.18)] backdrop-blur-sm md:p-8">
+      <section className="rounded-[30px] border border-white/12 bg-slate-950/[0.08] p-6 shadow-[0_22px_60px_rgba(8,15,34,0.14)] backdrop-blur-[2px] md:p-8">
         <p className="inline-flex rounded-full border border-orange-300/35 bg-orange-300/12 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-orange-100">
           {eyebrow}
         </p>
@@ -39,7 +39,7 @@ export default function SportsHubPage({
           <Link
             key={card.href}
             href={card.href}
-            className="group rounded-[28px] border border-white/12 bg-slate-950/10 p-6 shadow-[0_16px_36px_rgba(8,15,34,0.14)] transition hover:-translate-y-0.5 hover:border-orange-300/35 hover:bg-slate-950/16"
+            className="group rounded-[28px] border border-white/12 bg-slate-950/[0.08] p-6 shadow-[0_16px_36px_rgba(8,15,34,0.12)] transition hover:-translate-y-0.5 hover:border-orange-300/35 hover:bg-slate-950/[0.12]"
           >
             <p
               className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${card.accentClassName}`}

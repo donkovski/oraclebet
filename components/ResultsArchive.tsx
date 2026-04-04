@@ -154,7 +154,7 @@ function SelectField({
           id={id}
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          className="w-full appearance-none rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-3 pr-10 text-sm font-medium text-white outline-none transition focus:border-orange-300/55 focus:bg-slate-950/18 focus-visible:ring-2 focus-visible:ring-orange-300/35"
+          className="w-full appearance-none rounded-2xl border border-white/12 bg-slate-950/[0.08] px-4 py-3 pr-10 text-sm font-medium text-white outline-none transition focus:border-orange-300/55 focus:bg-slate-950/[0.12] focus-visible:ring-2 focus-visible:ring-orange-300/35"
         >
           {children}
         </select>
@@ -198,7 +198,7 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
 
   return (
     <section className="space-y-4">
-      <div className="rounded-[28px] border border-white/12 bg-slate-950/10 p-5 backdrop-blur-sm md:p-6">
+      <div className="rounded-[28px] border border-white/12 bg-slate-950/[0.08] p-5 backdrop-blur-[2px] md:p-6">
         <div className="grid gap-4 md:grid-cols-3">
           <SelectField
             id="results-year"
@@ -250,7 +250,7 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
         </div>
       </div>
 
-      <div className="rounded-[28px] border border-white/12 bg-slate-950/10 p-6 shadow-[0_18px_40px_rgba(8,15,34,0.14)] backdrop-blur-sm md:p-8">
+      <div className="rounded-[28px] border border-white/12 bg-slate-950/[0.08] p-6 shadow-[0_18px_40px_rgba(8,15,34,0.12)] backdrop-blur-[2px] md:p-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">

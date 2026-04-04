@@ -54,7 +54,7 @@ export default async function Home() {
 
   return (
     <main>
-      <section className="rounded-[32px] border border-white/12 bg-slate-950/12 p-8 shadow-[0_24px_80px_rgba(8,15,34,0.18)] backdrop-blur-sm md:p-10">
+      <section className="rounded-[32px] border border-white/12 bg-slate-950/[0.08] p-8 shadow-[0_24px_80px_rgba(8,15,34,0.14)] backdrop-blur-[2px] md:p-10">
         <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_380px] xl:items-start">
           <div className="max-w-3xl">
             <div className="mb-5 inline-flex rounded-full border border-orange-300/40 bg-orange-300/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
@@ -89,27 +89,27 @@ export default async function Home() {
             </div>
           </div>
 
-          <aside className="rounded-[28px] border border-white/12 bg-white/[0.04] p-6 text-sm text-white/75 shadow-[0_12px_32px_rgba(15,23,42,0.12)] backdrop-blur-sm">
+          <aside className="rounded-[28px] border border-white/12 bg-white/[0.03] p-6 text-sm text-white/75 shadow-[0_12px_32px_rgba(15,23,42,0.1)] backdrop-blur-[2px]">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
               Днес в сайта
             </p>
 
             <div className="mt-4 grid grid-cols-2 gap-3">
-              <div className="rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-4 text-center">
+              <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
                   Общо
                 </p>
                 <p className="mt-2 text-2xl font-bold text-white">{totalPredictions}</p>
               </div>
 
-              <div className="rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-4 text-center">
+              <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
                   Дата
                 </p>
                 <p className="mt-2 text-lg font-bold text-emerald-100">{activeDate}</p>
               </div>
 
-              <div className="rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-4 text-center">
+              <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
                   Футбол
                 </p>
@@ -118,7 +118,7 @@ export default async function Home() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-4 text-center">
+              <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
                   Хокей
                 </p>
@@ -127,7 +127,7 @@ export default async function Home() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-4 text-center">
+              <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
                   Баскетбол
                 </p>
@@ -136,7 +136,7 @@ export default async function Home() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-4 text-center">
+              <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
                   Бейзбол
                 </p>
@@ -145,7 +145,7 @@ export default async function Home() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-4 text-center">
+              <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
                   Тенис
                 </p>
@@ -155,7 +155,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="mt-4 rounded-2xl border border-white/12 bg-slate-950/12 px-4 py-4 text-center text-white/65">
+            <div className="mt-4 rounded-2xl border border-white/12 bg-slate-950/[0.08] px-4 py-4 text-center text-white/65">
               Използвай{" "}
               <Link
                 href="/tips"

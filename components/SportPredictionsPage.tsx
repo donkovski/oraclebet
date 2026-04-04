@@ -37,7 +37,7 @@ const sportSwitchLinks: SportSwitchLink[] = [
 
 function SportSwitcher({ currentSport }: { currentSport: PredictionSport }) {
   return (
-    <section className="rounded-[28px] border border-white/12 bg-slate-950/10 p-4 backdrop-blur-sm">
+    <section className="rounded-[28px] border border-white/12 bg-slate-950/[0.08] p-4 backdrop-blur-[2px]">
       <div className="flex flex-wrap gap-3">
         {sportSwitchLinks.map((link) => {
           const isActive = link.sport === currentSport
@@ -76,7 +76,7 @@ export default function SportPredictionsPage({
   if (predictions.length === 0) {
     return (
       <main className="space-y-8">
-        <section className="rounded-[30px] border border-white/12 bg-slate-950/12 p-6 shadow-[0_22px_60px_rgba(8,15,34,0.18)] backdrop-blur-sm md:p-8">
+        <section className="rounded-[30px] border border-white/12 bg-slate-950/[0.08] p-6 shadow-[0_22px_60px_rgba(8,15,34,0.14)] backdrop-blur-[2px] md:p-8">
           <p
             className={`inline-flex rounded-full border px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] ${accentClassName}`}
           >
