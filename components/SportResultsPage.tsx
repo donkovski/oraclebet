@@ -1,9 +1,8 @@
 import type { Result } from "@/types/results"
 import type { PredictionSport } from "@/lib/sports"
 import Link from "next/link"
-import ProfitChart from "@/components/ProfitChart"
 import ResultsArchive from "@/components/ResultsArchive"
-import ResultsPieChart from "@/components/ResultsPieChart"
+import ResultsChartsSection from "@/components/ResultsChartsSection"
 
 type SportResultsPageProps = {
   label: string
@@ -164,12 +163,9 @@ export default function SportResultsPage({
             <p className={`text-xl font-bold ${roiColor}`}>{roi}%</p>
           </div>
         </div>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          <ProfitChart results={results} />
-          <ResultsPieChart results={results} />
-        </div>
       </section>
+
+      <ResultsChartsSection results={results} />
     </main>
   )
 }
