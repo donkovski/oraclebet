@@ -17,6 +17,16 @@ type MonthOption = {
   totalResults: number
 }
 
+type ResultStats = {
+  total: number
+  wins: number
+  losses: number
+  voids: number
+  winRate: string
+  roi: string
+  roiColor: string
+}
+
 function getCurrentMonthKey() {
   const parts = new Intl.DateTimeFormat("en-CA", {
     timeZone: SOFIA_TIMEZONE,
@@ -63,79 +73,178 @@ function buildMonthOptions(results: Result[]): MonthOption[] {
     }))
 }
 
+function getResultStats(results: Result[]): ResultStats {
+  const total = results.length
+  const wins = results.filter((result) => result.status === "WIN").length
+  const losses = results.filter((result) => result.status === "LOSE").length
+  const voids = results.filter((result) => result.status === "VOID").length
+  const settledBets = wins + losses
+  const profit = results.reduce((sum, item) => {
+    if (item.status === "WIN") return sum + (item.odds - 1)
+    if (item.status === "LOSE") return sum - 1
+    return sum
+  }, 0)
+
+  const winRate = settledBets === 0 ? "0.0" : ((wins / settledBets) * 100).toFixed(1)
+  const roi = settledBets === 0 ? "0" : ((profit / settledBets) * 100).toFixed(1)
+  const roiValue = Number(roi)
+
+  let roiColor = "text-slate-400"
+  if (roiValue > 0) roiColor = "text-green-400"
+  if (roiValue < 0) roiColor = "text-red-400"
+
+  return {
+    total,
+    wins,
+    losses,
+    voids,
+    winRate,
+    roi,
+    roiColor,
+  }
+}
+
+function getDescription(isAllTime: boolean, isCurrentMonth: boolean) {
+  if (isAllTime) {
+    return "Показани са всички приключени залози от архива. Избери месец от менюто, ако искаш по-конкретен период."
+  }
+
+  if (isCurrentMonth) {
+    return "По подразбиране е избран текущият месец, но можеш да разглеждаш и по-стари периоди или общата статистика."
+  }
+
+  return "Избран е архивен месец. Можеш по всяко време да се върнеш към текущия месец или към общия преглед."
+}
+
+function StatsCards({ stats }: { stats: ResultStats }) {
+  return (
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+      <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] p-4 text-center">
+        <p className="text-sm text-white/55">Общо</p>
+        <p className="text-xl font-bold text-white">{stats.total}</p>
+      </div>
+
+      <div className="rounded-2xl border border-emerald-300/35 bg-emerald-950/40 p-4 text-center">
+        <p className="text-sm text-emerald-100">WIN</p>
+        <p className="text-xl font-bold text-white">{stats.wins}</p>
+      </div>
+
+      <div className="rounded-2xl border border-rose-300/35 bg-rose-950/40 p-4 text-center">
+        <p className="text-sm text-rose-100">LOSE</p>
+        <p className="text-xl font-bold text-white">{stats.losses}</p>
+      </div>
+
+      <div className="rounded-2xl border border-white/15 bg-slate-900/28 p-4 text-center">
+        <p className="text-sm text-white/65">VOID</p>
+        <p className="text-xl font-bold text-white">{stats.voids}</p>
+      </div>
+
+      <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] p-4 text-center">
+        <p className="text-sm text-white/55">Win Rate</p>
+        <p className="text-xl font-bold text-green-400">{stats.winRate}%</p>
+      </div>
+
+      <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] p-4 text-center">
+        <p className="text-sm text-white/55">ROI</p>
+        <p className={`text-xl font-bold ${stats.roiColor}`}>{stats.roi}%</p>
+      </div>
+    </div>
+  )
+}
+
 export default function ResultsChartsSection({ results }: ResultsChartsSectionProps) {
   const currentMonthKey = getCurrentMonthKey()
   const monthOptions = useMemo(() => buildMonthOptions(results), [results])
   const [selectedMonthKey, setSelectedMonthKey] = useState(currentMonthKey)
+  const [showAllTime, setShowAllTime] = useState(false)
 
   const activeMonth =
     monthOptions.find((option) => option.key === selectedMonthKey) ?? monthOptions[0]
+  const isAllTime = showAllTime
+  const isCurrentMonth = !isAllTime && activeMonth?.key === currentMonthKey
 
-  const activeMonthResults = useMemo(
-    () => results.filter((result) => result.date.startsWith(activeMonth?.key ?? "")),
-    [activeMonth?.key, results]
-  )
+  const activeResults = useMemo(() => {
+    if (isAllTime) {
+      return results
+    }
 
-  if (!activeMonth) {
-    return null
-  }
+    return results.filter((result) => result.date.startsWith(activeMonth?.key ?? ""))
+  }, [activeMonth?.key, isAllTime, results])
 
-  const isCurrentMonth = activeMonth.key === currentMonthKey
+  const stats = useMemo(() => getResultStats(activeResults), [activeResults])
+  const activeLabel = isAllTime ? "Общо" : activeMonth?.label ?? formatMonthLabel(currentMonthKey)
 
   return (
     <section className="space-y-6">
       <div className="rounded-[28px] border border-white/12 bg-slate-950/[0.08] p-5 backdrop-blur-[2px] md:p-6">
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-end">
+        <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(280px,340px)] xl:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
-              Графики по месец
+              Статистика и графики
             </p>
-            <h2 className="mt-2 text-2xl font-bold text-white">{activeMonth.label}</h2>
+            <h2 className="mt-2 text-2xl font-bold text-white">{activeLabel}</h2>
             <p className="mt-2 text-sm leading-7 text-white/65">
-              {isCurrentMonth
-                ? "По подразбиране е избран текущият месец, но можеш да отвориш и по-стари периоди от менюто."
-                : "Избран е архивен месец. Можеш по всяко време да се върнеш към текущия период от менюто."}
+              {getDescription(isAllTime, isCurrentMonth)}
             </p>
           </div>
 
-          <label htmlFor="chart-month" className="space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
-              Избери месец
-            </span>
-            <div className="relative">
-              <select
-                id="chart-month"
-                value={activeMonth.key}
-                onChange={(event) => setSelectedMonthKey(event.target.value)}
-                className="w-full appearance-none rounded-2xl border border-white/12 bg-slate-950/[0.08] px-4 py-3 pr-10 text-sm font-medium text-white outline-none transition focus:border-orange-300/55 focus:bg-slate-950/[0.12] focus-visible:ring-2 focus-visible:ring-orange-300/35"
-              >
-                {monthOptions.map((month) => (
-                  <option key={month.key} value={month.key}>
-                    {month.label} · {formatCount(month.totalResults)}
-                  </option>
-                ))}
-              </select>
-              <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-white/45">
-                ▾
+          <div className="space-y-3">
+            <button
+              type="button"
+              onClick={() => setShowAllTime(true)}
+              className={
+                isAllTime
+                  ? "inline-flex rounded-full border border-orange-300/35 bg-orange-300/12 px-5 py-2 text-sm font-semibold text-orange-100"
+                  : "inline-flex rounded-full border border-white/12 bg-white/[0.04] px-5 py-2 text-sm font-semibold text-white/80 transition hover:bg-white/[0.08]"
+              }
+            >
+              Общо
+            </button>
+
+            <label htmlFor="chart-month" className="block space-y-2">
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
+                Избери месец
               </span>
-            </div>
-          </label>
+              <div className="relative">
+                <select
+                  id="chart-month"
+                  value={activeMonth?.key ?? currentMonthKey}
+                  onChange={(event) => {
+                    setSelectedMonthKey(event.target.value)
+                    setShowAllTime(false)
+                  }}
+                  className="w-full appearance-none rounded-2xl border border-white/12 bg-slate-950/[0.08] px-4 py-3 pr-10 text-sm font-medium text-white outline-none transition focus:border-orange-300/55 focus:bg-slate-950/[0.12] focus-visible:ring-2 focus-visible:ring-orange-300/35"
+                >
+                  {monthOptions.map((month) => (
+                    <option key={month.key} value={month.key}>
+                      {month.label} · {formatCount(month.totalResults)}
+                    </option>
+                  ))}
+                </select>
+                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-white/45">
+                  ▾
+                </span>
+              </div>
+            </label>
+          </div>
         </div>
       </div>
 
-      {activeMonthResults.length > 0 ? (
+      <StatsCards stats={stats} />
+
+      {activeResults.length > 0 ? (
         <div className="grid gap-6 md:grid-cols-2">
-          <ProfitChart results={activeMonthResults} />
-          <ResultsPieChart results={activeMonthResults} />
+          <ProfitChart results={activeResults} />
+          <ResultsPieChart results={activeResults} />
         </div>
       ) : (
         <div className="rounded-[28px] border border-dashed border-white/15 bg-slate-950/[0.08] p-8 text-center backdrop-blur-[2px]">
           <h3 className="text-2xl font-bold text-white">
-            Няма приключени залози за {activeMonth.label}
+            Няма приключени залози за {activeLabel.toLowerCase()}
           </h3>
           <p className="mt-3 text-white/65">
-            Избери друг месец от менюто, ако искаш да разгледаш по-стари графики и
-            история.
+            Избери друг месец или натисни бутона &quot;Общо&quot;, за да разгледаш
+            цялата история.
           </p>
         </div>
       )}

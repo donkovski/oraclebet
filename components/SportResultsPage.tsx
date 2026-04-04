@@ -66,29 +66,6 @@ export default function SportResultsPage({
   accentClassName,
   sport,
 }: SportResultsPageProps) {
-  const total = results.length
-  const wins = results.filter((result) => result.status === "WIN").length
-  const losses = results.filter((result) => result.status === "LOSE").length
-  const voids = results.filter((result) => result.status === "VOID").length
-
-  const settledBets = wins + losses
-  const winRate = settledBets === 0 ? "0.0" : ((wins / settledBets) * 100).toFixed(1)
-
-  const profit = results
-    .reduce((sum, item) => {
-      if (item.status === "WIN") return sum + (item.odds - 1)
-      if (item.status === "LOSE") return sum - 1
-      return sum
-    }, 0)
-    .toFixed(2)
-
-  const roi = settledBets === 0 ? "0" : ((Number(profit) / settledBets) * 100).toFixed(1)
-  const roiValue = Number(roi)
-
-  let roiColor = "text-slate-400"
-  if (roiValue > 0) roiColor = "text-green-400"
-  if (roiValue < 0) roiColor = "text-red-400"
-
   if (results.length === 0) {
     return (
       <main className="space-y-8">
@@ -130,40 +107,6 @@ export default function SportResultsPage({
       <SportSwitcher currentSport={sport} />
 
       <ResultsArchive results={results} />
-
-      <section className="space-y-6">
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-          <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] p-4 text-center">
-            <p className="text-sm text-white/55">Общо</p>
-            <p className="text-xl font-bold text-white">{total}</p>
-          </div>
-
-          <div className="rounded-2xl border border-emerald-300/35 bg-emerald-950/40 p-4 text-center">
-            <p className="text-sm text-emerald-100">WIN</p>
-            <p className="text-xl font-bold text-white">{wins}</p>
-          </div>
-
-          <div className="rounded-2xl border border-rose-300/35 bg-rose-950/40 p-4 text-center">
-            <p className="text-sm text-rose-100">LOSE</p>
-            <p className="text-xl font-bold text-white">{losses}</p>
-          </div>
-
-          <div className="rounded-2xl border border-white/15 bg-slate-900/28 p-4 text-center">
-            <p className="text-sm text-white/65">VOID</p>
-            <p className="text-xl font-bold text-white">{voids}</p>
-          </div>
-
-          <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] p-4 text-center">
-            <p className="text-sm text-white/55">Win Rate</p>
-            <p className="text-xl font-bold text-green-400">{winRate}%</p>
-          </div>
-
-          <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] p-4 text-center">
-            <p className="text-sm text-white/55">ROI</p>
-            <p className={`text-xl font-bold ${roiColor}`}>{roi}%</p>
-          </div>
-        </div>
-      </section>
 
       <ResultsChartsSection results={results} />
     </main>
