@@ -5,14 +5,17 @@ import SiteHeader from "@/components/SiteHeader"
 import { siteConfig } from "@/lib/site-config"
 import "./globals.css"
 
+const defaultTitle = "OracleBet | Спортни прогнози, анализи и резултати"
+const siteDescription =
+  "OracleBet събира спортни прогнози за днес, анализи и резултати за футбол, хокей, баскетбол, бейзбол и тенис с удобен архив и ясна статистика."
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    default: "OracleBet | Спортни прогнози",
+    default: defaultTitle,
     template: "%s | OracleBet",
   },
-  description:
-    "OracleBet предлага подредени спортни прогнози, архив с резултати и ясна статистика за футбол, хокей, баскетбол, бейзбол и тенис.",
+  description: siteDescription,
   alternates: {
     canonical: "/",
   },
@@ -35,9 +38,8 @@ export const metadata: Metadata = {
     locale: "bg_BG",
     url: siteConfig.siteUrl,
     siteName: "OracleBet",
-    title: "OracleBet | Спортни прогнози",
-    description:
-      "OracleBet предлага подредени спортни прогнози, архив с резултати и ясна статистика за футбол, хокей, баскетбол, бейзбол и тенис.",
+    title: defaultTitle,
+    description: siteDescription,
     images: [
       {
         url: "/logo.png",
@@ -49,9 +51,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "OracleBet | Спортни прогнози",
-    description:
-      "OracleBet предлага подредени спортни прогнози, архив с резултати и ясна статистика за футбол, хокей, баскетбол, бейзбол и тенис.",
+    title: defaultTitle,
+    description: siteDescription,
     images: ["/logo.png"],
   },
 }

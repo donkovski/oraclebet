@@ -10,23 +10,28 @@ import {
 import { sortPredictionsByKickoff } from "@/lib/prediction-utils"
 
 export const metadata: Metadata = {
-  title: "Днешни спортни прогнози",
+  title: "Спортни прогнози за днес, анализи и резултати",
   description:
-    "Разгледай днешните прогнози в OracleBet по отделни спортове с удобна структура за прогнози и резултати за футбол, хокей, баскетбол, бейзбол и тенис.",
+    "Виж спортни прогнози за днес, анализи и резултати за футбол, хокей, баскетбол, бейзбол и тенис в OracleBet. Подредени мачове, удобен архив и ясна статистика на едно място.",
   alternates: {
     canonical: "/",
   },
 }
 
 export default async function Home() {
-  const [footballPredictions, hockeyPredictions, basketballPredictions, baseballPredictions, tennisPredictions] =
-    await Promise.all([
-      getFootballPredictions(),
-      getHockeyPredictions(),
-      getBasketballPredictions(),
-      getBaseballPredictions(),
-      getTennisPredictions(),
-    ])
+  const [
+    footballPredictions,
+    hockeyPredictions,
+    basketballPredictions,
+    baseballPredictions,
+    tennisPredictions,
+  ] = await Promise.all([
+    getFootballPredictions(),
+    getHockeyPredictions(),
+    getBasketballPredictions(),
+    getBaseballPredictions(),
+    getTennisPredictions(),
+  ])
 
   const groupedPredictions = {
     football: sortPredictionsByKickoff(footballPredictions),
@@ -57,14 +62,15 @@ export default async function Home() {
             </div>
 
             <h1 className="text-5xl font-black tracking-tight text-white md:text-6xl">
-              OracleBet вече е подреден по спортове за по-лесни прогнози и резултати.
+              Спортни прогнози за днес, анализи и резултати на едно място.
             </h1>
 
             <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">
-              Сайтът вече има отделни секции за футбол, хокей, баскетбол, бейзбол и тенис. Влизаш
-              първо в общите страници <span className="font-semibold text-white">Прогнози</span> и{" "}
-              <span className="font-semibold text-white">Резултати</span>, а после избираш спорта,
-              който искаш да следиш.
+              Следи подбрани мачове за футбол, хокей, баскетбол, бейзбол и тенис с
+              бърз достъп до <span className="font-semibold text-white">Прогнози</span> и{" "}
+              <span className="font-semibold text-white">Резултати</span>. OracleBet ти
+              помага да намираш важните срещи по-бързо с удобна структура и ясен
+              архив.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -116,7 +122,9 @@ export default async function Home() {
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
                   Хокей
                 </p>
-                <p className="mt-2 text-2xl font-bold text-white">{groupedPredictions.hockey.length}</p>
+                <p className="mt-2 text-2xl font-bold text-white">
+                  {groupedPredictions.hockey.length}
+                </p>
               </div>
 
               <div className="rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center">
@@ -148,9 +156,21 @@ export default async function Home() {
             </div>
 
             <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/20 px-4 py-4 text-center text-white/65">
-              Използвай <Link href="/tips" className="font-semibold text-orange-200 transition hover:text-orange-100">Прогнози</Link> за
-              активните мачове и <Link href="/rezultati" className="font-semibold text-orange-200 transition hover:text-orange-100">Резултати</Link> за
-              архивите по спорт.
+              Използвай{" "}
+              <Link
+                href="/tips"
+                className="font-semibold text-orange-200 transition hover:text-orange-100"
+              >
+                Прогнози
+              </Link>{" "}
+              за активните мачове и{" "}
+              <Link
+                href="/rezultati"
+                className="font-semibold text-orange-200 transition hover:text-orange-100"
+              >
+                Резултати
+              </Link>{" "}
+              за архивите по спорт.
             </div>
           </aside>
         </div>
