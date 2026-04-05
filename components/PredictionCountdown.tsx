@@ -14,7 +14,7 @@ function getCountdownState(kickoff: string, now: number) {
   if (diffMs <= 0) {
     return {
       label: "Играе се",
-      className: "border-rose-300/30 bg-rose-300/10 text-rose-100",
+      className: "border-rose-300/40 bg-rose-50 text-rose-700",
     }
   }
 
@@ -39,8 +39,8 @@ function getCountdownState(kickoff: string, now: number) {
 
   const className =
     totalMinutes <= 60
-      ? "border-amber-300/30 bg-amber-300/10 text-amber-100"
-      : "border-emerald-300/30 bg-emerald-300/10 text-emerald-100"
+      ? "border-amber-300/40 bg-amber-50 text-amber-700"
+      : "border-emerald-300/40 bg-emerald-50 text-emerald-700"
 
   return {
     label: `Започва след ${parts.join(" ")}`,

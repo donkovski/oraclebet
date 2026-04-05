@@ -119,33 +119,33 @@ function getDescription(isAllTime: boolean, isCurrentMonth: boolean) {
 function StatsCards({ stats }: { stats: ResultStats }) {
   return (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-      <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] p-4 text-center">
-        <p className="text-sm text-white/55">Общо</p>
-        <p className="text-xl font-bold text-white">{stats.total}</p>
+      <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-center">
+        <p className="text-sm text-slate-500">Общо</p>
+        <p className="text-xl font-bold text-slate-950">{stats.total}</p>
       </div>
 
-      <div className="rounded-2xl border border-emerald-300/35 bg-emerald-950/40 p-4 text-center">
-        <p className="text-sm text-emerald-100">WIN</p>
-        <p className="text-xl font-bold text-white">{stats.wins}</p>
+      <div className="rounded-2xl border border-emerald-300/45 bg-emerald-50 p-4 text-center">
+        <p className="text-sm text-emerald-700">WIN</p>
+        <p className="text-xl font-bold text-slate-950">{stats.wins}</p>
       </div>
 
-      <div className="rounded-2xl border border-rose-300/35 bg-rose-950/40 p-4 text-center">
-        <p className="text-sm text-rose-100">LOSE</p>
-        <p className="text-xl font-bold text-white">{stats.losses}</p>
+      <div className="rounded-2xl border border-rose-300/45 bg-rose-50 p-4 text-center">
+        <p className="text-sm text-rose-700">LOSE</p>
+        <p className="text-xl font-bold text-slate-950">{stats.losses}</p>
       </div>
 
-      <div className="rounded-2xl border border-white/15 bg-slate-900/28 p-4 text-center">
-        <p className="text-sm text-white/65">VOID</p>
-        <p className="text-xl font-bold text-white">{stats.voids}</p>
+      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-center">
+        <p className="text-sm text-slate-600">VOID</p>
+        <p className="text-xl font-bold text-slate-950">{stats.voids}</p>
       </div>
 
-      <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] p-4 text-center">
-        <p className="text-sm text-white/55">Win Rate</p>
+      <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-center">
+        <p className="text-sm text-slate-500">Win Rate</p>
         <p className="text-xl font-bold text-green-400">{stats.winRate}%</p>
       </div>
 
-      <div className="rounded-2xl border border-white/12 bg-slate-950/[0.08] p-4 text-center">
-        <p className="text-sm text-white/55">ROI</p>
+      <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-center">
+        <p className="text-sm text-slate-500">ROI</p>
         <p className={`text-xl font-bold ${stats.roiColor}`}>{stats.roi}%</p>
       </div>
     </div>
@@ -176,14 +176,14 @@ export default function ResultsChartsSection({ results }: ResultsChartsSectionPr
 
   return (
     <section className="space-y-6">
-      <div className="rounded-[28px] border border-white/12 bg-slate-950/[0.08] p-5 backdrop-blur-[2px] md:p-6">
+      <div className="rounded-[28px] border border-slate-200/80 bg-white/72 p-5 backdrop-blur-xl md:p-6">
         <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(280px,340px)] xl:items-end">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
               Статистика и графики
             </p>
-            <h2 className="mt-2 text-2xl font-bold text-white">{activeLabel}</h2>
-            <p className="mt-2 text-sm leading-7 text-white/65">
+            <h2 className="mt-2 text-2xl font-bold text-slate-950">{activeLabel}</h2>
+            <p className="mt-2 text-sm leading-7 text-slate-600">
               {getDescription(isAllTime, isCurrentMonth)}
             </p>
           </div>
@@ -194,15 +194,15 @@ export default function ResultsChartsSection({ results }: ResultsChartsSectionPr
               onClick={() => setShowAllTime(true)}
               className={
                 isAllTime
-                  ? "inline-flex rounded-full border border-orange-300/35 bg-orange-300/12 px-5 py-2 text-sm font-semibold text-orange-100"
-                  : "inline-flex rounded-full border border-white/12 bg-white/[0.04] px-5 py-2 text-sm font-semibold text-white/80 transition hover:bg-white/[0.08]"
+                  ? "inline-flex rounded-full border border-orange-300/50 bg-orange-100/80 px-5 py-2 text-sm font-semibold text-orange-700"
+                  : "inline-flex rounded-full border border-slate-200 bg-white px-5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
               }
             >
               Общо
             </button>
 
             <label htmlFor="chart-month" className="block space-y-2">
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                 Избери месец
               </span>
               <div className="relative">
@@ -213,7 +213,7 @@ export default function ResultsChartsSection({ results }: ResultsChartsSectionPr
                     setSelectedMonthKey(event.target.value)
                     setShowAllTime(false)
                   }}
-                  className="w-full appearance-none rounded-2xl border border-white/12 bg-slate-950/[0.08] px-4 py-3 pr-10 text-sm font-medium text-white outline-none transition focus:border-orange-300/55 focus:bg-slate-950/[0.12] focus-visible:ring-2 focus-visible:ring-orange-300/35"
+                  className="w-full appearance-none rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-10 text-sm font-medium text-slate-800 outline-none transition focus:border-orange-300/55 focus:bg-orange-50/30 focus-visible:ring-2 focus-visible:ring-orange-300/35"
                 >
                   {monthOptions.map((month) => (
                     <option key={month.key} value={month.key}>
@@ -221,7 +221,7 @@ export default function ResultsChartsSection({ results }: ResultsChartsSectionPr
                     </option>
                   ))}
                 </select>
-                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-white/45">
+                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-slate-400">
                   ▾
                 </span>
               </div>
@@ -238,11 +238,11 @@ export default function ResultsChartsSection({ results }: ResultsChartsSectionPr
           <ResultsPieChart results={activeResults} />
         </div>
       ) : (
-        <div className="rounded-[28px] border border-dashed border-white/15 bg-slate-950/[0.08] p-8 text-center backdrop-blur-[2px]">
-          <h3 className="text-2xl font-bold text-white">
+        <div className="rounded-[28px] border border-dashed border-slate-300 bg-white/72 p-8 text-center backdrop-blur-xl">
+          <h3 className="text-2xl font-bold text-slate-950">
             Няма приключени залози за {activeLabel.toLowerCase()}
           </h3>
-          <p className="mt-3 text-white/65">
+          <p className="mt-3 text-slate-600">
             Избери друг месец или натисни бутона &quot;Общо&quot;, за да разгледаш
             цялата история.
           </p>

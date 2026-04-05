@@ -22,7 +22,7 @@ export default async function TennisTipsPage() {
       predictions={predictions}
       introTitle="Днешните тенис селекции са вече публикувани."
       finishedTitle="Всички тенис прогнози за деня вече са започнали."
-      accentClassName="border-fuchsia-300/35 bg-fuchsia-300/12 text-fuchsia-100"
+      accentClassName="border-fuchsia-300/45 bg-fuchsia-50 text-fuchsia-700"
       links={[
         { href: "/tips", label: "Към всички прогнози" },
         { href: "/rezultati/tenis", label: "Към тенис резултати", primary: true },

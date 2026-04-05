@@ -22,7 +22,7 @@ export default async function HockeyTipsPage() {
       predictions={predictions}
       introTitle="Днешните хокей селекции са вече публикувани."
       finishedTitle="Всички хокей прогнози за деня вече са започнали."
-      accentClassName="border-sky-300/35 bg-sky-300/12 text-sky-100"
+      accentClassName="border-sky-300/45 bg-sky-50 text-sky-700"
       links={[
         { href: "/tips", label: "Към всички прогнози" },
         { href: "/rezultati/hokei", label: "Към хокей резултати", primary: true },

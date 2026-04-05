@@ -21,31 +21,31 @@ export default function TipsHubPage() {
           href: "/tips/futbol",
           label: "Футбол",
           description: "Активни футболни прогнози, подредени по час, пазар и първенство.",
-          accentClassName: "border-orange-300/35 bg-orange-300/12 text-orange-100",
+          accentClassName: "border-orange-300/45 bg-orange-50 text-orange-700",
         },
         {
           href: "/tips/hokei",
           label: "Хокей",
           description: "NHL и други хокейни прогнози с отделна секция за текущите мачове.",
-          accentClassName: "border-sky-300/35 bg-sky-300/12 text-sky-100",
+          accentClassName: "border-sky-300/45 bg-sky-50 text-sky-700",
         },
         {
           href: "/tips/basketbol",
           label: "Баскетбол",
           description: "Подготвена секция за баскетболни прогнози и бъдещо публикуване.",
-          accentClassName: "border-amber-300/35 bg-amber-300/12 text-amber-100",
+          accentClassName: "border-amber-300/45 bg-amber-50 text-amber-700",
         },
         {
           href: "/tips/beizbol",
           label: "Бейзбол",
           description: "Подготвена секция за бейзболни прогнози и бъдещо публикуване.",
-          accentClassName: "border-emerald-300/35 bg-emerald-300/12 text-emerald-100",
+          accentClassName: "border-emerald-300/45 bg-emerald-50 text-emerald-700",
         },
         {
           href: "/tips/tenis",
           label: "Тенис",
           description: "Тенис прогнози по турнири и мачове, подредени в отделна секция.",
-          accentClassName: "border-fuchsia-300/35 bg-fuchsia-300/12 text-fuchsia-100",
+          accentClassName: "border-fuchsia-300/45 bg-fuchsia-50 text-fuchsia-700",
         },
       ]}
     />

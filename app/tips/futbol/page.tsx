@@ -22,7 +22,7 @@ export default async function FootballTipsPage() {
       predictions={predictions}
       introTitle="Днешните футболни селекции са вече публикувани."
       finishedTitle="Всички футболни прогнози за деня вече са започнали."
-      accentClassName="border-orange-300/35 bg-orange-300/12 text-orange-100"
+      accentClassName="border-orange-300/45 bg-orange-50 text-orange-700"
       links={[
         { href: "/tips", label: "Към всички прогнози" },
         { href: "/rezultati/futbol", label: "Към футболни резултати", primary: true },

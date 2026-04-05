@@ -22,7 +22,7 @@ export default async function TennisResultsPage() {
       emptyDescription=""
       predictionHref="/tips/tenis"
       predictionLabel="Към тенис прогнози"
-      accentClassName="text-fuchsia-200"
+      accentClassName="text-fuchsia-700"
       sport="tennis"
     />
   )

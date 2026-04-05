@@ -61,14 +61,14 @@ function formatOdds(odds: number) {
 
 function getCardClasses(status: Result["status"]) {
   if (status === "WIN") {
-    return "border-emerald-300/45 bg-emerald-950/48"
+    return "border-emerald-300/45 bg-emerald-50"
   }
 
   if (status === "LOSE") {
-    return "border-rose-300/45 bg-rose-950/48"
+    return "border-rose-300/45 bg-rose-50"
   }
 
-  return "border-white/15 bg-slate-900/36"
+  return "border-slate-200 bg-slate-50"
 }
 
 function getBadgeClasses(status: Result["status"]) {
@@ -146,7 +146,7 @@ function SelectField({
 }) {
   return (
     <label htmlFor={id} className="space-y-2">
-      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
+      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
         {label}
       </span>
       <div className="relative">
@@ -154,11 +154,11 @@ function SelectField({
           id={id}
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          className="w-full appearance-none rounded-2xl border border-white/12 bg-slate-950/[0.08] px-4 py-3 pr-10 text-sm font-medium text-white outline-none transition focus:border-orange-300/55 focus:bg-slate-950/[0.12] focus-visible:ring-2 focus-visible:ring-orange-300/35"
+          className="w-full appearance-none rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-10 text-sm font-medium text-slate-800 outline-none transition focus:border-orange-300/55 focus:bg-orange-50/30 focus-visible:ring-2 focus-visible:ring-orange-300/35"
         >
           {children}
         </select>
-        <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-white/45">
+        <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-slate-400">
           ▾
         </span>
       </div>
@@ -198,7 +198,7 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
 
   return (
     <section className="space-y-4">
-      <div className="rounded-[28px] border border-white/12 bg-slate-950/[0.08] p-5 backdrop-blur-[2px] md:p-6">
+      <div className="rounded-[28px] border border-slate-200/80 bg-white/72 p-5 backdrop-blur-xl md:p-6">
         <div className="grid gap-4 md:grid-cols-3">
           <SelectField
             id="results-year"
@@ -250,29 +250,29 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
         </div>
       </div>
 
-      <div className="rounded-[28px] border border-white/12 bg-slate-950/[0.08] p-6 shadow-[0_18px_40px_rgba(8,15,34,0.12)] backdrop-blur-[2px] md:p-8">
+      <div className="rounded-[28px] border border-slate-200/80 bg-white/76 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.07)] backdrop-blur-xl md:p-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
               Избрана дата
             </p>
-            <h2 className="mt-2 text-2xl font-bold text-white">{activeDateGroup.fullLabel}</h2>
-            <p className="mt-2 text-sm text-white/60">
+            <h2 className="mt-2 text-2xl font-bold text-slate-950">{activeDateGroup.fullLabel}</h2>
+            <p className="mt-2 text-sm text-slate-500">
               {formatCount(activeMonthGroup.totalResults, "прогноза", "прогнози")} общо за избрания месец
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/75">
-            <span className="rounded-full border border-white/12 bg-white/[0.04] px-4 py-2">
+          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-700">
+            <span className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2">
               {formatCount(activeDateGroup.items.length, "прогноза", "прогнози")}
             </span>
-            <span className="rounded-full border border-emerald-300/30 bg-emerald-400/15 px-4 py-2 text-emerald-50">
+            <span className="rounded-full border border-emerald-300/45 bg-emerald-50 px-4 py-2 text-emerald-700">
               {dayWins} WIN
             </span>
-            <span className="rounded-full border border-rose-300/30 bg-rose-400/15 px-4 py-2 text-rose-50">
+            <span className="rounded-full border border-rose-300/45 bg-rose-50 px-4 py-2 text-rose-700">
               {dayLosses} LOSE
             </span>
-            <span className="rounded-full border border-white/12 bg-white/[0.04] px-4 py-2 text-white/70">
+            <span className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-slate-600">
               {dayVoids} VOID
             </span>
           </div>
@@ -286,13 +286,13 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
             >
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                 <div>
-                  <h3 className="text-xl font-semibold text-white">{item.match}</h3>
-                  <p className="mt-3 text-white/85">
-                    Прогноза: <span className="font-semibold text-white">{item.prediction}</span>
+                  <h3 className="text-xl font-semibold text-slate-950">{item.match}</h3>
+                  <p className="mt-3 text-slate-700">
+                    Прогноза: <span className="font-semibold text-slate-950">{item.prediction}</span>
                   </p>
-                  <p className="mt-1 text-white/75">Резултат: {item.result}</p>
-                  <p className="mt-1 text-white/70">
-                    Коефициент: <span className="font-semibold text-orange-300">{formatOdds(item.odds)}</span>
+                  <p className="mt-1 text-slate-600">Резултат: {item.result}</p>
+                  <p className="mt-1 text-slate-600">
+                    Коефициент: <span className="font-semibold text-orange-700">{formatOdds(item.odds)}</span>
                   </p>
                 </div>
 
@@ -318,7 +318,7 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
                   [activeDateGroup.key]: !showAll,
                 }))
               }
-              className="rounded-full border border-white/12 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/[0.08] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-300"
+              className="rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 transition hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-300"
             >
               {showAll
                 ? "Покажи по-малко"

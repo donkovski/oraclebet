@@ -15,8 +15,8 @@ export default function PredictionMarketBadge({
 
   if (category === "cards") {
     return (
-      <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-amber-100">
-        <span className="inline-block h-4 w-3 rounded-[3px] border border-amber-100 bg-amber-300/85 shadow-[0_0_12px_rgba(251,191,36,0.28)]" />
+      <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/45 bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-amber-700">
+        <span className="inline-block h-4 w-3 rounded-[3px] border border-amber-300 bg-amber-300/85 shadow-[0_0_12px_rgba(251,191,36,0.18)]" />
         {label}
       </span>
     )
@@ -24,7 +24,7 @@ export default function PredictionMarketBadge({
 
   if (category === "totals") {
     return (
-      <span className="inline-flex items-center gap-2 rounded-full border border-emerald-300/30 bg-emerald-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-100">
+      <span className="inline-flex items-center gap-2 rounded-full border border-emerald-300/45 bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
         <span className="inline-flex h-4 w-4 items-center justify-center">
           <svg
             aria-hidden="true"
@@ -39,16 +39,16 @@ export default function PredictionMarketBadge({
               cx="8"
               cy="8"
               r="6.25"
-              className="fill-white stroke-emerald-950"
+              className="fill-white stroke-emerald-700"
               strokeWidth="1.2"
             />
             <path
               d="M8 4.6L10.3 6.2L9.45 8.9H6.55L5.7 6.2L8 4.6Z"
-              className="fill-emerald-950"
+              className="fill-emerald-700"
             />
             <path
               d="M8 4.6V2.9M10.3 6.2L12.8 5.65M9.45 8.9L11.2 10.9M6.55 8.9L4.8 10.9M5.7 6.2L3.2 5.65"
-              className="stroke-emerald-950"
+              className="stroke-emerald-700"
               strokeWidth="0.8"
               strokeLinecap="round"
             />
@@ -60,8 +60,8 @@ export default function PredictionMarketBadge({
   }
 
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-white/70">
-      <span className="inline-flex min-w-[2rem] items-center justify-center rounded-full border border-white/12 bg-white/[0.05] px-1.5 py-0.5 text-[0.62rem] font-black tracking-[0.12em] text-white/80">
+    <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-700 shadow-[0_8px_20px_rgba(15,23,42,0.05)]">
+      <span className="inline-flex min-w-[2rem] items-center justify-center rounded-full border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[0.62rem] font-black tracking-[0.12em] text-slate-600">
         1X2
       </span>
       {label}

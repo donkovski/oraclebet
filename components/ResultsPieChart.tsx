@@ -32,14 +32,14 @@ export default function ResultsPieChart({ results }: Props) {
     plugins: {
       legend: {
         labels: {
-          color: "white",
+          color: "#334155",
         },
       },
     },
   }
 
   return (
-    <div className="mb-10 rounded-xl border border-white/12 bg-slate-950/10 p-6 shadow-[0_18px_40px_rgba(8,15,34,0.14)] backdrop-blur-sm">
+    <div className="mb-10 rounded-xl border border-slate-200/80 bg-white/80 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.07)] backdrop-blur-xl">
       <h2 className="mb-6 text-2xl font-bold">Win / Lose графика</h2>
 
       <div className="h-80">

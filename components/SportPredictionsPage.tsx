@@ -37,7 +37,7 @@ const sportSwitchLinks: SportSwitchLink[] = [
 
 function SportSwitcher({ currentSport }: { currentSport: PredictionSport }) {
   return (
-    <section className="rounded-[28px] border border-white/12 bg-slate-950/[0.08] p-4 backdrop-blur-[2px]">
+    <section className="rounded-[28px] border border-slate-200/80 bg-white/72 p-4 backdrop-blur-xl">
       <div className="flex flex-wrap gap-3">
         {sportSwitchLinks.map((link) => {
           const isActive = link.sport === currentSport
@@ -49,8 +49,8 @@ function SportSwitcher({ currentSport }: { currentSport: PredictionSport }) {
               aria-current={isActive ? "page" : undefined}
               className={
                 isActive
-                  ? "rounded-full border border-orange-300/35 bg-orange-300/12 px-5 py-2 text-sm font-semibold text-orange-100"
-                  : "rounded-full border border-white/12 bg-white/[0.04] px-5 py-2 text-sm font-semibold text-white/80 transition hover:bg-white/[0.08]"
+                  ? "rounded-full border border-orange-300/50 bg-orange-100/80 px-5 py-2 text-sm font-semibold text-orange-700"
+                  : "rounded-full border border-slate-200 bg-white px-5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
               }
             >
               {link.label}
@@ -76,17 +76,17 @@ export default function SportPredictionsPage({
   if (predictions.length === 0) {
     return (
       <main className="space-y-8">
-        <section className="rounded-[30px] border border-white/12 bg-slate-950/[0.08] p-6 shadow-[0_22px_60px_rgba(8,15,34,0.14)] backdrop-blur-[2px] md:p-8">
+        <section className="rounded-[30px] border border-slate-200/80 bg-white/72 p-6 shadow-[0_22px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl md:p-8">
           <p
             className={`inline-flex rounded-full border px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] ${accentClassName}`}
           >
             {sportLabel}
           </p>
-          <h1 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl">
+          <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-950 md:text-5xl">
             {emptyTitle}
           </h1>
           {emptyDescription && (
-            <p className="mt-4 max-w-2xl leading-7 text-white/75">{emptyDescription}</p>
+            <p className="mt-4 max-w-2xl leading-7 text-slate-600">{emptyDescription}</p>
           )}
 
           <div className="mt-6">
@@ -101,7 +101,7 @@ export default function SportPredictionsPage({
                 className={
                   link.primary
                     ? "rounded-full bg-orange-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-orange-300"
-                    : "rounded-full border border-white/12 bg-white/[0.04] px-6 py-3 font-semibold text-white transition hover:bg-white/[0.08]"
+                    : "rounded-full border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-800 transition hover:bg-slate-50"
                 }
               >
                 {link.label}

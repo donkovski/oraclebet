@@ -71,35 +71,35 @@ export default function PredictionsBoard({
 
   return (
     <main className="space-y-8">
-      <section className="rounded-[30px] border border-white/12 bg-slate-950/[0.08] p-6 shadow-[0_22px_60px_rgba(8,15,34,0.14)] backdrop-blur-[2px] md:p-8">
+      <section className="rounded-[30px] border border-slate-200/80 bg-white/72 p-6 shadow-[0_22px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl md:p-8">
         <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
           <div>
-            <p className="inline-flex rounded-full border border-orange-300/35 bg-orange-300/12 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-orange-100">
+            <p className="inline-flex rounded-full border border-orange-300/50 bg-orange-100/80 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">
               {sportLabel}
             </p>
-            <h1 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl">
+            <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-950 md:text-5xl">
               {introTitle}
             </h1>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl border border-white/12 bg-white/[0.03] p-4 text-center">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+            <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                 Общо
               </p>
-              <p className="mt-2 text-2xl font-bold text-white">{totalPredictions}</p>
+              <p className="mt-2 text-2xl font-bold text-slate-950">{totalPredictions}</p>
             </div>
-            <div className="rounded-2xl border border-white/12 bg-white/[0.03] p-4 text-center">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+            <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                 Средно
               </p>
-              <p className="mt-2 text-2xl font-bold text-orange-100">{averageOdds}</p>
+              <p className="mt-2 text-2xl font-bold text-orange-700">{averageOdds}</p>
             </div>
-            <div className="col-span-2 rounded-2xl border border-white/12 bg-white/[0.03] p-4 text-center">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+            <div className="col-span-2 rounded-2xl border border-slate-200 bg-white/90 p-4 text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                 Дата
               </p>
-              <p className="mt-2 text-lg font-bold text-emerald-100">{activeDate}</p>
+              <p className="mt-2 text-lg font-bold text-emerald-700">{activeDate}</p>
             </div>
           </div>
         </div>
@@ -111,11 +111,11 @@ export default function PredictionsBoard({
         {startedPredictions.length > 0 && (
           <section className="space-y-4">
             <div className="flex flex-wrap items-end justify-between gap-4">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">
                 Започнали
               </p>
 
-              <div className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-sm font-semibold text-white/75">
+              <div className="rounded-full border border-slate-200 bg-white/85 px-4 py-2 text-sm font-semibold text-slate-600">
                 {startedPredictions.length} {startedPredictions.length === 1 ? "мач" : "мача"}
               </div>
             </div>
@@ -141,13 +141,13 @@ export default function PredictionsBoard({
 
         {featuredPrediction ? (
           <section className="space-y-4">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">
               Следващ мач
             </p>
 
-            <article className="relative overflow-hidden rounded-[30px] border border-orange-300/28 bg-slate-950/[0.1] p-6 shadow-[0_20px_48px_rgba(8,15,34,0.14)] backdrop-blur-[2px] md:p-8">
+            <article className="relative overflow-hidden rounded-[30px] border border-orange-300/35 bg-white/82 p-6 shadow-[0_20px_48px_rgba(15,23,42,0.08)] backdrop-blur-xl md:p-8">
               <div className="relative z-10">
-                <h2 className="text-3xl font-black text-white md:text-4xl">
+                <h2 className="text-3xl font-black text-slate-950 md:text-4xl">
                   {featuredPrediction.match}
                 </h2>
 
@@ -163,46 +163,46 @@ export default function PredictionsBoard({
                 </div>
 
                 {featuredPrediction.publishedAt && (
-                  <p className="mt-3 text-xs font-semibold uppercase tracking-[0.14em] text-white/40">
+                  <p className="mt-3 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
                     Добавена: {featuredPrediction.publishedAt}
                   </p>
                 )}
 
                 <div className="mt-6 grid gap-4 md:grid-cols-3">
-                  <div className="rounded-2xl border border-white/12 bg-white/[0.03] p-5">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50/85 p-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                       Начало
                     </p>
-                    <p className="mt-3 text-xl font-bold text-white">
+                    <p className="mt-3 text-xl font-bold text-slate-950">
                       {featuredPrediction.kickoff}
                     </p>
                   </div>
 
-                  <div className="rounded-2xl border border-white/12 bg-white/[0.03] p-5">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50/85 p-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                       Прогноза
                     </p>
-                    <p className="mt-3 text-2xl font-bold text-white">
+                    <p className="mt-3 text-2xl font-bold text-slate-950">
                       {featuredPrediction.prediction}
                     </p>
                   </div>
 
-                  <div className="rounded-2xl border border-orange-300/28 bg-orange-300/10 p-5">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-orange-100/70">
+                  <div className="rounded-2xl border border-orange-300/40 bg-orange-50 p-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-orange-600">
                       Коефициент
                     </p>
-                    <p className="mt-3 text-3xl font-black text-orange-100">
+                    <p className="mt-3 text-3xl font-black text-orange-700">
                       {featuredPrediction.odds}
                     </p>
                   </div>
                 </div>
 
                 {featuredPrediction.analysis && (
-                  <div className="mt-4 rounded-2xl border border-white/12 bg-white/[0.03] p-5">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+                  <div className="mt-4 rounded-2xl border border-slate-200 bg-white/85 p-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                       Анализ
                     </p>
-                    <p className="mt-3 text-base leading-8 text-white/85">
+                    <p className="mt-3 text-base leading-8 text-slate-600">
                       {featuredPrediction.analysis}
                     </p>
                   </div>
@@ -232,11 +232,11 @@ export default function PredictionsBoard({
             </div>
           </section>
         ) : (
-          <section className="rounded-[30px] border border-white/12 bg-slate-950/[0.08] p-6 shadow-[0_22px_60px_rgba(8,15,34,0.14)] backdrop-blur-[2px] md:p-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+          <section className="rounded-[30px] border border-slate-200/80 bg-white/72 p-6 shadow-[0_22px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl md:p-8">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">
               Следващ мач
             </p>
-            <h2 className="mt-4 text-3xl font-black text-white md:text-4xl">
+            <h2 className="mt-4 text-3xl font-black text-slate-950 md:text-4xl">
               {finishedTitle}
             </h2>
           </section>

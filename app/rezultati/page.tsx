@@ -21,31 +21,31 @@ export default function ResultsHubPage() {
           href: "/rezultati/futbol",
           label: "Футбол",
           description: "Архив на футболните резултати, статистика и графики.",
-          accentClassName: "border-orange-300/35 bg-orange-300/12 text-orange-100",
+          accentClassName: "border-orange-300/45 bg-orange-50 text-orange-700",
         },
         {
           href: "/rezultati/hokei",
           label: "Хокей",
           description: "Архив на хокейните резултати, статистика и графики.",
-          accentClassName: "border-sky-300/35 bg-sky-300/12 text-sky-100",
+          accentClassName: "border-sky-300/45 bg-sky-50 text-sky-700",
         },
         {
           href: "/rezultati/basketbol",
           label: "Баскетбол",
           description: "Подготвена секция за баскетболни резултати и бъдеща статистика.",
-          accentClassName: "border-amber-300/35 bg-amber-300/12 text-amber-100",
+          accentClassName: "border-amber-300/45 bg-amber-50 text-amber-700",
         },
         {
           href: "/rezultati/beizbol",
           label: "Бейзбол",
           description: "Подготвена секция за бейзболни резултати и бъдеща статистика.",
-          accentClassName: "border-emerald-300/35 bg-emerald-300/12 text-emerald-100",
+          accentClassName: "border-emerald-300/45 bg-emerald-50 text-emerald-700",
         },
         {
           href: "/rezultati/tenis",
           label: "Тенис",
           description: "Архив за тенис резултати, статистика и бъдещи завършени прогнози.",
-          accentClassName: "border-fuchsia-300/35 bg-fuchsia-300/12 text-fuchsia-100",
+          accentClassName: "border-fuchsia-300/45 bg-fuchsia-50 text-fuchsia-700",
         },
       ]}
     />

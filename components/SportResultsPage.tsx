@@ -31,7 +31,7 @@ const sportSwitchLinks: SportSwitchLink[] = [
 
 function SportSwitcher({ currentSport }: { currentSport: PredictionSport }) {
   return (
-    <section className="rounded-[28px] border border-white/12 bg-slate-950/[0.08] p-4 backdrop-blur-[2px]">
+    <section className="rounded-[28px] border border-slate-200/80 bg-white/72 p-4 backdrop-blur-xl">
       <div className="flex flex-wrap gap-3">
         {sportSwitchLinks.map((link) => {
           const isActive = link.sport === currentSport
@@ -43,8 +43,8 @@ function SportSwitcher({ currentSport }: { currentSport: PredictionSport }) {
               aria-current={isActive ? "page" : undefined}
               className={
                 isActive
-                  ? "rounded-full border border-orange-300/35 bg-orange-300/12 px-5 py-2 text-sm font-semibold text-orange-100"
-                  : "rounded-full border border-white/12 bg-white/[0.04] px-5 py-2 text-sm font-semibold text-white/80 transition hover:bg-white/[0.08]"
+                  ? "rounded-full border border-orange-300/50 bg-orange-100/80 px-5 py-2 text-sm font-semibold text-orange-700"
+                  : "rounded-full border border-slate-200 bg-white px-5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
               }
             >
               {link.label}
@@ -69,13 +69,13 @@ export default function SportResultsPage({
   if (results.length === 0) {
     return (
       <main className="space-y-8">
-        <section className="rounded-[28px] border border-white/12 bg-slate-950/[0.08] p-6 backdrop-blur-[2px] md:p-8">
+        <section className="rounded-[28px] border border-slate-200/80 bg-white/72 p-6 backdrop-blur-xl md:p-8">
           <p className={`text-sm font-semibold uppercase tracking-[0.18em] ${accentClassName}`}>
             {label}
           </p>
-          <h1 className="mt-3 text-4xl font-bold text-white">{emptyTitle}</h1>
+          <h1 className="mt-3 text-4xl font-bold text-slate-950">{emptyTitle}</h1>
           {emptyDescription && (
-            <p className="mt-4 max-w-3xl leading-7 text-white/75">{emptyDescription}</p>
+            <p className="mt-4 max-w-3xl leading-7 text-slate-600">{emptyDescription}</p>
           )}
 
           <div className="mt-6">
@@ -97,11 +97,11 @@ export default function SportResultsPage({
 
   return (
     <main className="space-y-8">
-      <section className="rounded-[28px] border border-white/12 bg-slate-950/[0.08] p-6 backdrop-blur-[2px] md:p-8">
+      <section className="rounded-[28px] border border-slate-200/80 bg-white/72 p-6 backdrop-blur-xl md:p-8">
         <p className={`text-sm font-semibold uppercase tracking-[0.18em] ${accentClassName}`}>
           Архив и статистика
         </p>
-        <h1 className="mt-3 text-4xl font-bold text-white">{label}</h1>
+        <h1 className="mt-3 text-4xl font-bold text-slate-950">{label}</h1>
       </section>
 
       <SportSwitcher currentSport={sport} />

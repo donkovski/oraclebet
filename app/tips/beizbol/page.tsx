@@ -22,7 +22,7 @@ export default async function BaseballTipsPage() {
       predictions={predictions}
       introTitle="Днешните бейзболни селекции са вече публикувани."
       finishedTitle="Всички бейзболни прогнози за деня вече са започнали."
-      accentClassName="border-emerald-300/35 bg-emerald-300/12 text-emerald-100"
+      accentClassName="border-emerald-300/45 bg-emerald-50 text-emerald-700"
       links={[
         { href: "/tips", label: "Към всички прогнози" },
         { href: "/rezultati/beizbol", label: "Към бейзбол резултати", primary: true },

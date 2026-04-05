@@ -46,15 +46,15 @@ export default function LoginPageClient() {
   if (savedEmail) {
     return (
       <main className="grid gap-6 lg:grid-cols-[1fr_0.95fr]">
-        <section className="rounded-[30px] border border-white/12 bg-slate-950/12 p-8 shadow-[0_22px_60px_rgba(8,15,34,0.18)] backdrop-blur-sm">
-          <p className="inline-flex rounded-full border border-emerald-300/35 bg-emerald-300/12 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-100">
+        <section className="rounded-[30px] border border-slate-200/80 bg-white/76 p-8 shadow-[0_22px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl">
+          <p className="inline-flex rounded-full border border-emerald-300/45 bg-emerald-50 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
             Активен профил
           </p>
-          <h1 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl">
+          <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-950 md:text-5xl">
             Добре дошъл отново, {savedName || "Потребител"}.
           </h1>
-          <p className="mt-4 max-w-2xl leading-7 text-white/75">
-            В момента си влязъл в сайта с имейл <span className="text-white">{savedEmail}</span>.
+          <p className="mt-4 max-w-2xl leading-7 text-slate-600">
+            В момента си влязъл в сайта с имейл <span className="text-slate-950">{savedEmail}</span>.
             Можеш да продължиш към прогнозите и резултатите или да излезеш от профила си.
           </p>
 
@@ -67,25 +67,25 @@ export default function LoginPageClient() {
             </Link>
             <Link
               href="/rezultati"
-              className="rounded-full border border-white/12 bg-white/[0.04] px-6 py-3 font-semibold text-white transition hover:bg-white/[0.08]"
+              className="rounded-full border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-800 transition hover:bg-slate-50"
             >
               Към футболни резултати
             </Link>
             <button
               type="button"
               onClick={handleLogout}
-              className="rounded-full border border-rose-300/30 bg-rose-400/12 px-6 py-3 font-semibold text-rose-100 transition hover:bg-rose-400/20"
+              className="rounded-full border border-rose-300/40 bg-rose-50 px-6 py-3 font-semibold text-rose-700 transition hover:bg-rose-100"
             >
               Изход
             </button>
           </div>
         </section>
 
-        <section className="rounded-[30px] border border-white/12 bg-slate-950/10 p-8 backdrop-blur-sm">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+        <section className="rounded-[30px] border border-slate-200/80 bg-white/72 p-8 backdrop-blur-xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">
             Твоят профил
           </p>
-          <h2 className="mt-4 text-3xl font-bold text-white">
+          <h2 className="mt-4 text-3xl font-bold text-slate-950">
             По-удобен достъп до сайта
           </h2>
 
@@ -93,7 +93,7 @@ export default function LoginPageClient() {
             {loginBenefits.map((item) => (
               <div
                 key={item}
-                className="rounded-2xl border border-white/12 bg-white/[0.04] px-4 py-3 text-white/80"
+                className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-700"
               >
                 {item}
               </div>
@@ -106,14 +106,14 @@ export default function LoginPageClient() {
 
   return (
     <main className="grid gap-6 lg:grid-cols-[1fr_0.95fr]">
-      <section className="rounded-[30px] border border-white/12 bg-slate-950/12 p-8 shadow-[0_22px_60px_rgba(8,15,34,0.18)] backdrop-blur-sm">
-        <p className="inline-flex rounded-full border border-orange-300/35 bg-orange-300/12 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-orange-100">
+      <section className="rounded-[30px] border border-slate-200/80 bg-white/76 p-8 shadow-[0_22px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl">
+        <p className="inline-flex rounded-full border border-orange-300/50 bg-orange-100/80 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">
           Вход за потребители
         </p>
-        <h1 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl">
+        <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-950 md:text-5xl">
           Влез в своя профил в OracleBet.
         </h1>
-        <p className="mt-4 max-w-2xl leading-7 text-white/75">
+        <p className="mt-4 max-w-2xl leading-7 text-slate-600">
           Ако вече имаш профил, използвай формата вдясно, за да влезеш и да
           продължиш към прогнозите и резултатите.
         </p>
@@ -122,7 +122,7 @@ export default function LoginPageClient() {
           {loginBenefits.map((item) => (
             <div
               key={item}
-              className="rounded-2xl border border-white/12 bg-white/[0.04] px-4 py-3 text-white/80"
+              className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-700"
             >
               {item}
             </div>
@@ -130,17 +130,17 @@ export default function LoginPageClient() {
         </div>
       </section>
 
-      <section className="rounded-[30px] border border-white/12 bg-slate-950/10 p-8 backdrop-blur-sm">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-200">
+      <section className="rounded-[30px] border border-slate-200/80 bg-white/72 p-8 backdrop-blur-xl">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">
           Вход
         </p>
-        <h2 className="mt-4 text-3xl font-bold text-white">
+        <h2 className="mt-4 text-3xl font-bold text-slate-950">
           Достъп до профила
         </h2>
 
         <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="mb-2 block text-sm font-medium text-white/75">
+            <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-600">
               Имейл
             </label>
             <input
@@ -149,14 +149,14 @@ export default function LoginPageClient() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="name@example.com"
-              className="w-full rounded-2xl border border-white/12 bg-white/[0.04] px-4 py-3 text-white outline-none transition placeholder:text-white/35 focus:border-orange-300/45 focus:bg-white/[0.06]"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-300/45 focus:bg-orange-50/30"
             />
           </div>
 
           <div>
             <label
               htmlFor="password"
-              className="mb-2 block text-sm font-medium text-white/75"
+              className="mb-2 block text-sm font-medium text-slate-600"
             >
               Парола
             </label>
@@ -166,12 +166,12 @@ export default function LoginPageClient() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Въведи парола"
-              className="w-full rounded-2xl border border-white/12 bg-white/[0.04] px-4 py-3 text-white outline-none transition placeholder:text-white/35 focus:border-orange-300/45 focus:bg-white/[0.06]"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-300/45 focus:bg-orange-50/30"
             />
           </div>
 
           {error && (
-            <p className="rounded-2xl border border-rose-300/25 bg-rose-400/10 px-4 py-3 text-sm text-rose-100">
+            <p className="rounded-2xl border border-rose-300/30 bg-rose-50 px-4 py-3 text-sm text-rose-700">
               {error}
             </p>
           )}
@@ -184,9 +184,9 @@ export default function LoginPageClient() {
           </button>
         </form>
 
-        <p className="mt-4 text-sm leading-6 text-white/55">
+        <p className="mt-4 text-sm leading-6 text-slate-500">
           Нямаш профил?{" "}
-          <Link href="/register" className="font-semibold text-orange-200 hover:text-orange-100">
+          <Link href="/register" className="font-semibold text-orange-700 hover:text-orange-600">
             Регистрация
           </Link>
         </p>

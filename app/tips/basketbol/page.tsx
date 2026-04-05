@@ -22,7 +22,7 @@ export default async function BasketballTipsPage() {
       predictions={predictions}
       introTitle="Днешните баскетболни селекции са вече публикувани."
       finishedTitle="Всички баскетболни прогнози за деня вече са започнали."
-      accentClassName="border-amber-300/35 bg-amber-300/12 text-amber-100"
+      accentClassName="border-amber-300/45 bg-amber-50 text-amber-700"
       links={[
         { href: "/tips", label: "Към всички прогнози" },
         { href: "/rezultati/basketbol", label: "Към баскетбол резултати", primary: true },
