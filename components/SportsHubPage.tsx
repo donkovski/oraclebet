@@ -19,51 +19,16 @@ type SportsHubPageProps = {
 function SportIcon({ icon }: { icon?: SportCard["icon"] }) {
   if (icon === "football") {
     return (
-      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 24 24"
-          className="h-6 w-6 text-slate-800"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle cx="12" cy="12" r="8.25" fill="white" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M12 7.2L14.6 9L13.7 11.9H10.3L9.4 9L12 7.2Z" fill="currentColor" />
-          <path
-            d="M12 7.2L12 5.2M14.6 9L17 8.2M13.7 11.9L15.6 14.7M10.3 11.9L8.4 14.7M9.4 9L7 8.2"
-            stroke="currentColor"
-            strokeWidth="1.3"
-            strokeLinecap="round"
-          />
-          <path
-            d="M8.4 14.7L6.5 15.7M15.6 14.7L17.5 15.7M7.4 10.9L5.9 12.4M18.1 12.4L16.6 10.9"
-            stroke="currentColor"
-            strokeWidth="1.1"
-            strokeLinecap="round"
-          />
-        </svg>
+      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-orange-200 bg-orange-50 shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
+        <span className="text-2xl leading-none">⚽</span>
       </span>
     )
   }
 
   if (icon === "hockey") {
     return (
-      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 24 24"
-          className="h-6 w-6 text-slate-800"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <ellipse cx="12" cy="14.6" rx="6.2" ry="2.3" fill="currentColor" opacity="0.18" />
-          <ellipse cx="12" cy="13.4" rx="6.2" ry="2.3" fill="currentColor" />
-          <path
-            d="M6.4 13.4V14.6C6.4 15.9 8.9 16.9 12 16.9C15.1 16.9 17.6 15.9 17.6 14.6V13.4"
-            stroke="currentColor"
-            strokeWidth="1.3"
-          />
-        </svg>
+      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-sky-200 bg-sky-50 shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
+        <span className="text-2xl leading-none">🏒</span>
       </span>
     )
   }
