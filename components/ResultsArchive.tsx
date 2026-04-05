@@ -154,7 +154,7 @@ function SelectField({
           id={id}
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          className="w-full appearance-none rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-10 text-sm font-medium text-slate-800 outline-none transition focus:border-orange-300/55 focus:bg-orange-50/30 focus-visible:ring-2 focus-visible:ring-orange-300/35"
+          className="theme-input w-full appearance-none rounded-2xl px-4 py-3 pr-10 text-sm font-medium outline-none transition focus:border-orange-300/55 focus-visible:ring-2 focus-visible:ring-orange-300/35"
         >
           {children}
         </select>
@@ -198,7 +198,7 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
 
   return (
     <section className="space-y-4">
-      <div className="rounded-[28px] border border-slate-200/80 bg-white/72 p-5 backdrop-blur-xl md:p-6">
+      <div className="theme-panel rounded-[28px] p-5 backdrop-blur-xl md:p-6">
         <div className="grid gap-4 md:grid-cols-3">
           <SelectField
             id="results-year"
@@ -250,7 +250,7 @@ export default function ResultsArchive({ results }: ResultsArchiveProps) {
         </div>
       </div>
 
-      <div className="rounded-[28px] border border-slate-200/80 bg-white/76 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.07)] backdrop-blur-xl md:p-8">
+      <div className="theme-panel rounded-[28px] p-6 backdrop-blur-xl md:p-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">

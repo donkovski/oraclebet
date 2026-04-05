@@ -27,13 +27,18 @@ function SportIcon({ icon }: { icon?: SportCard["icon"] }) {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.1" />
-          <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M12 7.3L14.8 9.1L13.9 12.3H10.1L9.2 9.1L12 7.3Z" fill="currentColor" />
+          <circle cx="12" cy="12" r="8.25" fill="white" stroke="currentColor" strokeWidth="1.5" />
+          <path d="M12 7.2L14.6 9L13.7 11.9H10.3L9.4 9L12 7.2Z" fill="currentColor" />
           <path
-            d="M12 7.3V5.8M14.8 9.1L17 8.5M13.9 12.3L15.5 14.8M10.1 12.3L8.5 14.8M9.2 9.1L7 8.5"
+            d="M12 7.2L12 5.2M14.6 9L17 8.2M13.7 11.9L15.6 14.7M10.3 11.9L8.4 14.7M9.4 9L7 8.2"
             stroke="currentColor"
             strokeWidth="1.3"
+            strokeLinecap="round"
+          />
+          <path
+            d="M8.4 14.7L6.5 15.7M15.6 14.7L17.5 15.7M7.4 10.9L5.9 12.4M18.1 12.4L16.6 10.9"
+            stroke="currentColor"
+            strokeWidth="1.1"
             strokeLinecap="round"
           />
         </svg>
@@ -51,21 +56,12 @@ function SportIcon({ icon }: { icon?: SportCard["icon"] }) {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <ellipse cx="8" cy="17.2" rx="4.3" ry="2.3" fill="currentColor" opacity="0.2" />
-          <ellipse cx="8" cy="16.5" rx="4.3" ry="2.3" stroke="currentColor" strokeWidth="1.5" />
+          <ellipse cx="12" cy="14.6" rx="6.2" ry="2.3" fill="currentColor" opacity="0.18" />
+          <ellipse cx="12" cy="13.4" rx="6.2" ry="2.3" fill="currentColor" />
           <path
-            d="M13.8 6.5L10.6 15.3M13.8 6.5L16.8 7.7M13.8 6.5L15 4.4"
+            d="M6.4 13.4V14.6C6.4 15.9 8.9 16.9 12 16.9C15.1 16.9 17.6 15.9 17.6 14.6V13.4"
             stroke="currentColor"
-            strokeWidth="1.7"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M10.6 15.3L16.9 17.3C17.5 17.5 18.1 17.1 18.2 16.5L18.4 15.6"
-            stroke="currentColor"
-            strokeWidth="1.7"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            strokeWidth="1.3"
           />
         </svg>
       </span>
@@ -108,14 +104,14 @@ export default function SportsHubPage({
 }: SportsHubPageProps) {
   return (
     <main className="space-y-8">
-      <section className="rounded-[30px] border border-slate-200/80 bg-white/72 p-6 shadow-[0_22px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl md:p-8">
+      <section className="theme-panel rounded-[30px] p-6 backdrop-blur-xl md:p-8">
         <p className="inline-flex rounded-full border border-orange-300/50 bg-orange-100/80 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">
           {eyebrow}
         </p>
-        <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-950 md:text-5xl">
+        <h1 className="theme-title mt-4 text-4xl font-black tracking-tight md:text-5xl">
           {title}
         </h1>
-        <p className="mt-4 max-w-3xl leading-7 text-slate-600">{description}</p>
+        <p className="theme-text mt-4 max-w-3xl leading-7">{description}</p>
       </section>
 
       <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
@@ -123,7 +119,7 @@ export default function SportsHubPage({
           <Link
             key={card.href}
             href={card.href}
-            className="group rounded-[28px] border border-slate-200/80 bg-white/80 p-6 shadow-[0_16px_36px_rgba(15,23,42,0.07)] transition hover:-translate-y-0.5 hover:border-orange-300/45 hover:bg-white"
+            className="theme-panel-soft group rounded-[28px] p-6 transition hover:-translate-y-0.5 hover:border-orange-300/45"
           >
             <p
               className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${card.accentClassName}`}
@@ -132,10 +128,10 @@ export default function SportsHubPage({
             </p>
             <div className="mt-4 flex items-center gap-3">
               <SportIcon icon={card.icon} />
-              <p className="text-lg font-bold text-slate-900">{card.label}</p>
+              <p className="theme-title text-lg font-bold">{card.label}</p>
             </div>
-            <p className="mt-3 text-sm leading-7 text-slate-600">{card.description}</p>
-            <p className="mt-6 text-sm font-semibold text-orange-700 transition group-hover:text-orange-600">
+            <p className="theme-text mt-3 text-sm leading-7">{card.description}</p>
+            <p className="theme-link-accent mt-6 text-sm font-semibold transition">
               {ctaLabel}
             </p>
           </Link>

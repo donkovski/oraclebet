@@ -119,7 +119,7 @@ function getDescription(isAllTime: boolean, isCurrentMonth: boolean) {
 function StatsCards({ stats }: { stats: ResultStats }) {
   return (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-      <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-center">
+      <div className="theme-surface rounded-2xl p-4 text-center">
         <p className="text-sm text-slate-500">Общо</p>
         <p className="text-xl font-bold text-slate-950">{stats.total}</p>
       </div>
@@ -134,17 +134,17 @@ function StatsCards({ stats }: { stats: ResultStats }) {
         <p className="text-xl font-bold text-slate-950">{stats.losses}</p>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-center">
+      <div className="theme-surface-soft rounded-2xl p-4 text-center">
         <p className="text-sm text-slate-600">VOID</p>
         <p className="text-xl font-bold text-slate-950">{stats.voids}</p>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-center">
+      <div className="theme-surface rounded-2xl p-4 text-center">
         <p className="text-sm text-slate-500">Win Rate</p>
         <p className="text-xl font-bold text-green-400">{stats.winRate}%</p>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-center">
+      <div className="theme-surface rounded-2xl p-4 text-center">
         <p className="text-sm text-slate-500">ROI</p>
         <p className={`text-xl font-bold ${stats.roiColor}`}>{stats.roi}%</p>
       </div>
@@ -176,7 +176,7 @@ export default function ResultsChartsSection({ results }: ResultsChartsSectionPr
 
   return (
     <section className="space-y-6">
-      <div className="rounded-[28px] border border-slate-200/80 bg-white/72 p-5 backdrop-blur-xl md:p-6">
+      <div className="theme-panel rounded-[28px] p-5 backdrop-blur-xl md:p-6">
         <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(280px,340px)] xl:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
@@ -195,7 +195,7 @@ export default function ResultsChartsSection({ results }: ResultsChartsSectionPr
               className={
                 isAllTime
                   ? "inline-flex rounded-full border border-orange-300/50 bg-orange-100/80 px-5 py-2 text-sm font-semibold text-orange-700"
-                  : "inline-flex rounded-full border border-slate-200 bg-white px-5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                  : "theme-secondary-button inline-flex rounded-full px-5 py-2 text-sm font-semibold transition"
               }
             >
               Общо
@@ -213,7 +213,7 @@ export default function ResultsChartsSection({ results }: ResultsChartsSectionPr
                     setSelectedMonthKey(event.target.value)
                     setShowAllTime(false)
                   }}
-                  className="w-full appearance-none rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-10 text-sm font-medium text-slate-800 outline-none transition focus:border-orange-300/55 focus:bg-orange-50/30 focus-visible:ring-2 focus-visible:ring-orange-300/35"
+                  className="theme-input w-full appearance-none rounded-2xl px-4 py-3 pr-10 text-sm font-medium outline-none transition focus:border-orange-300/55 focus-visible:ring-2 focus-visible:ring-orange-300/35"
                 >
                   {monthOptions.map((month) => (
                     <option key={month.key} value={month.key}>
@@ -238,7 +238,7 @@ export default function ResultsChartsSection({ results }: ResultsChartsSectionPr
           <ResultsPieChart results={activeResults} />
         </div>
       ) : (
-        <div className="rounded-[28px] border border-dashed border-slate-300 bg-white/72 p-8 text-center backdrop-blur-xl">
+        <div className="theme-panel rounded-[28px] border-dashed border-slate-300 p-8 text-center backdrop-blur-xl">
           <h3 className="text-2xl font-bold text-slate-950">
             Няма приключени залози за {activeLabel.toLowerCase()}
           </h3>

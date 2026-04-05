@@ -95,21 +95,21 @@ export default async function Home() {
             </p>
 
             <div className="mt-4 grid grid-cols-2 gap-3">
-              <div className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-4 text-center">
+              <div className="theme-surface rounded-2xl px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
                   Общо
                 </p>
                 <p className="mt-2 text-2xl font-bold text-slate-950">{totalPredictions}</p>
               </div>
 
-              <div className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-4 text-center">
+              <div className="theme-surface rounded-2xl px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
                   Дата
                 </p>
                 <p className="mt-2 text-lg font-bold text-emerald-700">{activeDate}</p>
               </div>
 
-              <div className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-4 text-center">
+              <div className="theme-surface rounded-2xl px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
                   Футбол
                 </p>
@@ -118,7 +118,7 @@ export default async function Home() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-4 text-center">
+              <div className="theme-surface rounded-2xl px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
                   Хокей
                 </p>
@@ -127,7 +127,7 @@ export default async function Home() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-4 text-center">
+              <div className="theme-surface rounded-2xl px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
                   Баскетбол
                 </p>
@@ -136,7 +136,7 @@ export default async function Home() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-4 text-center">
+              <div className="theme-surface rounded-2xl px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
                   Бейзбол
                 </p>
@@ -145,7 +145,7 @@ export default async function Home() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-4 text-center">
+              <div className="theme-surface rounded-2xl px-4 py-4 text-center">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
                   Тенис
                 </p>
@@ -155,7 +155,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="mt-4 rounded-2xl border border-slate-200 bg-white/90 px-4 py-4 text-center text-slate-600">
+            <div className="theme-surface theme-text mt-4 rounded-2xl px-4 py-4 text-center">
               Използвай{" "}
               <Link
                 href="/tips"

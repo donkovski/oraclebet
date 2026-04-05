@@ -46,7 +46,7 @@ export default function LoginPageClient() {
   if (savedEmail) {
     return (
       <main className="grid gap-6 lg:grid-cols-[1fr_0.95fr]">
-        <section className="rounded-[30px] border border-slate-200/80 bg-white/76 p-8 shadow-[0_22px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl">
+        <section className="theme-panel rounded-[30px] p-8 backdrop-blur-xl">
           <p className="inline-flex rounded-full border border-emerald-300/45 bg-emerald-50 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
             Активен профил
           </p>
@@ -81,7 +81,7 @@ export default function LoginPageClient() {
           </div>
         </section>
 
-        <section className="rounded-[30px] border border-slate-200/80 bg-white/72 p-8 backdrop-blur-xl">
+        <section className="theme-panel rounded-[30px] p-8 backdrop-blur-xl">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">
             Твоят профил
           </p>
@@ -93,7 +93,7 @@ export default function LoginPageClient() {
             {loginBenefits.map((item) => (
               <div
                 key={item}
-                className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-700"
+                className="theme-surface-soft theme-text rounded-2xl px-4 py-3"
               >
                 {item}
               </div>
@@ -106,7 +106,7 @@ export default function LoginPageClient() {
 
   return (
     <main className="grid gap-6 lg:grid-cols-[1fr_0.95fr]">
-      <section className="rounded-[30px] border border-slate-200/80 bg-white/76 p-8 shadow-[0_22px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl">
+      <section className="theme-panel rounded-[30px] p-8 backdrop-blur-xl">
         <p className="inline-flex rounded-full border border-orange-300/50 bg-orange-100/80 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">
           Вход за потребители
         </p>
@@ -122,7 +122,7 @@ export default function LoginPageClient() {
           {loginBenefits.map((item) => (
             <div
               key={item}
-              className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-700"
+              className="theme-surface-soft theme-text rounded-2xl px-4 py-3"
             >
               {item}
             </div>
@@ -130,7 +130,7 @@ export default function LoginPageClient() {
         </div>
       </section>
 
-      <section className="rounded-[30px] border border-slate-200/80 bg-white/72 p-8 backdrop-blur-xl">
+      <section className="theme-panel rounded-[30px] p-8 backdrop-blur-xl">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">
           Вход
         </p>
@@ -149,7 +149,7 @@ export default function LoginPageClient() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="name@example.com"
-              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-300/45 focus:bg-orange-50/30"
+              className="theme-input w-full rounded-2xl px-4 py-3 outline-none transition focus:border-orange-300/45"
             />
           </div>
 
@@ -166,7 +166,7 @@ export default function LoginPageClient() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Въведи парола"
-              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-300/45 focus:bg-orange-50/30"
+              className="theme-input w-full rounded-2xl px-4 py-3 outline-none transition focus:border-orange-300/45"
             />
           </div>
 

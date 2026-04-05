@@ -71,7 +71,7 @@ export default function PredictionsBoard({
 
   return (
     <main className="space-y-8">
-      <section className="rounded-[30px] border border-slate-200/80 bg-white/72 p-6 shadow-[0_22px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl md:p-8">
+      <section className="theme-panel rounded-[30px] p-6 backdrop-blur-xl md:p-8">
         <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
           <div>
             <p className="inline-flex rounded-full border border-orange-300/50 bg-orange-100/80 px-4 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">
@@ -83,19 +83,19 @@ export default function PredictionsBoard({
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-center">
+            <div className="theme-surface rounded-2xl p-4 text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                 Общо
               </p>
               <p className="mt-2 text-2xl font-bold text-slate-950">{totalPredictions}</p>
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-center">
+            <div className="theme-surface rounded-2xl p-4 text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                 Средно
               </p>
               <p className="mt-2 text-2xl font-bold text-orange-700">{averageOdds}</p>
             </div>
-            <div className="col-span-2 rounded-2xl border border-slate-200 bg-white/90 p-4 text-center">
+            <div className="theme-surface col-span-2 rounded-2xl p-4 text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                 Дата
               </p>
@@ -115,7 +115,7 @@ export default function PredictionsBoard({
                 Започнали
               </p>
 
-              <div className="rounded-full border border-slate-200 bg-white/85 px-4 py-2 text-sm font-semibold text-slate-600">
+              <div className="theme-surface theme-text rounded-full px-4 py-2 text-sm font-semibold">
                 {startedPredictions.length} {startedPredictions.length === 1 ? "мач" : "мача"}
               </div>
             </div>
@@ -145,9 +145,9 @@ export default function PredictionsBoard({
               Следващ мач
             </p>
 
-            <article className="relative overflow-hidden rounded-[30px] border border-orange-300/35 bg-white/82 p-6 shadow-[0_20px_48px_rgba(15,23,42,0.08)] backdrop-blur-xl md:p-8">
+            <article className="theme-panel relative overflow-hidden rounded-[30px] border-orange-300/35 p-6 backdrop-blur-xl md:p-8">
               <div className="relative z-10">
-                <h2 className="text-3xl font-black text-slate-950 md:text-4xl">
+                <h2 className="theme-title text-3xl font-black md:text-4xl">
                   {featuredPrediction.match}
                 </h2>
 
@@ -163,13 +163,13 @@ export default function PredictionsBoard({
                 </div>
 
                 {featuredPrediction.publishedAt && (
-                  <p className="mt-3 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+                  <p className="theme-muted mt-3 text-xs font-semibold uppercase tracking-[0.14em]">
                     Добавена: {featuredPrediction.publishedAt}
                   </p>
                 )}
 
                 <div className="mt-6 grid gap-4 md:grid-cols-3">
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50/85 p-5">
+                  <div className="theme-surface-soft rounded-2xl p-5">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                       Начало
                     </p>
@@ -178,7 +178,7 @@ export default function PredictionsBoard({
                     </p>
                   </div>
 
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50/85 p-5">
+                  <div className="theme-surface-soft rounded-2xl p-5">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                       Прогноза
                     </p>
@@ -198,11 +198,11 @@ export default function PredictionsBoard({
                 </div>
 
                 {featuredPrediction.analysis && (
-                  <div className="mt-4 rounded-2xl border border-slate-200 bg-white/85 p-5">
+                  <div className="theme-surface mt-4 rounded-2xl p-5">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                       Анализ
                     </p>
-                    <p className="mt-3 text-base leading-8 text-slate-600">
+                    <p className="theme-text mt-3 text-base leading-8">
                       {featuredPrediction.analysis}
                     </p>
                   </div>
@@ -232,11 +232,11 @@ export default function PredictionsBoard({
             </div>
           </section>
         ) : (
-          <section className="rounded-[30px] border border-slate-200/80 bg-white/72 p-6 shadow-[0_22px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl md:p-8">
+          <section className="theme-panel rounded-[30px] p-6 backdrop-blur-xl md:p-8">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">
               Следващ мач
             </p>
-            <h2 className="mt-4 text-3xl font-black text-slate-950 md:text-4xl">
+            <h2 className="theme-title mt-4 text-3xl font-black md:text-4xl">
               {finishedTitle}
             </h2>
           </section>

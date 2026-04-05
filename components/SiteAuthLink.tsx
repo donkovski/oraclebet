@@ -10,7 +10,7 @@ export default function SiteAuthLink() {
     return (
       <Link
         href="/login"
-        className="rounded-full px-4 py-2 transition hover:bg-slate-100 hover:text-slate-900"
+        className="theme-nav-link rounded-full px-4 py-2 transition"
       >
         Профил
       </Link>
@@ -21,13 +21,13 @@ export default function SiteAuthLink() {
     <>
       <Link
         href="/login"
-        className="rounded-full px-4 py-2 transition hover:bg-slate-100 hover:text-slate-900"
+        className="theme-nav-link rounded-full px-4 py-2 transition"
       >
         Вход
       </Link>
       <Link
         href="/register"
-        className="rounded-full border border-slate-200 bg-white/85 px-4 py-2 text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+        className="theme-secondary-button rounded-full px-4 py-2 transition"
       >
         Регистрация
       </Link>

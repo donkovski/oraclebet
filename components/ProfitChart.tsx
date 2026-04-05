@@ -97,7 +97,7 @@ export default function ProfitChart({ results }: Props) {
   }
 
   return (
-    <div className="mb-10 rounded-xl border border-slate-200/80 bg-white/80 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.07)] backdrop-blur-xl">
+    <div className="theme-panel mb-10 rounded-xl p-6 backdrop-blur-xl">
       <h2 className="mb-6 text-2xl font-bold">Profit графика</h2>
 
       <div className="grid grid-cols-1 gap-4">
@@ -106,22 +106,22 @@ export default function ProfitChart({ results }: Props) {
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col justify-center rounded-lg border border-slate-200 bg-slate-50 p-3 text-center">
+          <div className="theme-surface-soft flex flex-col justify-center rounded-lg p-3 text-center">
             <p className="text-sm text-slate-400">Settled bets</p>
             <p className="text-xl font-bold text-slate-950">{settledBets}</p>
           </div>
 
-          <div className="flex flex-col justify-center rounded-lg border border-slate-200 bg-slate-50 p-3 text-center">
+          <div className="theme-surface-soft flex flex-col justify-center rounded-lg p-3 text-center">
             <p className="text-sm text-slate-400">Void bets</p>
             <p className="text-xl font-bold text-slate-300">{voidBets}</p>
           </div>
 
-          <div className="flex flex-col justify-center rounded-lg border border-slate-200 bg-slate-50 p-3 text-center">
+          <div className="theme-surface-soft flex flex-col justify-center rounded-lg p-3 text-center">
             <p className="text-sm text-slate-400">Average odds</p>
             <p className="text-xl font-bold text-sky-400">{averageOdds}</p>
           </div>
 
-          <div className="flex flex-col justify-center rounded-lg border border-slate-200 bg-slate-50 p-3 text-center">
+          <div className="theme-surface-soft flex flex-col justify-center rounded-lg p-3 text-center">
             <p className="text-sm text-slate-400">Highest odds</p>
             <p className="text-xl font-bold text-orange-400">{highestOdds}</p>
           </div>

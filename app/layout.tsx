@@ -63,7 +63,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="bg">
+    <html lang="bg" data-theme="light">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var theme=localStorage.getItem('oraclebet-theme');if(theme==='dark'||theme==='light'){document.documentElement.dataset.theme=theme;}}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="site-body">
         <GoogleAnalytics measurementId={siteConfig.gaMeasurementId} />
         <DailyVisitTracker />
