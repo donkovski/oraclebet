@@ -89,7 +89,7 @@ export function getPredictionCategoryLabel(
     }
 
     if (sport === "tennis") {
-      return "Геймове"
+      return "Точки"
     }
 
     return "Голове"
