@@ -209,7 +209,7 @@ export default function SportsHubPage({
           <Link
             key={card.href}
             href={card.href}
-            className="theme-panel-soft group flex h-full flex-col rounded-[28px] p-6 transition hover:-translate-y-0.5 hover:border-orange-300/45"
+            className="theme-panel-soft group grid h-full min-h-[306px] grid-rows-[auto_auto_1fr_auto] rounded-[28px] p-6 transition hover:-translate-y-0.5 hover:border-orange-300/45"
           >
             <p
               className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${card.accentClassName}`}
@@ -217,11 +217,13 @@ export default function SportsHubPage({
               {card.label}
             </p>
             <div className="mt-4 flex min-h-[52px] items-center gap-3">
-              <SportIcon icon={card.icon} />
-              <p className="theme-title text-lg font-bold">{card.label}</p>
+              <span className="shrink-0">
+                <SportIcon icon={card.icon} />
+              </span>
+              <p className="theme-title text-lg font-bold leading-none">{card.label}</p>
             </div>
-            <p className="theme-text mt-3 min-h-[112px] text-sm leading-7">{card.description}</p>
-            <p className="theme-link-accent mt-auto pt-6 text-sm font-semibold transition">
+            <p className="theme-text mt-3 max-w-[17ch] text-sm leading-7">{card.description}</p>
+            <p className="theme-link-accent mt-6 text-sm font-semibold transition">
               {ctaLabel}
             </p>
           </Link>
