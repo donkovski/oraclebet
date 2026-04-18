@@ -19,21 +19,26 @@ type SportsHubPageProps = {
 function SportIcon({ icon }: { icon?: SportCard["icon"] }) {
   if (icon === "football") {
     return (
-      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
+      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-orange-200 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.98),rgba(255,247,237,0.94)_58%,rgba(255,237,213,0.9))] shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
         <svg
           aria-hidden="true"
           viewBox="0 0 24 24"
-          className="h-6 w-6 text-slate-800"
+          className="h-6 w-6"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.1" />
-          <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M12 7.3L14.8 9.1L13.9 12.3H10.1L9.2 9.1L12 7.3Z" fill="currentColor" />
+          <circle cx="12" cy="12" r="8.15" fill="#ffffff" stroke="#2563eb" strokeWidth="1.2" />
+          <path d="M12 7.2L14.4 9L13.7 11.8H10.3L9.6 9L12 7.2Z" fill="#2563eb" />
           <path
-            d="M12 7.3V5.8M14.8 9.1L17 8.5M13.9 12.3L15.5 14.8M10.1 12.3L8.5 14.8M9.2 9.1L7 8.5"
-            stroke="currentColor"
-            strokeWidth="1.3"
+            d="M12 7.2V5.8M14.4 9L16.9 8.3M13.7 11.8L15.3 14.3M10.3 11.8L8.7 14.3M9.6 9L7.1 8.3"
+            stroke="#2563eb"
+            strokeWidth="1.15"
+            strokeLinecap="round"
+          />
+          <path
+            d="M8.9 14L7.4 15.1M15.1 14L16.6 15.1M7.6 11.7L6.2 12.9M17.8 12.9L16.4 11.7"
+            stroke="#60a5fa"
+            strokeWidth="0.95"
             strokeLinecap="round"
           />
         </svg>
@@ -43,26 +48,31 @@ function SportIcon({ icon }: { icon?: SportCard["icon"] }) {
 
   if (icon === "hockey") {
     return (
-      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
+      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-sky-200 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.98),rgba(239,246,255,0.95)_58%,rgba(224,242,254,0.9))] shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
         <svg
           aria-hidden="true"
           viewBox="0 0 24 24"
-          className="h-6 w-6 text-slate-800"
+          className="h-6 w-6"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <ellipse cx="8" cy="17.2" rx="4.3" ry="2.3" fill="currentColor" opacity="0.2" />
-          <ellipse cx="8" cy="16.5" rx="4.3" ry="2.3" stroke="currentColor" strokeWidth="1.5" />
+          <ellipse cx="8.2" cy="17.15" rx="4" ry="1.65" fill="#0f172a" opacity="0.16" />
+          <ellipse cx="8.2" cy="16.45" rx="3.95" ry="1.65" fill="#1e293b" />
           <path
-            d="M13.8 6.5L10.6 15.3M13.8 6.5L16.8 7.7M13.8 6.5L15 4.4"
-            stroke="currentColor"
+            d="M15.2 5.7L11.5 14.1"
+            stroke="#2563eb"
             strokeWidth="1.7"
             strokeLinecap="round"
-            strokeLinejoin="round"
           />
           <path
-            d="M10.6 15.3L16.9 17.3C17.5 17.5 18.1 17.1 18.2 16.5L18.4 15.6"
-            stroke="currentColor"
+            d="M14.9 5.5L17.3 6.7"
+            stroke="#7dd3fc"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+          />
+          <path
+            d="M11.5 14.1L17 15.8C17.7 16 18.3 15.5 18.4 14.8L18.5 13.9"
+            stroke="#ef4444"
             strokeWidth="1.7"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -74,24 +84,60 @@ function SportIcon({ icon }: { icon?: SportCard["icon"] }) {
 
   if (icon === "basketball") {
     return (
-      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-amber-200 bg-amber-50 shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
-        <span className="text-2xl leading-none">🏀</span>
+      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-amber-200 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.98),rgba(255,251,235,0.94)_58%,rgba(254,243,199,0.9))] shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          className="h-6 w-6"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="12" cy="12" r="8.2" fill="#fb923c" stroke="#ea580c" strokeWidth="1.2" />
+          <path d="M12 4.4C9.8 6.3 8.7 8.8 8.7 12C8.7 15.2 9.8 17.7 12 19.6" stroke="#7c2d12" strokeWidth="1.1" strokeLinecap="round" />
+          <path d="M12 4.4C14.2 6.3 15.3 8.8 15.3 12C15.3 15.2 14.2 17.7 12 19.6" stroke="#7c2d12" strokeWidth="1.1" strokeLinecap="round" />
+          <path d="M4.3 12H19.7" stroke="#7c2d12" strokeWidth="1.1" strokeLinecap="round" />
+          <path d="M6.2 7.6C8.2 8.7 10.1 9.2 12 9.2C13.9 9.2 15.8 8.7 17.8 7.6" stroke="#7c2d12" strokeWidth="1.05" strokeLinecap="round" />
+        </svg>
       </span>
     )
   }
 
   if (icon === "baseball") {
     return (
-      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-emerald-200 bg-emerald-50 shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
-        <span className="text-2xl leading-none">⚾</span>
+      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-emerald-200 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.98),rgba(236,253,245,0.95)_58%,rgba(209,250,229,0.9))] shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          className="h-6 w-6"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="12" cy="12" r="8.2" fill="#fff7ed" stroke="#fda4af" strokeWidth="1.15" />
+          <path d="M8.6 6.8C10 8 10.8 9.9 10.8 12C10.8 14.1 10 16 8.6 17.2" stroke="#e11d48" strokeWidth="1.1" strokeLinecap="round" />
+          <path d="M15.4 6.8C14 8 13.2 9.9 13.2 12C13.2 14.1 14 16 15.4 17.2" stroke="#e11d48" strokeWidth="1.1" strokeLinecap="round" />
+          <path d="M9.1 8.3L8 9.2M9.5 10.2L8.3 11.2M9.5 13.8L8.3 12.8M9.1 15.7L8 14.8" stroke="#fb7185" strokeWidth="1" strokeLinecap="round" />
+          <path d="M14.9 8.3L16 9.2M14.5 10.2L15.7 11.2M14.5 13.8L15.7 12.8M14.9 15.7L16 14.8" stroke="#fb7185" strokeWidth="1" strokeLinecap="round" />
+        </svg>
       </span>
     )
   }
 
   if (icon === "tennis") {
     return (
-      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-lime-200 bg-lime-50 shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
-        <span className="text-2xl leading-none">🎾</span>
+      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-lime-200 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.98),rgba(247,254,231,0.95)_58%,rgba(236,252,203,0.9))] shadow-[0_10px_22px_rgba(15,23,42,0.06)]">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          className="h-6 w-6"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="10.6" cy="10" r="6.3" fill="#d9f99d" stroke="#84cc16" strokeWidth="1.15" />
+          <path d="M13.5 4.6C12.2 6.1 11.5 7.9 11.5 10C11.5 12.1 12.2 13.9 13.5 15.4" stroke="#65a30d" strokeWidth="1.05" strokeLinecap="round" />
+          <path d="M7.7 4.6C9 6.1 9.7 7.9 9.7 10C9.7 12.1 9 13.9 7.7 15.4" stroke="#65a30d" strokeWidth="1.05" strokeLinecap="round" />
+          <path d="M14.1 14.1L18.7 18.7" stroke="#ec4899" strokeWidth="1.6" strokeLinecap="round" />
+          <path d="M17.7 13.7L19.2 15.2C19.7 15.7 19.7 16.5 19.2 17L17 19.2C16.5 19.7 15.7 19.7 15.2 19.2L13.7 17.7" stroke="#ec4899" strokeWidth="1.05" strokeLinejoin="round" />
+        </svg>
       </span>
     )
   }
